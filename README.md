@@ -17,3 +17,6 @@ Our solution also comes with a mobile application that will accompany the lock b
 
 
 <img width="232" alt="Screen Shot 2021-10-14 at 4 07 00 PM" src="https://user-images.githubusercontent.com/48025259/137388069-dd229399-a92b-4df9-ba3c-9d483f5c0eae.png">
+
+## Hardware Prototype
+<img width="608" alt="Screen Shot 2021-10-14 at 4 09 03 PM" src="https://user-images.githubusercontent.com/48025259/137388286-1030df8f-8345-40dc-9e99-bb50d34f0782.png">
