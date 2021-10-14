@@ -12,3 +12,8 @@ BOXi has a unique authorization mechanism that only allows access to the intende
 
 Our solution also comes with a mobile application that will accompany the lock box. Both the lock and the mobile device require internet connection, and the two work in tandem to further increase security of the user’s packages. Whenever a user makes a purchase online and expects a delivery, our system will analyze the user’s email and automatically add the item’s tracking number to the list of expected packages to be delivered. These items will serve as keys for the delivery personnel to open BOXi. The mobile application also displays the status of packages, including shipping and delivery updates. Additionally, the user will receive live status updates of the box, including when the box is open and when a delivery has been completed. 
 
+## Mobile App Prototype
+<img width="242" alt="Screen Shot 2021-10-14 at 4 07 10 PM" src="https://user-images.githubusercontent.com/48025259/137387989-4f1054e0-72ef-4d3e-bbad-a74b3755c915.png">
+
+
+<img width="232" alt="Screen Shot 2021-10-14 at 4 07 00 PM" src="https://user-images.githubusercontent.com/48025259/137388069-dd229399-a92b-4df9-ba3c-9d483f5c0eae.png">
