@@ -1,3 +1,4 @@
+
 import "package:flutter/material.dart";
 
 class MainPage extends StatelessWidget{
@@ -5,20 +6,36 @@ class MainPage extends StatelessWidget{
 
   @override 
   Widget build(BuildContext context){
+
+    double _viewWidth(double percent){
+      return MediaQuery.of(context).size.width*percent;
+    }
+    double _viewHeight(double percent){
+      return MediaQuery.of(context).size.height*percent;
+    }
+
     return Scaffold(
       body: Column(
         children: [
-          Image.asset("assets/images/corner_circles.png", 
-            width: double.infinity,
-            alignment: Alignment.topLeft,
+          Container(
+            height: _viewWidth(0.40),
+            margin: const EdgeInsets.all( 0),
+            padding: const EdgeInsets.all(0),
+            child: Image.asset("assets/images/corner_circles.png", 
+              width: double.infinity,
+              alignment: Alignment.topLeft,
+           )
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: _viewHeight(0.03)),
+            child: const Text("BOXi", 
+              style: TextStyle(
+                color: Color.fromARGB(255, 68, 100, 145), 
+                fontSize: 48, 
+                fontWeight: FontWeight.bold, 
+              ),
           ), 
-          const Text("BOXi", 
-            style: TextStyle(
-              color: Color.fromARGB(255, 68, 100, 145), 
-              fontSize: 48, 
-              fontWeight: FontWeight.bold, 
-            ),
-          ), 
+          ),
           Image.asset("assets/images/delivery_pic.png", ), 
           const Text("Safe delivery across homes",
             style: TextStyle(
@@ -28,6 +45,7 @@ class MainPage extends StatelessWidget{
               ),
           ), 
           Container(
+            margin: EdgeInsets.only(bottom: _viewHeight(0.03)),
             child: const Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id risus lobortis leo varius sed enim quis nisl. Habitant tincidunt egestas est sed dapibus.",
               style: TextStyle(
                 color: Color.fromARGB(255, 75, 137, 172), 
@@ -38,8 +56,9 @@ class MainPage extends StatelessWidget{
             width: double.infinity,
           ),
           Container(
-            margin: const EdgeInsets.only(top: 0,),
-            width: MediaQuery.of(context).size.width * 0.65,
+            margin: const EdgeInsets.only(top: 0),
+            width: _viewWidth(0.65),
+            height: _viewHeight(.07),
             child: TextButton(onPressed: null, 
               child: const Text("Get Started",
                 style: TextStyle(
