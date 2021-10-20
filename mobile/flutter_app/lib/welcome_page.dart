@@ -63,7 +63,7 @@ class MainPage extends StatelessWidget{
             child: TextButton(onPressed: null, 
               child: const Text("Get Started",
                 style: TextStyle(
-                  color: Color(0xffE4FCF9),
+                  color:Colors.white,
                 ),
               ),
               style: ButtonStyle(
