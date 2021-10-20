@@ -1,5 +1,6 @@
 
 import "package:flutter/material.dart";
+import "./colors.dart";
 
 class MainPage extends StatelessWidget{
   const MainPage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class MainPage extends StatelessWidget{
             margin: EdgeInsets.only(bottom: _viewHeight(0.03)),
             child: const Text("BOXi", 
               style: TextStyle(
-                color: Color.fromARGB(255, 68, 100, 145), 
+                color: cPrimary, 
                 fontSize: 48, 
                 fontWeight: FontWeight.bold, 
               ),
@@ -39,7 +40,7 @@ class MainPage extends StatelessWidget{
           Image.asset("assets/images/delivery_pic.png", ), 
           const Text("Safe delivery across homes",
             style: TextStyle(
-                color: Color.fromARGB(255, 68, 100, 145), 
+                color: cSecondary, 
                 fontSize: 24, 
                 fontWeight: FontWeight.bold, 
               ),
@@ -48,7 +49,7 @@ class MainPage extends StatelessWidget{
             margin: EdgeInsets.only(bottom: _viewHeight(0.03)),
             child: const Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id risus lobortis leo varius sed enim quis nisl. Habitant tincidunt egestas est sed dapibus.",
               style: TextStyle(
-                color: Color.fromARGB(255, 75, 137, 172), 
+                color: cThirdColor, 
                 fontSize: 16, 
               ),
             ), 
@@ -66,7 +67,7 @@ class MainPage extends StatelessWidget{
                 ),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(const Color(0xff4b89ac)),
+                backgroundColor: MaterialStateProperty.all(cSecondary),
               )
             ),
           )
