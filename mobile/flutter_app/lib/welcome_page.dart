@@ -1,6 +1,7 @@
 
 import "package:flutter/material.dart";
 import "./colors.dart";
+import "./signin_page.dart";
 
 class MainPage extends StatelessWidget{
   const MainPage({Key? key}) : super(key: key);
@@ -60,7 +61,11 @@ class MainPage extends StatelessWidget{
             margin: const EdgeInsets.only(top: 0),
             width: _viewWidth(0.65),
             height: _viewHeight(.07),
-            child: TextButton(onPressed: null, 
+            child: TextButton(onPressed: (){
+              Navigator.push(context, 
+                MaterialPageRoute(builder: (context) => SignIn()),
+              );
+            }, 
               child: const Text("Get Started",
                 style: TextStyle(
                   color:Colors.white,

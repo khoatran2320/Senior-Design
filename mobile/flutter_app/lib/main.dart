@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "./welcome_page.dart";
+import "./colors.dart";
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: MaterialColor(0xff0892A5, materialColorGenerator(8, 146, 165)),
       ),
       home: const MainPage(),
     );
