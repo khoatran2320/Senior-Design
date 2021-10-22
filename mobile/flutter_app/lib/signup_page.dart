@@ -8,6 +8,8 @@ import './colors.dart';
 
 
 class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
+
   
   @override
   _SignUpState createState() => _SignUpState();
