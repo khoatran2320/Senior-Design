@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './authentication_service.dart';
+import '../utils/authentication_service.dart';
 
-import './colors.dart';
+import '../utils/colors.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign up'),
-        backgroundColor: cPrimary,
+        backgroundColor: ColorPallete.cPrimary,
       ),
       body: Form(
         key: _form,
@@ -138,7 +138,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(cSecondary),
+                              MaterialStateProperty.all(ColorPallete.cSecondary),
                         )),
                   ),
                 ].expand(

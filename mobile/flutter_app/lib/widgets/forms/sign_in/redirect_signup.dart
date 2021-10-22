@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../signup_page.dart';
-import '../../../colors.dart';
+import '../../../pages/signup_page.dart';
+import '../../../utils/colors.dart';
 
 class RedirectSignUp extends StatelessWidget {
-  final Function viewWidth;
-  final Function viewHeight;
+  final double _width;
+  final double _height;
 
-  const RedirectSignUp(this.viewWidth, this.viewHeight);
+  const RedirectSignUp(this._width, this._height);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class RedirectSignUp extends StatelessWidget {
         const Text("Don't have an account?"),
         Container(
           padding: const EdgeInsets.all(0),
-          margin: EdgeInsets.only(left: viewWidth(0.02)),
-          width: viewWidth(0.2),
-          height: viewHeight(.04),
+          margin: EdgeInsets.only(left: _width),
+          width: _width,
+          height: _height,
           child: TextButton(
             onPressed: () {
               Navigator.push(
@@ -27,7 +27,7 @@ class RedirectSignUp extends StatelessWidget {
             child: const Text(
               "Sign up",
               style: TextStyle(
-                color: cSecondary,
+                color: ColorPallete.cSecondary,
               ),
             ),
           ),

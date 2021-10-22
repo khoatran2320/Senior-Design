@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import './colors.dart';
+import '../utils/colors.dart';
 import './signup_page.dart';
 import 'package:provider/provider.dart';
-import './authentication_service.dart';
+import '../utils/authentication_service.dart';
+import "../widgets/forms/sign_in/email_field.dart";
+import "../widgets/forms/sign_in/password_field.dart";
+import "../widgets/forms/sign_in/redirect_signup.dart";
+
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -19,6 +23,13 @@ class _SignInState extends State<SignIn> {
   String email = "";
   String password = "";
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
+  void emailCallback(String text){
+    email = text;
+  }
+  void passwordCallback(String text){
+    password = text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +44,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign in'),
-        backgroundColor: cPrimary,
+        backgroundColor: ColorPallete.cPrimary,
       ),
       body: Form(
         key: _form,
@@ -47,44 +58,8 @@ class _SignInState extends State<SignIn> {
                   Image.asset(
                     "assets/images/delivery_pic.png",
                   ),
-                  TextFormField(
-                    autofocus: true,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      hintText: 'Your email address',
-                      labelText: 'Email',
-                    ),
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return "Please enter your email";
-                      }
-                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                          .hasMatch(val)) {
-                        return 'Please a valid Email';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      email = value;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      filled: true,
-                      labelText: 'Password',
-                    ),
-                    obscureText: true,
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return "Please enter your password";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      password = value;
-                    },
-                  ),
+                  SignInPageFieldEmail(emailCallback),
+                  SignInPageFieldPass(passwordCallback),
                   Container(
                     margin: const EdgeInsets.only(top: 0),
                     width: _viewWidth(0.4),
@@ -106,7 +81,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(cSecondary),
+                              MaterialStateProperty.all(ColorPallete.cSecondary),
                         )),
                   ),
                   Row(
@@ -117,7 +92,7 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.all(0),
                         margin: EdgeInsets.only(left: _viewWidth(0.02)),
                         width: _viewWidth(0.2),
-                        height: _viewHeight(.04),
+                        height: _viewHeight(.06),
                         child: TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -133,7 +108,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             style: ButtonStyle(
                               backgroundColor:
-                                  MaterialStateProperty.all(cSecondary),
+                                  MaterialStateProperty.all(ColorPallete.cSecondary),
                             )),
                       ),
                     ],

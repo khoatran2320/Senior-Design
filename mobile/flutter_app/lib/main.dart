@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import './authentication_service.dart';
+import './utils/authentication_service.dart';
 
 ///********** UI Import **********///
-import "splash.dart";
-import "./colors.dart";
+import "./pages/splash.dart";
+import "./utils/colors.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch:
-              MaterialColor(0xff0892A5, materialColorGenerator(8, 146, 165)),
+              MaterialColor(ColorPallete.cPrimaryAsHex, ColorPallete.materialPrimary),
         ),
         home: const Splash(),
       ),
