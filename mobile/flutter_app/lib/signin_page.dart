@@ -2,15 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-
 import 'package:flutter/material.dart';
 import './colors.dart';
 import './signup_page.dart';
-
+import 'package:provider/provider.dart';
+import './authentication_service.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
-  
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -22,11 +22,12 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    double _viewWidth(double percent){
-      return MediaQuery.of(context).size.width*percent;
+    double _viewWidth(double percent) {
+      return MediaQuery.of(context).size.width * percent;
     }
-    double _viewHeight(double percent){
-      return MediaQuery.of(context).size.height*percent;
+
+    double _viewHeight(double percent) {
+      return MediaQuery.of(context).size.height * percent;
     }
 
     return Scaffold(
@@ -38,11 +39,14 @@ class _SignInState extends State<SignIn> {
         key: _form,
         child: Scrollbar(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16, left: 16),
+            padding:
+                const EdgeInsets.only(top: 16, bottom: 16, right: 16, left: 16),
             child: Column(
               children: [
                 ...[
-                  Image.asset("assets/images/delivery_pic.png", ),
+                  Image.asset(
+                    "assets/images/delivery_pic.png",
+                  ),
                   TextFormField(
                     autofocus: true,
                     textInputAction: TextInputAction.next,
@@ -51,11 +55,12 @@ class _SignInState extends State<SignIn> {
                       hintText: 'Your email address',
                       labelText: 'Email',
                     ),
-                    validator: (val){
-                      if(val!.isEmpty){
+                    validator: (val) {
+                      if (val!.isEmpty) {
                         return "Please enter your email";
                       }
-                      if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(val)){
+                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                          .hasMatch(val)) {
                         return 'Please a valid Email';
                       }
                       return null;
@@ -70,8 +75,8 @@ class _SignInState extends State<SignIn> {
                       labelText: 'Password',
                     ),
                     obscureText: true,
-                    validator: (val){
-                      if(val!.isEmpty){
+                    validator: (val) {
+                      if (val!.isEmpty) {
                         return "Please enter your password";
                       }
                       return null;
@@ -84,16 +89,25 @@ class _SignInState extends State<SignIn> {
                     margin: const EdgeInsets.only(top: 0),
                     width: _viewWidth(0.4),
                     height: _viewHeight(.05),
-                    child: TextButton(onPressed: (){_form.currentState!.validate();}, 
-                      child: const Text("Sign in",
-                        style: TextStyle(
-                          color:Colors.white,
+                    child: TextButton(
+                        onPressed: () {
+                          if (_form.currentState!.validate()) {
+                            context.read<AuthenticationService>().signIn(
+                                  email: email,
+                                  password: password,
+                                );
+                          }
+                        },
+                        child: const Text(
+                          "Sign in",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(cSecondary),
-                      )
-                    ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(cSecondary),
+                        )),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -104,20 +118,23 @@ class _SignInState extends State<SignIn> {
                         margin: EdgeInsets.only(left: _viewWidth(0.02)),
                         width: _viewWidth(0.2),
                         height: _viewHeight(.04),
-                        child: TextButton(onPressed: (){
-                          Navigator.push(context, 
-                            MaterialPageRoute(builder: (context) => SignUp())
-                          );
-                        }, 
-                          child: const Text("Sign up",
-                            style: TextStyle(
-                              color:Colors.white,
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()));
+                            },
+                            child: const Text(
+                              "Sign up",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(cSecondary),
-                          )
-                        ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(cSecondary),
+                            )),
                       ),
                     ],
                   )

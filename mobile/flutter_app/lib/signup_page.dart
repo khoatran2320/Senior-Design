@@ -2,15 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import './authentication_service.dart';
+
 import './colors.dart';
 
-
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
-
-  
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -23,11 +21,12 @@ class _SignUpState extends State<SignUp> {
   String _name = "";
   @override
   Widget build(BuildContext context) {
-    double _viewWidth(double percent){
-      return MediaQuery.of(context).size.width*percent;
+    double _viewWidth(double percent) {
+      return MediaQuery.of(context).size.width * percent;
     }
-    double _viewHeight(double percent){
-      return MediaQuery.of(context).size.height*percent;
+
+    double _viewHeight(double percent) {
+      return MediaQuery.of(context).size.height * percent;
     }
 
     return Scaffold(
@@ -39,11 +38,14 @@ class _SignUpState extends State<SignUp> {
         key: _form,
         child: Scrollbar(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16, left: 16),
+            padding:
+                const EdgeInsets.only(top: 16, bottom: 16, right: 16, left: 16),
             child: Column(
               children: [
                 ...[
-                  Image.asset("assets/images/delivery_pic.png", ),
+                  Image.asset(
+                    "assets/images/delivery_pic.png",
+                  ),
                   TextFormField(
                     autofocus: true,
                     textInputAction: TextInputAction.next,
@@ -55,8 +57,8 @@ class _SignUpState extends State<SignUp> {
                     onChanged: (value) {
                       _name = value;
                     },
-                    validator: (val){
-                      if(val == null){
+                    validator: (val) {
+                      if (val == null) {
                         return "Please enter your name";
                       }
                       return null;
@@ -73,11 +75,12 @@ class _SignUpState extends State<SignUp> {
                     onChanged: (value) {
                       _email = value;
                     },
-                    validator: (val){
-                      if(val!.isEmpty){
+                    validator: (val) {
+                      if (val!.isEmpty) {
                         return "Please enter your email";
                       }
-                      if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(val)){
+                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                          .hasMatch(val)) {
                         return 'Please a valid Email';
                       }
                       return null;
@@ -90,8 +93,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                     obscureText: true,
                     controller: _pass,
-                    validator: (val){
-                      if(val!.isEmpty){
+                    validator: (val) {
+                      if (val!.isEmpty) {
                         return 'Please enter a password';
                       }
                       return null;
@@ -104,11 +107,11 @@ class _SignUpState extends State<SignUp> {
                     ),
                     obscureText: true,
                     controller: _confirmPass,
-                    validator: (val){
-                      if(val!.isEmpty){
+                    validator: (val) {
+                      if (val!.isEmpty) {
                         return 'Please re-enter password';
                       }
-                      if(_pass.text != _confirmPass.text){
+                      if (_pass.text != _confirmPass.text) {
                         return 'Passwords do not match!';
                       }
                       return null;
@@ -118,16 +121,25 @@ class _SignUpState extends State<SignUp> {
                     margin: const EdgeInsets.only(top: 0),
                     width: _viewWidth(0.4),
                     height: _viewHeight(.05),
-                    child: TextButton(onPressed: (){_form.currentState!.validate();}, 
-                      child: const Text("Sign up",
-                        style: TextStyle(
-                          color:Colors.white,
+                    child: TextButton(
+                        onPressed: () {
+                          if (_form.currentState!.validate()) {
+                            context.read<AuthenticationService>().signUp(
+                                  email: _email,
+                                  password: _pass.text.trim(),
+                                );
+                          }
+                        },
+                        child: const Text(
+                          "Sign up",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(cSecondary),
-                      )
-                    ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(cSecondary),
+                        )),
                   ),
                 ].expand(
                   (widget) => [
