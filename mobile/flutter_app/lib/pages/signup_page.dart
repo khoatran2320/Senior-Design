@@ -8,6 +8,10 @@ import '../utils/authentication_service.dart';
 
 import '../utils/colors.dart';
 
+import "../widgets/forms/sign_up/name_field.dart";
+import "../widgets/forms/sign_in/email_field.dart";
+import "../widgets/buttons/signup_page/submit.dart";
+
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
@@ -19,6 +23,24 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _confirmPass = TextEditingController();
   String _email = "";
   String _name = "";
+
+  void nameCallback(String text){
+    _name = text;
+  }
+
+  void emailCallback(String text){
+    _email = text;
+  }
+
+  void _submitHandler(){
+    if (_form.currentState!.validate()) {
+        context.read<AuthenticationService>().signUp(
+              email: _email,
+              password: _pass.text.trim(),
+            );
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     double _viewWidth(double percent) {
@@ -43,49 +65,9 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               children: [
                 ...[
-                  Image.asset(
-                    "assets/images/delivery_pic.png",
-                  ),
-                  TextFormField(
-                    autofocus: true,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      hintText: 'Your name',
-                      labelText: 'Name',
-                    ),
-                    onChanged: (value) {
-                      _name = value;
-                    },
-                    validator: (val) {
-                      if (val == null) {
-                        return "Please enter your name";
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    autofocus: true,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      hintText: 'Your email address',
-                      labelText: 'Email',
-                    ),
-                    onChanged: (value) {
-                      _email = value;
-                    },
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return "Please enter your email";
-                      }
-                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                          .hasMatch(val)) {
-                        return 'Please a valid Email';
-                      }
-                      return null;
-                    },
-                  ),
+                  Image.asset("assets/images/delivery_pic.png"),
+                  SignUpPageFieldName(nameCallback),
+                  SignInPageFieldEmail(emailCallback),
                   TextFormField(
                     decoration: const InputDecoration(
                       filled: true,
@@ -117,30 +99,7 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 0),
-                    width: _viewWidth(0.4),
-                    height: _viewHeight(.05),
-                    child: TextButton(
-                        onPressed: () {
-                          if (_form.currentState!.validate()) {
-                            context.read<AuthenticationService>().signUp(
-                                  email: _email,
-                                  password: _pass.text.trim(),
-                                );
-                          }
-                        },
-                        child: const Text(
-                          "Sign up",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(ColorPallete.cSecondary),
-                        )),
-                  ),
+                  SignUpPageButtonSubmit(_submitHandler, _viewWidth, _viewHeight)
                 ].expand(
                   (widget) => [
                     widget,
@@ -156,19 +115,19 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-
-  void _showDialog(String message) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(message),
-        actions: [
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
-    );
-  }
 }
+//   void _showDialog(String message) {
+//     showDialog<void>(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(message),
+//         actions: [
+//           TextButton(
+//             child: const Text('OK'),
+//             onPressed: () => Navigator.of(context).pop(),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

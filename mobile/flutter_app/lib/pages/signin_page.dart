@@ -4,12 +4,12 @@
 
 import 'package:flutter/material.dart';
 import '../utils/colors.dart';
-import './signup_page.dart';
 import 'package:provider/provider.dart';
 import '../utils/authentication_service.dart';
 import "../widgets/forms/sign_in/email_field.dart";
 import "../widgets/forms/sign_in/password_field.dart";
 import "../widgets/forms/sign_in/redirect_signup.dart";
+import "../widgets/buttons/signin_page/submit.dart";
 
 
 class SignIn extends StatefulWidget {
@@ -41,6 +41,11 @@ class _SignInState extends State<SignIn> {
       return MediaQuery.of(context).size.height * percent;
     }
 
+    void submitHandler(){
+      if(_form.currentState!.validate()){
+        context.read<AuthenticationService>().signIn(email: email, password: password);
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign in'),
@@ -55,72 +60,12 @@ class _SignInState extends State<SignIn> {
             child: Column(
               children: [
                 ...[
-                  Image.asset(
-                    "assets/images/delivery_pic.png",
-                  ),
+                  Image.asset("assets/images/delivery_pic.png"),
                   SignInPageFieldEmail(emailCallback),
                   SignInPageFieldPass(passwordCallback),
-                  Container(
-                    margin: const EdgeInsets.only(top: 0),
-                    width: _viewWidth(0.4),
-                    height: _viewHeight(.05),
-                    child: TextButton(
-                        onPressed: () {
-                          if (_form.currentState!.validate()) {
-                            context.read<AuthenticationService>().signIn(
-                                  email: email,
-                                  password: password,
-                                );
-                          }
-                        },
-                        child: const Text(
-                          "Sign in",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(ColorPallete.cSecondary),
-                        )),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account?"),
-                      Container(
-                        padding: const EdgeInsets.all(0),
-                        margin: EdgeInsets.only(left: _viewWidth(0.02)),
-                        width: _viewWidth(0.2),
-                        height: _viewHeight(.06),
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUp()));
-                            },
-                            child: const Text(
-                              "Sign up",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(ColorPallete.cSecondary),
-                            )),
-                      ),
-                    ],
-                  )
-                ].expand(
-                  (widget) => [
-                    widget,
-                    const SizedBox(
-                      height: 24,
-                    )
-                  ],
-                )
+                  SignInPageButtonSubmit(submitHandler, _viewWidth, _viewHeight),
+                  RedirectSignUp(_viewWidth, _viewHeight),
+                ].expand((widget) => [widget, const SizedBox(height: 24)])
               ],
             ),
           ),
@@ -128,19 +73,20 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
-
-  void _showDialog(String message) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(message),
-        actions: [
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
-    );
-  }
 }
+
+//   void _showDialog(String message) {
+//     showDialog<void>(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(message),
+//         actions: [
+//           TextButton(
+//             child: const Text('OK'),
+//             onPressed: () => Navigator.of(context).pop(),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

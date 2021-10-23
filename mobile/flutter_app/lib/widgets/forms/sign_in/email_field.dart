@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
 class SignInPageFieldEmail extends StatefulWidget{
-  Function callback;
+  final Function callback;
 
-  SignInPageFieldEmail(this.callback);
+  const SignInPageFieldEmail(this.callback);
 
   @override
   State<StatefulWidget> createState()=>_SignInPageFieldEmailState();
