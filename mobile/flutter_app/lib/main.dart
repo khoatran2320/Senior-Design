@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import "splash.dart";
-import "./colors.dart";
+import "pages/splash.dart";
+import "utils/colors.dart";
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: MaterialColor(0xff0892A5, materialColorGenerator(8, 146, 165)),
+        primarySwatch: MaterialColor(
+          ColorPallete.cPrimaryAsHex, ColorPallete.materialPrimary
+        ),
       ),
       home: const Splash(),
     );
