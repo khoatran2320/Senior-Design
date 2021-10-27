@@ -5,6 +5,7 @@ import "welcome_page.dart";
 import "signin_page.dart";
 import 'package:after_layout/after_layout.dart';
 
+
 class Splash extends StatefulWidget{
   const Splash({Key? key}) : super(key: key);
 
