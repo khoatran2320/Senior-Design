@@ -12,9 +12,13 @@ class AuthenticationService {
   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   /// after you called this method if you want to pop all routes.
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    await FirebaseAuth.instance.signOut();
   }
-
+  bool isLoggedIn(){
+    User? user = _firebaseAuth.currentUser;
+    print(user);
+    return user == null ? false : true;
+  }
   /// There are a lot of different ways on how you can do exception handling.
   /// This is to make it as easy as possible but a better way would be to
   /// use your own custom class that would take the exception and return better

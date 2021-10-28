@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/deliveriesScreen.dart';
 import '../utils/colors.dart';
 import 'package:provider/provider.dart';
 import '../utils/authentication_service.dart';
@@ -10,6 +11,7 @@ import "../widgets/forms/sign_in/email_field.dart";
 import "../widgets/forms/sign_in/password_field.dart";
 import "../widgets/forms/sign_in/redirect_signup.dart";
 import "../widgets/buttons/signin_page/submit.dart";
+import "../pages/dashboard.dart";
 
 
 class SignIn extends StatefulWidget {
@@ -44,6 +46,9 @@ class _SignInState extends State<SignIn> {
     void submitHandler(){
       if(_form.currentState!.validate()){
         context.read<AuthenticationService>().signIn(email: email, password: password);
+      }
+      if(context.read<AuthenticationService>().isLoggedIn()){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
       }
     }
     return Scaffold(
