@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch:
-              MaterialColor(ColorPallete.cPrimaryAsHex, ColorPallete.materialPrimary),
+          primarySwatch: MaterialColor(
+              ColorPallete.cPrimaryAsHex, ColorPallete.materialPrimary),
         ),
         home: const Splash(),
       ),

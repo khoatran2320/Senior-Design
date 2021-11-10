@@ -11,6 +11,9 @@ import "../widgets/forms/sign_in/password_field.dart";
 import "../widgets/forms/sign_in/redirect_signup.dart";
 import "../widgets/buttons/signin_page/submit.dart";
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -33,6 +36,14 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User>();
+
+    if (firebaseUser != null) {
+      print('Found User Logged In');
+    } else {
+      print('User not logged in');
+    }
+
     double _viewWidth(double percent) {
       return MediaQuery.of(context).size.width * percent;
     }
