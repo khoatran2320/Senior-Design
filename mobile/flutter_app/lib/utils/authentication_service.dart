@@ -6,7 +6,7 @@ class AuthenticationService {
   AuthenticationService(this.firebaseAuth);
 
   /// Changed to idTokenChanges as it updates depending on more cases.
-  Stream<User?> get authStateChanges => _firebaseAuth.idTokenChanges();
+  Stream<User?> get authStateChanges => firebaseAuth.idTokenChanges();
 
   /// This won't pop routes so you could do something like
   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
