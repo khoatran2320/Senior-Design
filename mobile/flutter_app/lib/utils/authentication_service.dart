@@ -19,16 +19,16 @@ class AuthenticationService {
   /// This is to make it as easy as possible but a better way would be to
   /// use your own custom class that would take the exception and return better
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-  Future<String?> signIn(
+  Future<bool?> signIn(
       {required String email, required String password}) async {
     try {
-      print('Sign In Here!');
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       print('Sign In Success!');
-      return "Signed in";
+      return true;
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      print('Sign In Error');
+      return false;
     }
   }
 
@@ -36,18 +36,16 @@ class AuthenticationService {
   /// This is to make it as easy as possible but a better way would be to
   /// use your own custom class that would take the exception and return better
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-  Future<String?> signUp(
-      {required String email, required String password}) async {
+  Future<bool> signUp({required String email, required String password}) async {
     try {
-      print('Sign Up here');
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       print('Sign up success');
-      return "Signed up";
+      return true;
     } on FirebaseAuthException catch (e) {
-      print('Error');
-      return e.message;
+      print('Sign Up Error');
+      return false;
     }
   }
 }

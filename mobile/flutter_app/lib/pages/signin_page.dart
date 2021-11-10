@@ -14,6 +14,7 @@ import "../widgets/buttons/signin_page/submit.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import './welcome_page.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -27,22 +28,24 @@ class _SignInState extends State<SignIn> {
   String password = "";
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
-  void emailCallback(String text){
+  void emailCallback(String text) {
     email = text;
   }
-  void passwordCallback(String text){
+
+  void passwordCallback(String text) {
     password = text;
   }
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
+    // check current user
+    // final firebaseUser = context.watch<User>();
 
-    if (firebaseUser != null) {
-      print('Found User Logged In');
-    } else {
-      print('User not logged in');
-    }
+    // if (firebaseUser != null) {
+    //   print('Found User Logged In');
+    // } else {
+    //   print('User not logged in');
+    // }
 
     double _viewWidth(double percent) {
       return MediaQuery.of(context).size.width * percent;
@@ -52,11 +55,20 @@ class _SignInState extends State<SignIn> {
       return MediaQuery.of(context).size.height * percent;
     }
 
-    void submitHandler(){
-      if(_form.currentState!.validate()){
-        context.read<AuthenticationService>().signIn(email: email, password: password);
+    void submitHandler() async {
+      if (_form.currentState!.validate()) {
+        var isSignedIn = await context
+            .read<AuthenticationService>()
+            .signIn(email: email, password: password);
+        if (isSignedIn != null && isSignedIn) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        } else {
+          print("Do not redirect to home!");
+        }
       }
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign in'),
@@ -74,7 +86,8 @@ class _SignInState extends State<SignIn> {
                   Image.asset("assets/images/delivery_pic.png"),
                   SignInPageFieldEmail(emailCallback),
                   SignInPageFieldPass(passwordCallback),
-                  SignInPageButtonSubmit(submitHandler, _viewWidth, _viewHeight),
+                  SignInPageButtonSubmit(
+                      submitHandler, _viewWidth, _viewHeight),
                   RedirectSignUp(_viewWidth, _viewHeight),
                 ].expand((widget) => [widget, const SizedBox(height: 24)])
               ],
