@@ -10,11 +10,12 @@ import "../widgets/forms/sign_in/email_field.dart";
 import "../widgets/forms/sign_in/password_field.dart";
 import "../widgets/forms/sign_in/redirect_signup.dart";
 import "../widgets/buttons/signin_page/submit.dart";
+import "../pages/dashboard.dart";
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import './welcome_page.dart';
+import './dashboard.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -62,10 +63,15 @@ class _SignInState extends State<SignIn> {
             .signIn(email: email, password: password);
         if (isSignedIn != null && isSignedIn) {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MainPage()));
+              context, MaterialPageRoute(builder: (context) => Dashboard()));
         } else {
-          print("Do not redirect to home!");
+          print(
+              "Do not redirect to home! Add in error message for sign in unsuccessful.");
         }
+      }
+      if (context.read<AuthenticationService>().isLoggedIn()) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Dashboard()));
       }
     }
 
@@ -98,19 +104,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-
-//   void _showDialog(String message) {
-//     showDialog<void>(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text(message),
-//         actions: [
-//           TextButton(
-//             child: const Text('OK'),
-//             onPressed: () => Navigator.of(context).pop(),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
