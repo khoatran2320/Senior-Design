@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/signin_page.dart';
 import 'package:provider/provider.dart';
 import '../utils/authentication_service.dart';
 
@@ -39,6 +40,9 @@ class _SignUpState extends State<SignUp> {
               password: _pass.text.trim(),
             );
       }
+    if(context.read<AuthenticationService>().isLoggedIn()){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+    }
   }
 
   @override
