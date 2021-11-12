@@ -38,7 +38,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
+    final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
       print('Found User Logged In');
