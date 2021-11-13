@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ShortRoundedRectangle extends StatelessWidget {
+class RoundedRectangle extends StatelessWidget {
 
 	double width;
 	String text;
 	Color rectangleColor;
 	Color textColor;
+	bool isLowPercentage;
 
-	ShortRoundedRectangle(this.width, this.text, this.rectangleColor, this.textColor);
+	RoundedRectangle(this.width, this.rectangleColor, {
+		this.text = '', this.textColor = Colors.black, this.isLowPercentage = false
+	});
 
 	@override
 	Widget build(BuildContext context) {
@@ -19,6 +22,7 @@ class ShortRoundedRectangle extends StatelessWidget {
 			),
 			height: 50,
 			width: width,
+			padding: isLowPercentage ? EdgeInsets.only(left: 10) : EdgeInsets.all(0),
 			child: Text(
 				text,
 				style: TextStyle(

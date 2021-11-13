@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import 'longRoundedRectangle.dart';
-import 'shortRoundedRectangle.dart';
+import 'roundedRectangle.dart';
 
 class AlarmToggleSwitch extends StatefulWidget {
 	const AlarmToggleSwitch({Key? key}) : super(key: key);
@@ -13,6 +12,7 @@ class AlarmToggleSwitch extends StatefulWidget {
 
 class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
 
+	static double _longRectangleWidth = 150;
 	static double _shortRectangleWidth = 80;
 	static List<String> _toggleWords = ['OFF', 'ON'];
 	bool _isOff = true;
@@ -56,11 +56,16 @@ class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
 							SizedBox(height: 10),
 							Stack(
 								children: [
-									LongRoundedRectangle(),
+									RoundedRectangle(_longRectangleWidth, Color(0xffD8F2EA)),
 									Positioned(
 										left: _left,
 										right: _right,
-										child: ShortRoundedRectangle(_shortRectangleWidth, _toggleWords[_index], Color(0xffF9FDFE), Color(0xffED6971))
+										child: RoundedRectangle(
+											_shortRectangleWidth,
+											Color(0xffF9FDFE),
+											text: _toggleWords[_index],
+											textColor: Color(0xffED6971)
+										),
 									)
 								],
 							),

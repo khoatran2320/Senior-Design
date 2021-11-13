@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
 
-
+// TODO: Pass isLocked parameter.
 class UnlockButton extends StatefulWidget {
-	const UnlockButton({Key? key}) : super(key: key);
+	final bool isLocked;
+	const UnlockButton({ Key? key, this.isLocked = true }) : super(key: key);
 
 	@override
 	_UnlockButtonState createState() => _UnlockButtonState();
@@ -12,18 +13,29 @@ class UnlockButton extends StatefulWidget {
 
 class _UnlockButtonState extends State<UnlockButton> {
 
+	bool isLocked = true;
+
 	final TextStyle textStyle = TextStyle(
 		color: Color(0xffF9FDFE),
 		fontSize: 18,
-		fontWeight: FontWeight.w500,
-		// height: 21
+		fontWeight: FontWeight.w500
 	);
+
+	void initState() {
+		super.initState();
+		isLocked = widget.isLocked;
+	}
+
+	void unlock() {
+		setState(() {
+			isLocked = false;
+		});
+	}
 
 	@override
 	Widget build(BuildContext context) {
 		return Column(
 			mainAxisSize: MainAxisSize.min,
-			// mainAxisAlignment: MainAxisAlignment.start,
 			children: [
 				Stack(
 					alignment: Alignment.center,
@@ -34,23 +46,29 @@ class _UnlockButtonState extends State<UnlockButton> {
 		            shape: BoxShape.circle
 		          ),
 							height: 150,
-							width: 150,
-							// margin: const EdgeInsets.only(bottom: 20)
+							width: 150
 						),
-						Icon(
-							Icons.lock,
-							color: Color(0xffE4FCF9),
-							size: 60
-						)
+						GestureDetector(
+							onTap: () {
+								unlock();
+							},
+							child: Icon(
+								isLocked ? Icons.lock : Icons.lock_open,
+								color: Color(0xffE4FCF9),
+								size: 60
+							),
+						),
 					],
 				),
 				TextButton(
 					child: Text(
-						'Tap to Unlock',
+						isLocked
+							? 'Tap to Unlock'
+							: 'Close the box lid to lock it.',
 						style: textStyle
 					),
 					onPressed: () {
-						print('unlock button pressed');
+						isLocked ? unlock() : null;
 					}
 				)
 			]

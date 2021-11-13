@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import 'longRoundedRectangle.dart';
-import 'shortRoundedRectangle.dart';
+import 'roundedRectangle.dart';
 
 
-class BatteryStatus extends StatefulWidget {
-	const BatteryStatus({Key? key, this.batteryPercentage = 0}) : super(key: key);
+class BatteryStatus extends StatelessWidget {
+
+	BatteryStatus(this.batteryPercentage);
 
 	final double batteryPercentage;
-
-	@override
-	_BatteryStatusState createState() => _BatteryStatusState();
-}
-
-// TODO: Appearance of battery should change when battery percentage change.
-// TODO: If percentage < 50%, % should appear on long rectange instead.
-class _BatteryStatusState extends State<BatteryStatus> {
 
 	final TextStyle textStyle = TextStyle(
 		color: Color(0xffF9FDFE),
@@ -24,11 +16,14 @@ class _BatteryStatusState extends State<BatteryStatus> {
 		fontWeight: FontWeight.w500,
 	);
 
-	static const int batteryFullWidth = 150;
+	static const double _batteryFullWidth = 150;
 
 	@override
 	Widget build(BuildContext context) {
-		double _shortRectangleWidth = batteryFullWidth * widget.batteryPercentage;
+		double appearancePadding = getAppearancePadding(batteryPercentage);
+		double _shortRectangleWidth
+			= _batteryFullWidth * batteryPercentage + appearancePadding;
+		String percentageText = (batteryPercentage * 100).round().toString() + '%';
 
 		return Column(
 			mainAxisSize: MainAxisSize.min,
@@ -40,14 +35,33 @@ class _BatteryStatusState extends State<BatteryStatus> {
 				SizedBox(height: 10),
 				Stack(
 					children: [
-						LongRoundedRectangle(),
+						RoundedRectangle(
+							_batteryFullWidth,
+							Color(0xffD8F2EA),
+							text: (batteryPercentage <= .2) ? percentageText : '',
+							textColor: Colors.black, isLowPercentage: true
+						),
 						Positioned(
 							left: 0,
-							child: ShortRoundedRectangle(_shortRectangleWidth, '90%', Color(0xff6DD7AF), Color(0xffF9FDFE))
+							child: RoundedRectangle(
+								_shortRectangleWidth,
+								Color(0xff6DD7AF),
+								text: (batteryPercentage > .2) ? percentageText : '',
+								textColor: Color(0xffF9FDFE)
+							)
 						)
 					],
 				)
 			]
 		);
 	}
+}
+
+// Manual adjustments for the appearance of the battery status bar
+double getAppearancePadding(percentage) {
+	if (percentage >= .6) return 0;
+	if (percentage > .4) return 10;
+	if (percentage > .3) return 20;
+	if (percentage > .2) return 23;
+	return 25;
 }

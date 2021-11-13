@@ -15,13 +15,6 @@ class StatusScreen extends StatefulWidget {
 
 class _StatusScreenState extends State<StatusScreen> {
 
-	final TextStyle textStyle = TextStyle(
-		color: Color(0xffF9FDFE),
-		fontSize: 18,
-		fontWeight: FontWeight.w500,
-		height: 21
-	);
-
 	@override
 	Widget build(BuildContext context) {
 		return Container(
@@ -31,7 +24,7 @@ class _StatusScreenState extends State<StatusScreen> {
 				children: [
 					Positioned(
 						top: 60,
-						child: UnlockButton()
+						child: UnlockButton(isLocked: true)
 					),
 					Positioned(
 						bottom: 125,
@@ -41,7 +34,7 @@ class _StatusScreenState extends State<StatusScreen> {
 					Positioned(
 						bottom: 125,
 						right: 25,
-						child: BatteryStatus(batteryPercentage: 0.9)
+						child: BatteryStatus(0.6)
 					)
 				],
 			),
