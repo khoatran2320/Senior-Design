@@ -11,38 +11,35 @@ class AlarmToggleSwitch extends StatefulWidget {
 	_AlarmToggleSwitchState createState() => _AlarmToggleSwitchState();
 }
 
-// TODO: Implement state management in this widget. Clicking on the toggle
-// should make toggle between on/off.
 class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
+
+	static double _shortRectangleWidth = 80;
+	static List<String> _toggleWords = ['OFF', 'ON'];
+	bool _isOff = true;
+
+	final TextStyle textStyle = TextStyle(
+		color: Color(0xffF9FDFE),
+		fontSize: 18,
+		fontWeight: FontWeight.w500,
+	);
+
+	void toggleSwitch() {
+		setState(() {
+			_isOff = !_isOff;
+		});
+
+		// TODO: Turn lock box alarm on/off.
+	}
 
 	@override
 	Widget build(BuildContext context) {
 
-		double _shortRectangleWidth = 80;
-		const _toggleWords = ['OFF', 'ON'];
-		int _index = 0;
-		double? _left = 0;
-		double? _right = null;
-
-		final TextStyle textStyle = TextStyle(
-			color: Color(0xffF9FDFE),
-			fontSize: 18,
-			fontWeight: FontWeight.w500,
-		);
-
-		void toggleSwitch() {
-			// setState(() {
-			// 	_index = (_index == 0) ? 1 : 0;
-			// 	_left = (_left == null) ? 0 : null;
-			// 	_right = (_right == null) ? 0 : null;
-			// });
-
-			print('_index $_index, _left $_left, _right $_right');
-		}
+		double? _left = _isOff ? 0 : null;
+		double? _right = _isOff ? null : 0;
+		int _index = _isOff ? 0 : 1;
 
 		return Column(
 			mainAxisSize: MainAxisSize.min,
-			// mainAxisAlignment: MainAxisAlignment.start,
 			children: [
 				GestureDetector(
 					onTap: () {
