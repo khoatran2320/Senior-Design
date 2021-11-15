@@ -2,11 +2,23 @@ const express = require('express')
 const app = express()
 const port = 3000
 const axios = require('axios');
+var pkgeAPI = require('./pkge_api');
+
 const cors = require("cors");
 const { response } = require('express');
 app.use(cors())
 app.use(express.json())
 
+var admin = require("firebase-admin");
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+const auth = require('firebase-admin/auth');
+
+var serviceAccount = require("./boxi_key.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+const db = getFirestore();
+const COLLECTION_NAME = "user_packages";
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -43,7 +55,10 @@ app.get('/get_package_info', (req, res) =>{
 
 
 /* ***** add_package  *****
-    desc: add a package to start tracking
+    desc: add a package to start tracking. 3 step mechanism
+      1. Validate user 
+      2. Add package to start tracking in PKGE
+      3. Add package reference to user in Firestore
     inputs: 
       trackingNumber: tracking number of the package to track
     outputs: 
@@ -51,29 +66,41 @@ app.get('/get_package_info', (req, res) =>{
       code 400: unable to add package, more error codes and error messages in the return response
 */ 
 app.post('/add_package', (req, res) => {
-  if(req.query.trackingNumber == undefined){
+  const trackingNumber = req.query.trackingNumber;
+  if(trackingNumber == undefined){
     res.status(400).send("Requires a tracking number!");
   }
+  if(req.query.userId == undefined){
+    res.status(400).send("Requires a user ID!");
+  }
 
-  axios({
-    method: 'post', 
-    url: 'https://api.pkge.net/v1/packages?',
-    params: {
-      trackNumber: req.query.trackingNumber,
-      courierId: -1
-    },
-    headers: {
-      'Accept': 'application/json',
-      'X-Api-Key': process.env.PKGE_API_KEY
-    }
-  }).then((response) => {
-    res.status(200).send(JSON.stringify(response.data))
+  //check to see if user exists
+  auth.getAuth().getUser(req.query.userId).then((user) => {
+    //user exists, proceed to add package to PKGE 
+    pkgeAPI.addPackage(trackingNumber).then((r) => {
+      // package added to PKGE, proceed to make reference in firestore db
+      const docRef = db.collection(COLLECTION_NAME).doc(req.query.userId).collection('trackings').doc(trackingNumber);
+      docRef.set({
+        'status': 'started tracking'
+      }).then((r) => {
+        // everything went smoothly
+        res.status(200).send("Success!");
+      }).catch((e) => {
+        // unable to write to firestore
+        res.status(400).send("Unable to write to Firestore");
+      });
+    }).catch((e) => {
+      //unable to add package to PKGE
+      res.status(400).send(e);
+    })
   }).catch((err) => {
-    res.status(400).send(JSON.stringify(err.response.data))
-  });
+    //unable to find user
+    if(err['errorInfo']['code'] == 'auth/user-not-found'){
+      res.status(400).send("User does not exist");
+    }
+    res.status(400).send("Something went wrong!");
+  })
 })
-
-
 
 
 /* ***** delete_package  *****
@@ -116,16 +143,32 @@ app.delete('/delete_package', (req, res) => {
       code 200: succesfully returns the list of packages
 */ 
 app.get('/get_packages', (req, res) => {
-  axios({
-    method: 'get', 
-    url: 'https://api.pkge.net/v1/packages/list', 
-    headers: {
-      'Accept': 'application/json',
-      'X-Api-Key': process.env.PKGE_API_KEY
+  const userID = req.query.userId;
+  if(userID == undefined){
+    res.status(400).send("Requires a user ID!");
+  }
+  auth.getAuth().getUser(userID).then((user) => {
+    pkgeAPI.getPackages().then(async (r) => {
+      let packages = {};
+      const snapshot = await db.collection(COLLECTION_NAME).doc(userID).collection('trackings').get();
+      for(const el in r){
+        snapshot.forEach((doc) => {
+          if(doc.id == r[el]['track_number']){
+            packages[r[el]['track_number']] = r[el];
+          }
+        })
+      }
+      res.status(200).send(packages);
+    }).catch((e)=> {
+      res.status(400).send(e);
+    })
+  }).catch((err) => {
+    //unable to find user
+    if(err['errorInfo']['code'] == 'auth/user-not-found'){
+      res.status(400).send("User does not exist");
     }
-  }).then((response) =>{
-    res.status(200).send(response.data.payload)
-  }).catch((err) => console.log(err))
+    res.status(400).send("Something went wrong!");
+  })
 })
 
 /* ***** update_package  *****
