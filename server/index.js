@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
       code 200: succesfully retrieved the information 
       code 400: unable to get package information
 */ 
-app.get('/get_package_info', (req, res) =>{
+app.get('/package', (req, res) =>{
     if(req.query.trackingNumber == undefined){
         res.status(400).send("Requires a tracking number!");
     }
@@ -65,7 +65,7 @@ app.get('/get_package_info', (req, res) =>{
       code 200: successfully adds the new package
       code 400: unable to add package, more error codes and error messages in the return response
 */ 
-app.post('/add_package', (req, res) => {
+app.post('/package', (req, res) => {
   const trackingNumber = req.query.trackingNumber;
   if(trackingNumber == undefined){
     res.status(400).send("Requires a tracking number!");
@@ -81,7 +81,7 @@ app.post('/add_package', (req, res) => {
       // package added to PKGE, proceed to make reference in firestore db
       const docRef = db.collection(COLLECTION_NAME).doc(req.query.userId).collection('trackings').doc(trackingNumber);
       docRef.set({
-        'status': 'started tracking'
+        'status': pkgeAPI.deliveryStatus[0]
       }).then((r) => {
         // everything went smoothly
         res.status(200).send("Success!");
@@ -111,7 +111,7 @@ app.post('/add_package', (req, res) => {
       code 200: successfully deleted package
       code 404: package with provided tracking number not found
 */ 
-app.delete('/delete_package', (req, res) => {
+app.delete('/package', (req, res) => {
   if(req.query.trackingNumber == undefined){
     res.status(400).send("Requires a tracking number!");
   }
@@ -142,19 +142,19 @@ app.delete('/delete_package', (req, res) => {
     outputs: 
       code 200: succesfully returns the list of packages
 */ 
-app.get('/get_packages', (req, res) => {
+app.get('/packages', (req, res) => {
   const userID = req.query.userId;
   if(userID == undefined){
     res.status(400).send("Requires a user ID!");
   }
   auth.getAuth().getUser(userID).then((user) => {
-    pkgeAPI.getPackages().then(async (r) => {
+    pkgeAPI.getPackages().then(async (pkges) => {
       let packages = {};
       const snapshot = await db.collection(COLLECTION_NAME).doc(userID).collection('trackings').get();
-      for(const el in r){
+      for(const pkge in pkges){
         snapshot.forEach((doc) => {
-          if(doc.id == r[el]['track_number']){
-            packages[r[el]['track_number']] = r[el];
+          if(doc.id == pkges[pkge]['track_number']){
+            packages[pkges[pkge]['track_number']] = pkges[pkge];
           }
         })
       }

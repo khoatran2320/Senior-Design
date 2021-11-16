@@ -35,5 +35,18 @@ module.exports = {
                 resolve(response.data.payload)
               }).catch((err) => reject(err))
         })
+    }, 
+
+    deliveryStatus: {
+      0: "PACKAGE_ADDED",               //The package was added to the system but hasn't been updated yet
+      1: "INITIAL_UPDATE",              //Initial package update in progress
+      2: "INITIAL_UPDATE_COMPLETED",    //The package update has been completed, but no information was received from the delivery service
+      3: "IN_TRANSIT",                  //Package in transit
+      4: "AWAITING_DELIVERY",           //Package arrived at delivery point
+      5: "DELIVERED",                   //Package delivered to recipient
+      6: "DELIVERY_UNSUCCESSFUL",       //The package was not delivered. For example, if there was an unsuccessful attempt to deliver
+      7: "PACKAGE_DESTROYED",           //Package delivery error. For example, a package is destroyed
+      8: "PREPARING_FOR_SHIPMENT",      //The package is being prepared for shipment. The delivery service received information about the package, but the package has not departed yet
+      9: "EXPORTED"                     //The end of the package tracking route. For example, for international packages that are only tracked when in the country of origin
     }
 }
