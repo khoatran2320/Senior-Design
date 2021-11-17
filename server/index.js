@@ -66,16 +66,16 @@ app.get('/package', (req, res) =>{
       code 400: unable to add package, more error codes and error messages in the return response
 */ 
 app.post('/package', (req, res) => {
-  const trackingNumber = req.query.trackingNumber;
-  if(trackingNumber == undefined){
+  const {trackingNumber, userId} = req.query;
+  if(!trackingNumber){
     res.status(400).send("Requires a tracking number!");
   }
-  if(req.query.userId == undefined){
+  if(!userId){
     res.status(400).send("Requires a user ID!");
   }
 
   //check to see if user exists
-  auth.getAuth().getUser(req.query.userId).then((user) => {
+  auth.getAuth().getUser(userId).then((user) => {
     //user exists, proceed to add package to PKGE 
     pkgeAPI.addPackage(trackingNumber).then((r) => {
       // package added to PKGE, proceed to make reference in firestore db
@@ -112,7 +112,8 @@ app.post('/package', (req, res) => {
       code 404: package with provided tracking number not found
 */ 
 app.delete('/package', (req, res) => {
-  if(req.query.trackingNumber == undefined){
+  const trackingNumber = req.query.trackingNumber;
+  if(!trackingNumber){
     res.status(400).send("Requires a tracking number!");
   }
 
@@ -120,7 +121,7 @@ app.delete('/package', (req, res) => {
     method: 'delete', 
     url: 'https://api.pkge.net/v1/packages?', 
     params: {
-      trackNumber: req.query.trackingNumber
+      trackNumber: trackingNumber
     }, 
     headers:{
       'Accept': 'application/json', 
@@ -143,14 +144,14 @@ app.delete('/package', (req, res) => {
       code 200: succesfully returns the list of packages
 */ 
 app.get('/packages', (req, res) => {
-  const userID = req.query.userId;
-  if(userID == undefined){
+  const userId = req.query.userId;
+  if(!userId){
     res.status(400).send("Requires a user ID!");
   }
-  auth.getAuth().getUser(userID).then((user) => {
+  auth.getAuth().getUser(userId).then((user) => {
     pkgeAPI.getPackages().then(async (pkges) => {
       let packages = {};
-      const snapshot = await db.collection(COLLECTION_NAME).doc(userID).collection('trackings').get();
+      const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
       for(const pkge in pkges){
         snapshot.forEach((doc) => {
           if(doc.id == pkges[pkge]['track_number']){
@@ -184,14 +185,15 @@ app.get('/packages', (req, res) => {
         910	Package update progress check requests are too frequent. Repeat the request later.
 */ 
 app.post('/update_package', (req, res) => {
-  if(req.query.trackingNumber == undefined){
+  const trackingNumber = req.query.trackingNumber;
+  if(!trackingNumber){
     res.status(400).send("Requires a tracking number!")
   }
   axios({
     method: 'post',
     url: 'https://api.pkge.net/v1/packages/update?',
     params: {
-      trackNumber: req.query.trackingNumber
+      trackNumber: trackingNumber
     },
     headers: {
       'Accept': 'application/json', 
