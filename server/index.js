@@ -70,6 +70,57 @@ app.get('/package', (req, res) => {
 
 app.post('/package', (req, res) => {
 	const { trackingNumber, userId } = req.query;
+	if (!trackingNumber) {
+		res.status(400).send('Requires a tracking number!');
+	}
+	if (!userId) {
+		res.status(400).send('Requires a user ID!');
+	}
+
+	//check to see if user exists
+	auth
+		.getAuth()
+		.getUser(userId)
+		.then((user) => {
+			//user exists, proceed to add package to PKGE
+			pkgeAPI
+				.addPackage(trackingNumber)
+				.then((r) => {
+					// package added to PKGE, proceed to make reference in firestore db
+					const docRef = db
+						.collection(COLLECTION_NAME)
+						.doc(req.query.userId)
+						.collection('trackings')
+						.doc(trackingNumber);
+					docRef
+						.set({
+							status: pkgeAPI.deliveryStatus[0]
+						})
+						.then((r) => {
+							// everything went smoothly
+							res.status(200).send('Success!');
+						})
+						.catch((e) => {
+							// unable to write to firestore
+							res.status(400).send('Unable to write to Firestore');
+						});
+				})
+				.catch((e) => {
+					//unable to add package to PKGE
+					res.status(400).send(e);
+				});
+		})
+		.catch((err) => {
+			//unable to find user
+			if (err['errorInfo']['code'] == 'auth/user-not-found') {
+				res.status(400).send('User does not exist');
+			}
+			res.status(400).send('Something went wrong!');
+		});
+});
+
+app.post('/package', (req, res) => {
+	const { trackingNumber, userId } = req.query;
 
 	if (trackingNumber == undefined) {
 		res.status(400).send('Requires a tracking number!');
@@ -130,6 +181,31 @@ app.post('/package', (req, res) => {
 */
 
 app.delete('/package', (req, res) => {
+	const trackingNumber = req.query.trackingNumber;
+	if (!trackingNumber) {
+		res.status(400).send('Requires a tracking number!');
+	}
+
+	axios({
+		method: 'delete',
+		url: 'https://api.pkge.net/v1/packages?',
+		params: {
+			trackNumber: trackingNumber
+		},
+		headers: {
+			Accept: 'application/json',
+			'X-Api-Key': process.env.PKGE_API_KEY
+		}
+	})
+		.then((response) => {
+			res.status(200).send(JSON.stringify(response.data));
+		})
+		.catch((err) => {
+			res.status(404).send('Package with tracking number not found!');
+		});
+});
+
+app.delete('/package', (req, res) => {
 	const { trackingNumber } = req.query;
 
 	if (trackingNumber == undefined) {
@@ -164,19 +240,21 @@ app.delete('/package', (req, res) => {
 */
 
 app.get('/packages', (req, res) => {
-	const { userID } = req.query;
-	if (userID == undefined) {
+	const { userId } = req.query;
+
+	if (!userId) {
 		res.status(400).send('Requires a user ID!');
 	}
+
 	auth
 		.getAuth()
-		.getUser(userID)
+		.getUser(userId)
 		.then((user) => {
 			pkgeAPI
 				.getPackages()
 				.then(async (pkges) => {
 					let packages = {};
-					const snapshot = await db.collection(COLLECTION_NAME).doc(userID).collection('trackings').get();
+					const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
 					for (const pkge in pkges) {
 						snapshot.forEach((doc) => {
 							if (doc.id == pkges[pkge]['track_number']) {
@@ -213,11 +291,12 @@ app.get('/packages', (req, res) => {
 */
 
 app.post('/update_package', (req, res) => {
-	const { trackingNumber } = req.query;
+	const trackingNumber = req.query.trackingNumber;
 
-	if (trackingNumber == undefined) {
+	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
 	}
+
 	axios({
 		method: 'post',
 		url: 'https://api.pkge.net/v1/packages/update?',
