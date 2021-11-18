@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/deliveriesScreen.dart';
+import 'package:flutter_app/pages/deliveries_screen.dart';
 import '../utils/colors.dart';
 import 'package:provider/provider.dart';
 import '../utils/authentication_service.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import '../widgets/dashboard/alarmToggleSwitch.dart';
-import '../widgets/dashboard/batteryStatus.dart';
-import '../widgets/dashboard/unlockButton.dart';
+import '../widgets/dashboard/alarm_toggle_switch.dart';
+import '../widgets/dashboard/battery_status.dart';
+import '../widgets/dashboard/unlock_button.dart';
 
 
 class StatusScreen extends StatefulWidget {
