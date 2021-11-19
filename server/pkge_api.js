@@ -36,7 +36,21 @@ module.exports = {
               }).catch((err) => reject(err))
         })
     }, 
-
+    getPackage: function(trackingNumber){
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'get', 
+          url: 'https://api.pkge.net/v1/packages?',
+          params: { trackNumber: trackingNumber},
+          headers: {
+            'Accept': 'application/json', 
+            'X-Api-Key': process.env.PKGE_API_KEY
+          }
+        }).then((response) => {
+          resolve(response.data.payload);
+        }).catch((err) => reject(err.response.data))
+      })
+    },
     deliveryStatus: {
       0: "PACKAGE_ADDED",               //The package was added to the system but hasn't been updated yet
       1: "INITIAL_UPDATE",              //Initial package update in progress
