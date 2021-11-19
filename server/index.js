@@ -145,28 +145,48 @@ app.post('/package', (req, res) => {
 	  code 404: package with provided tracking number not found
 */
 app.delete('/package', (req, res) => {
-	const { trackingNumber } = req.query;
+	const { trackingNumber, userId } = req.query;
 
-	if (trackingNumber == undefined) {
+	if (!userId) {
+		res.status(400).send("Requires a user ID!");
+	}
+	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
 	}
-
-	axios({
-		method: 'delete',
-		url: 'https://api.pkge.net/v1/packages?',
-		params: {
-			trackNumber: trackingNumber
-		},
-		headers: {
-			Accept: 'application/json',
-			'X-Api-Key': process.env.PKGE_API_KEY
-		}
-	})
-		.then((response) => {
-			res.status(200).send(JSON.stringify(response.data));
+	auth.getAuth().getUser(userId)
+		.then(async (user) => {
+			let userOwnsPackage = false;
+			const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
+			snapshot.forEach((doc) => {
+				if (doc.id == trackingNumber) {
+					userOwnsPackage = true;
+				}
+			});
+			if (userOwnsPackage) {
+				const ret = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').doc(trackingNumber).delete();
+				pkgeAPI.deletePackage(trackingNumber)
+					.then((response) => {
+						res.status(200).send(response);
+					})
+					.catch((e) => {
+						res.status(400).send(e);
+					})
+			}
+			else {
+				res.status(400).send("Package does not exist");
+			}
 		})
 		.catch((err) => {
-			res.status(404).send('Package with tracking number not found!');
+			//unable to find user
+			try {
+				if (err['errorInfo']['code'] == 'auth/user-not-found') {
+					res.status(400).send('User does not exist');
+				}
+			}
+			catch {
+				res.status(400).send('Something went wrong!');
+			}
+			res.status(400).send('Something went wrong!');
 		});
 });
 

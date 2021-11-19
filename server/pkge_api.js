@@ -76,6 +76,27 @@ module.exports = {
         });
     })
   },
+  deletePackage: function (trackingNumber) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'delete',
+        url: 'https://api.pkge.net/v1/packages?',
+        params: {
+          trackNumber: trackingNumber
+        },
+        headers: {
+          Accept: 'application/json',
+          'X-Api-Key': process.env.PKGE_API_KEY
+        }
+      })
+        .then((response) => {
+          resolve(JSON.stringify(response.data));
+        })
+        .catch((err) => {
+          reject('Package with tracking number not found!');
+        });
+    })
+  },
   deliveryStatus: {
     0: "PACKAGE_ADDED",               //The package was added to the system but hasn't been updated yet
     1: "INITIAL_UPDATE",              //Initial package update in progress
