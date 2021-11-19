@@ -230,32 +230,43 @@ app.get('/packages', (req, res) => {
 */
 
 app.post('/update_package', (req, res) => {
-	const trackingNumber = req.query.trackingNumber;
+	const { trackingNumber, userId } = req.query;
 
+	if (!userId) {
+		res.status(400).send("Requires a user ID");
+	}
 	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
 	}
 
-	axios({
-		method: 'post',
-		url: 'https://api.pkge.net/v1/packages/update?',
-		params: {
-			trackNumber: trackingNumber
-		},
-		headers: {
-			Accept: 'application/json',
-			'X-Api-Key': process.env.PKGE_API_KEY
-		}
-	})
-		.then((response) => {
-			res.status(200).send('Retrieving updated information on package...');
+	auth.getAuth().getUser(userId)
+		.then(async (user) => {
+			let userOwnsPackage = false;
+			const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
+			snapshot.forEach((doc) => {
+				if (doc.id == trackingNumber) {
+					userOwnsPackage = true;
+				}
+			});
+			if (userOwnsPackage) {
+				pkgeAPI.updatePackage(trackingNumber)
+					.then((updateRes) => {
+						res.status(200).send(updateRes);
+					})
+					.catch((e) => {
+						res.status(400).send(e);
+					})
+			}
+			else {
+				res.status(400).send("Package does not exist");
+			}
 		})
 		.catch((err) => {
-			if (err.response.status == 404) {
-				res.status(404).send('Package with trracking number not found!');
-			} else {
-				res.status(400).send(err.response.data);
+			//unable to find user
+			if (err['errorInfo']['code'] == 'auth/user-not-found') {
+				res.status(400).send('User does not exist');
 			}
+			res.status(400).send('Something went wrong!');
 		});
 });
 
