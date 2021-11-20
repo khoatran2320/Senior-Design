@@ -53,6 +53,7 @@ class _DashboardTopState extends State<DashboardTop> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 210),
+              // TODO: Take out GestureHandler after logout button is added in
               child: GestureDetector(
                 onTap: () {
                   signOutHandler(context);
