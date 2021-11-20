@@ -36,68 +36,16 @@ class DeliveriesScreen extends StatefulWidget {
 }
 
 class _DeliveriesScreenState extends State<DeliveriesScreen> {
-  List<Map> dummyData = [
-    {
-      'itemName': "Laptop",
-      'merchant': "Amazon",
-      'status': "delivered",
-      'trackingNumber': "1234567894363"
-    },
-    {
-      'itemName': "Mouse",
-      'merchant': "eBay",
-      'status': "pending",
-      'trackingNumber': "1233467894987"
-    },
-    {
-      'itemName': "Water 3",
-      'merchant': "Amazon",
-      'status': "delivered",
-      'trackingNumber': "33333333333333"
-    },
-    {
-      'itemName': "Water 4",
-      'merchant': "eBay",
-      'status': "pending",
-      'trackingNumber': "444444444444444"
-    },
-    {
-      'itemName': "Water 5",
-      'merchant': "Amazon",
-      'status': "delivered",
-      'trackingNumber': "5555555555555555"
-    },
-    {
-      'itemName': "Water 6",
-      'merchant': "eBay",
-      'status': "pending",
-      'trackingNumber': "666666666666666"
-    },
-    {
-      'itemName': "Water 7",
-      'merchant': "Amazon",
-      'status': "delivered",
-      'trackingNumber': "7777777777777777"
-    },
-    {
-      'itemName': "Water 8",
-      'merchant': "eBay",
-      'status': "pending",
-      'trackingNumber': "888888888888888"
-    }
-  ];
 
   late Future<List<Package>> packages;
 
   @override
   void initState() {
     super.initState();
-    packages = fetchPackages(); // Need to implement
+    packages = fetchPackages(); 
   }
 
-  // TODO: Implement getListOfPackages
   Future<List<Package>> fetchPackages() async {
-    // packages = dummyData;
     List<Package> fetchedPackages = [];
 
     final response = await http.get(Uri.parse(
@@ -147,7 +95,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.only(top: 25, right: 25, left: 25),
           child: DeliveriesScreenHeader(addDeliveryItemHandler),
         ),
         Expanded(child: futureBuilder)
@@ -158,14 +106,18 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
 
 Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
   List<Package> values = snapshot.data;
-  return ListView.builder(
-    itemCount: values.length,
-    itemBuilder: (BuildContext context, int index) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-        child: PackageStatusCard(values[index].itemName, values[index].merchant,
-            values[index].status, values[index].trackingNum),
-      );
-    },
+  return MediaQuery.removePadding(
+    context: context,
+    removeTop: true,
+    child: ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+          child: PackageStatusCard(values[index].itemName, values[index].merchant,
+              values[index].status, values[index].trackingNum),
+        );
+      },
+    )
   );
 }
