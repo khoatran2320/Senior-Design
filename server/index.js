@@ -106,7 +106,7 @@ app.post('/package', (req, res) => {
 					// package added to PKGE, proceed to make reference in firestore db
 					const docRef = db
 						.collection(COLLECTION_NAME)
-						.doc(req.query.userId)
+						.doc(userId)
 						.collection('trackings')
 						.doc(trackingNumber);
 					docRef
