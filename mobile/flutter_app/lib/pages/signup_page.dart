@@ -38,6 +38,7 @@ class _SignUpState extends State<SignUp> {
         context.read<AuthenticationService>().signUp(
               email: _email,
               password: _pass.text.trim(),
+              name: _name,
             );
       }
     if(context.read<AuthenticationService>().isLoggedIn()){
