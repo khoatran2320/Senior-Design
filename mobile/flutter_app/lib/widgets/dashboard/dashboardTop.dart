@@ -25,6 +25,8 @@ class _DashboardTopState extends State<DashboardTop> {
       return MediaQuery.of(context).size.width * percent;
     }
 
+    String? userName = FirebaseAuth.instance.currentUser?.displayName;
+
     return Container(
         color: Color(0xff4B89AC),
         child: Stack(
@@ -59,7 +61,7 @@ class _DashboardTopState extends State<DashboardTop> {
                   signOutHandler(context);
                 },
                 child: Text(
-                  'Welcome, Alan Pisano',
+                  'Welcome, $userName',
                   style: const TextStyle(
                       color: Color(0xffE4FCF9),
                       fontFamily: 'Roboto',
