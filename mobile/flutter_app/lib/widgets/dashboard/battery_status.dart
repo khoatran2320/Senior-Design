@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import 'roundedRectangle.dart';
+import 'rounded_rectangle.dart';
 
 
 class BatteryStatus extends StatelessWidget {

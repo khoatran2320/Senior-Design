@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import 'roundedRectangle.dart';
+import 'rounded_rectangle.dart';
 
 class AlarmToggleSwitch extends StatefulWidget {
 	const AlarmToggleSwitch({Key? key}) : super(key: key);

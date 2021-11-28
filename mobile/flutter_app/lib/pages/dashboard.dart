@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import '../widgets/dashboard/dashboardTop.dart';
-import 'deliveriesScreen.dart';
+import '../widgets/dashboard/dashboard_top.dart';
+import 'deliveries_screen.dart';
 import 'statusScreen.dart';
 
 

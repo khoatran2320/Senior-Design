@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import 'packageStatusCard.dart';
+import 'package_status_card.dart';
 
 
 class DeliveriesScreenHeader extends StatelessWidget {
