@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '/utils/colors.dart';
 import '../widgets/deliveries_screen/deliveries_screen_header.dart';
@@ -42,14 +43,15 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
   @override
   void initState() {
     super.initState();
-    packages = fetchPackages(); 
+    packages = fetchPackages();
   }
 
   Future<List<Package>> fetchPackages() async {
     List<Package> fetchedPackages = [];
 
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
     final response = await http.get(Uri.parse(
-        'http://localhost:3000/packages?userId=GS63SvcscJTb81zaLFczJbul0hB3'));
+        'http://localhost:3000/packages?userId=$userId'));
 
     if (response.statusCode == 200) {
       var responsePackages = jsonDecode(response.body);
