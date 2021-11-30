@@ -86,7 +86,7 @@ app.get('/package', (req, res) => {
 */
 
 app.post('/package', (req, res) => {
-	const { trackingNumber, userId } = req.query;
+	const { trackingNumber, userId } = req.body;
 	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
 	}
