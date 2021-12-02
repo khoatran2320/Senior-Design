@@ -37,14 +37,16 @@ app.get('/package', (req, res) => {
 	const { trackingNumber, userId } = req.query;
 
 	if (!trackingNumber) {
-		res.status(400).send('Requires a tracking number!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a tracking number!' });
 		return;
 	}
 	if (!userId) {
-		res.status(400).send('Requires a user ID!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a user ID!' });
 		return;
 	}
-	auth.getAuth().getUser(userId)
+	auth
+		.getAuth()
+		.getUser(userId)
 		.then(async (user) => {
 			let userOwnsPackage = false;
 			const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
@@ -54,24 +56,24 @@ app.get('/package', (req, res) => {
 				}
 			});
 			if (userOwnsPackage) {
-				pkgeAPI.getPackage(trackingNumber)
+				pkgeAPI
+					.getPackage(trackingNumber)
 					.then((pkgeInfo) => {
-						res.status(200).send(pkgeInfo);
+						res.status(200).send({ status_code: 200, data: pkgeInfo, msg: 'Success!' });
 					})
 					.catch((e) => {
-						res.status(400).send(e);
-					})
-			}
-			else {
-				res.status(400).send("Package does not exist");
+						res.status(400).send({ status_code: 400, msg: e.message });
+					});
+			} else {
+				res.status(400).send({ status_code: 400, msg: 'Package does not exist' });
 			}
 		})
 		.catch((err) => {
 			//unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
-				res.status(400).send('User does not exist');
+				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
 			}
-			res.status(400).send('Something went wrong!');
+			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
 		});
 });
 
@@ -90,11 +92,11 @@ app.get('/package', (req, res) => {
 app.post('/package', (req, res) => {
 	const { trackingNumber, userId } = req.body;
 	if (!trackingNumber) {
-		res.status(400).send('Requires a tracking number!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a tracking number!' });
 		return;
 	}
 	if (!userId) {
-		res.status(400).send('Requires a user ID!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a user ID!' });
 		return;
 	}
 
@@ -119,24 +121,24 @@ app.post('/package', (req, res) => {
 						})
 						.then((r) => {
 							// everything went smoothly
-							res.status(200).send('Success!');
+							res.status(200).send({ status_code: 200, msg: 'Success!' });
 						})
 						.catch((e) => {
 							// unable to write to firestore
-							res.status(400).send('Unable to write to Firestore');
+							res.status(400).send({ status_code: 400, msg: 'Unable to write to Firestore' });
 						});
 				})
 				.catch((e) => {
 					//unable to add package to PKGE
-					res.status(400).send(e);
+					res.status(400).send({ status_code: 400, msg: e.message });
 				});
 		})
 		.catch((err) => {
 			//unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
-				res.status(400).send('User does not exist');
+				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
 			}
-			res.status(400).send('Something went wrong!');
+			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
 		});
 });
 
@@ -152,12 +154,16 @@ app.delete('/package', (req, res) => {
 	const { trackingNumber, userId } = req.query;
 
 	if (!userId) {
-		res.status(400).send("Requires a user ID!");
+		res.status(400).send({ status_code: 400, msg: 'Requires a user ID!' });
+		return;
 	}
 	if (!trackingNumber) {
-		res.status(400).send('Requires a tracking number!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a tracking number!' });
+		return;
 	}
-	auth.getAuth().getUser(userId)
+	auth
+		.getAuth()
+		.getUser(userId)
 		.then(async (user) => {
 			let userOwnsPackage = false;
 			const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
@@ -166,31 +172,42 @@ app.delete('/package', (req, res) => {
 					userOwnsPackage = true;
 				}
 			});
+
 			if (userOwnsPackage) {
-				const ret = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').doc(trackingNumber).delete();
-				pkgeAPI.deletePackage(trackingNumber)
+				const ret = await db
+					.collection(COLLECTION_NAME)
+					.doc(userId)
+					.collection('trackings')
+					.doc(trackingNumber)
+					.delete();
+				pkgeAPI
+					.deletePackage(trackingNumber)
 					.then((response) => {
-						res.status(200).send(response);
+						res.status(200).send({ status_code: 200, data: response, msg: 'Success!' });
+						return;
 					})
 					.catch((e) => {
-						res.status(400).send(e);
-					})
-			}
-			else {
-				res.status(400).send("Package does not exist");
+						res.status(400).send({ status_code: 400, msg: e.message });
+						return;
+					});
+			} else {
+				res.status(400).send({ status_code: 400, msg: 'Package does not exist' });
+				return;
 			}
 		})
 		.catch((err) => {
 			//unable to find user
 			try {
 				if (err['errorInfo']['code'] == 'auth/user-not-found') {
-					res.status(400).send('User does not exist');
+					res.status(400).send({ status_code: 400, msg: 'User does not exist' });
+					return;
 				}
+			} catch (err) {
+				res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
+				return;
 			}
-			catch {
-				res.status(400).send('Something went wrong!');
-			}
-			res.status(400).send('Something went wrong!');
+			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
+			return;
 		});
 });
 
@@ -201,12 +218,12 @@ app.delete('/package', (req, res) => {
 	outputs: 
 	  code 200: succesfully returns the list of packages
 */
-
 app.get('/packages', (req, res) => {
 	const { userId } = req.query;
 
 	if (!userId) {
-		res.status(400).send('Requires a user ID!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a user ID!' });
+		return;
 	}
 
 	auth
@@ -225,18 +242,20 @@ app.get('/packages', (req, res) => {
 							}
 						});
 					}
-					res.status(200).send(packages);
+					res.status(200).send({ status_code: 200, data: packages, msg: 'Success!' });
+					return;
 				})
 				.catch((e) => {
-					res.status(400).send(e);
+					res.status(400).send({ status_code: 400, msg: e.message });
+					return;
 				});
 		})
 		.catch((err) => {
 			//unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
-				res.status(400).send('User does not exist');
+				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
 			}
-			res.status(400).send('Something went wrong!');
+			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
 		});
 });
 
@@ -254,16 +273,20 @@ app.get('/packages', (req, res) => {
 */
 
 app.post('/update_package', (req, res) => {
-	const { trackingNumber, userId } = req.query;
+	const { trackingNumber, userId } = req.body;
 
 	if (!userId) {
-		res.status(400).send("Requires a user ID");
+		res.status(400).send({ status_code: 400, msg: 'Requires a user ID' });
+		return;
 	}
 	if (!trackingNumber) {
-		res.status(400).send('Requires a tracking number!');
+		res.status(400).send({ status_code: 400, msg: 'Requires a tracking number!' });
+		return;
 	}
 
-	auth.getAuth().getUser(userId)
+	auth
+		.getAuth()
+		.getUser(userId)
 		.then(async (user) => {
 			let userOwnsPackage = false;
 			const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
@@ -273,24 +296,29 @@ app.post('/update_package', (req, res) => {
 				}
 			});
 			if (userOwnsPackage) {
-				pkgeAPI.updatePackage(trackingNumber)
+				pkgeAPI
+					.updatePackage(trackingNumber)
 					.then((updateRes) => {
-						res.status(200).send(updateRes);
+						res.status(200).send({ status_code: 200, msg: 'Success!', data: updateRes });
+						return;
 					})
 					.catch((e) => {
-						res.status(400).send(e);
-					})
-			}
-			else {
-				res.status(400).send("Package does not exist");
+						res.status(400).send({ status_code: 400, msg: e.message });
+						return;
+					});
+			} else {
+				res.status(400).send({ status_code: 400, msg: 'Package does not exist' });
+				return;
 			}
 		})
 		.catch((err) => {
 			//unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
-				res.status(400).send('User does not exist');
+				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
+				return;
 			}
-			res.status(400).send('Something went wrong!');
+			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
+			return;
 		});
 });
 
