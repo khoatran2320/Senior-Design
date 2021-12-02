@@ -38,9 +38,11 @@ app.get('/package', (req, res) => {
 
 	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
+		return;
 	}
 	if (!userId) {
 		res.status(400).send('Requires a user ID!');
+		return;
 	}
 	auth.getAuth().getUser(userId)
 		.then(async (user) => {
@@ -89,9 +91,11 @@ app.post('/package', (req, res) => {
 	const { trackingNumber, userId } = req.body;
 	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
+		return;
 	}
 	if (!userId) {
 		res.status(400).send('Requires a user ID!');
+		return;
 	}
 
 	//check to see if user exists
