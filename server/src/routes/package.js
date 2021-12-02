@@ -1,28 +1,14 @@
 const express = require('express');
-const app = express();
-const port = 3000;
-const axios = require('axios');
-var pkgeAPI = require('./pkge_api');
-
-const cors = require('cors');
-const { response } = require('express');
-app.use(cors());
-app.use(express.json());
-
-var admin = require('firebase-admin');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+const router = express.Router();
+const pkgeAPI = require('../pkge_api');
 const auth = require('firebase-admin/auth');
 
-var serviceAccount = require('./boxi_key.json');
-admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount)
-});
-const db = getFirestore();
-const COLLECTION_NAME = 'user_packages';
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+var admin = require('firebase-admin');
 
-app.get('/', (req, res) => {
-	res.send('Hello World!');
-});
+const db = admin.firestore();
+
+const COLLECTION_NAME = 'user_packages';
 
 /* ***** get_package_info  *****
 	desc: get the details of a package
@@ -32,8 +18,7 @@ app.get('/', (req, res) => {
 	  code 200: succesfully retrieved the information 
 	  code 400: unable to get package information
 */
-
-app.get('/package', (req, res) => {
+router.get('/', (req, res) => {
 	const { trackingNumber, userId } = req.query;
 
 	if (!trackingNumber) {
@@ -88,8 +73,7 @@ app.get('/package', (req, res) => {
 	  code 200: successfully adds the new package
 	  code 400: unable to add package, more error codes and error messages in the return response
 */
-
-app.post('/package', (req, res) => {
+router.post('/', (req, res) => {
 	const { trackingNumber, userId } = req.body;
 	if (!trackingNumber) {
 		res.status(400).send({ status_code: 400, msg: 'Requires a tracking number!' });
@@ -150,7 +134,7 @@ app.post('/package', (req, res) => {
 	  code 200: successfully deleted package
 	  code 404: package with provided tracking number not found
 */
-app.delete('/package', (req, res) => {
+router.delete('/', (req, res) => {
 	const { trackingNumber, userId } = req.query;
 
 	if (!userId) {
@@ -218,7 +202,7 @@ app.delete('/package', (req, res) => {
 	outputs: 
 	  code 200: succesfully returns the list of packages
 */
-app.get('/packages', (req, res) => {
+router.get('/all', (req, res) => {
 	const { userId } = req.query;
 
 	if (!userId) {
@@ -271,8 +255,7 @@ app.get('/packages', (req, res) => {
 		909	Failed to update the package. The maximum number of packages allowed is currently being updated. Wait for the next package to complete the update and repeat the request
 		910	Package update progress check requests are too frequent. Repeat the request later.
 */
-
-app.post('/update_package', (req, res) => {
+router.post('/update', (req, res) => {
 	const { trackingNumber, userId } = req.body;
 
 	if (!userId) {
@@ -322,6 +305,4 @@ app.post('/update_package', (req, res) => {
 		});
 });
 
-app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`);
-});
+module.exports = router;
