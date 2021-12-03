@@ -1,13 +1,14 @@
+// Express Setup
 const express = require('express');
 const router = express.Router();
+
+// PKGE 3rd Party API
 const pkgeAPI = require('../pkge_api');
+
+// Firebase setup
 const auth = require('firebase-admin/auth');
-
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
-var admin = require('firebase-admin');
-
+const admin = require('firebase-admin');
 const db = admin.firestore();
-
 const COLLECTION_NAME = 'user_packages';
 
 /* ***** get_package_info  *****
