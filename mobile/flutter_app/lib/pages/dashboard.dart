@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import '../widgets/dashboard/dashboardTop.dart';
-import 'deliveriesScreen.dart';
-import 'statusScreen.dart';
+import '../widgets/dashboard/dashboard_top.dart';
+import 'deliveries_screen.dart';
+import 'status_screen.dart';
 
 
 class Dashboard extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import 'packageStatusCard.dart';
+import 'package_status_card.dart';
 
 
 class DeliveriesScreenHeader extends StatelessWidget {
@@ -15,9 +15,10 @@ class DeliveriesScreenHeader extends StatelessWidget {
 		fontWeight: FontWeight.w700,
 	);
 
-	void addDeliveryItem() {
+	// TODO: Consider just having the handler here instead of on the main screen
+	void addDeliveryItem(context) {
 		// TODO: Popup window for entering delivery item info
-		addDeliveryItemHandler();
+		addDeliveryItemHandler(context);
 	}
 
 	@override
@@ -27,13 +28,12 @@ class DeliveriesScreenHeader extends StatelessWidget {
 			width: double.infinity,
 			child: Stack(
 				children: [
-					// TODO: Make this icon clickable and link to dummy function
 					Positioned(
 						top: 0,
 						right: 0,
 						child: GestureDetector(
 							onTap: () {
-								addDeliveryItem();
+								addDeliveryItem(context);
 							},
 							child: Icon(
 								Icons.add_circle,
