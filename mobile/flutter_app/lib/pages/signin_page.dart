@@ -16,7 +16,6 @@ import "../pages/dashboard.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -27,12 +26,14 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   String email = "";
   String password = "";
+  String _errorMsg = "";
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
-  void emailCallback(String text){
+  void emailCallback(String text) {
     email = text;
   }
-  void passwordCallback(String text){
+
+  void passwordCallback(String text) {
     password = text;
   }
 
@@ -54,14 +55,23 @@ class _SignInState extends State<SignIn> {
       return MediaQuery.of(context).size.height * percent;
     }
 
-    void submitHandler(){
-      if(_form.currentState!.validate()){
-        context.read<AuthenticationService>().signIn(email: email, password: password);
+    void submitHandler() {
+      _errorMsg = "";
+      if (_form.currentState!.validate()) {
+        try {
+          context
+              .read<AuthenticationService>()
+              .signIn(email: email, password: password);
+        } catch (e) {
+          _errorMsg = "Invalid email and password combination.";
+        }
       }
-      if(context.read<AuthenticationService>().isLoggedIn()){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+      if (context.read<AuthenticationService>().isLoggedIn()) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Dashboard()));
       }
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign in'),
@@ -78,8 +88,9 @@ class _SignInState extends State<SignIn> {
                 ...[
                   Image.asset("assets/images/delivery_pic.png"),
                   SignInPageFieldEmail(emailCallback),
-                  SignInPageFieldPass(passwordCallback),
-                  SignInPageButtonSubmit(submitHandler, _viewWidth, _viewHeight),
+                  SignInPageFieldPass(passwordCallback, _errorMsg),
+                  SignInPageButtonSubmit(
+                      submitHandler, _viewWidth, _viewHeight),
                   RedirectSignUp(_viewWidth, _viewHeight),
                 ].expand((widget) => [widget, const SizedBox(height: 24)])
               ],
