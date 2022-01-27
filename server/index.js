@@ -293,8 +293,8 @@ app.post('/update_package', (req, res) => {
 			res.status(400).send('Something went wrong!');
 		});
 });
-app.post('/boxi/package', (req, res) => {
-	const { userId, boxiId, trackingNumber } = req.body;
+app.get('/boxi/package', (req, res) => {
+	const { userId, boxiId, trackingNumber } = req.query;
 
 	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
@@ -336,7 +336,22 @@ app.post('/boxi/package', (req, res) => {
 				//check package status
 				pkgeAPI.getPackage(trackingNumber)
 					.then((pkgeInfo) => {
-
+						//validate if package is on the way
+						// 3: package is in transit 
+						// 4: package is pending delivery
+						if (pkgeInfo['status'] == 3 || pkgeInfo['status'] == 4) {
+							res.status(200).send('Package expected!');
+							return;
+						}
+						else {
+							//package has not been shipped, has been delivered, or otherwise not expected to be delivered soon
+							res.status(400).send('Package not expected!');
+							return;
+						}
+					})
+					.catch((e) => {
+						res.status(400).send(e);
+						return;
 					})
 			}
 			else {
@@ -354,13 +369,49 @@ app.post('/boxi/package', (req, res) => {
 			res.status(400).send('Soomething went wrong!');
 			return;
 		});
-	//verify user owns box
-	//verify userr owns package
-	//check package status
-	//validate if package status on the way
-
 })
 
+app.post('/boxi/add-box', (req, res) => {
+	const { userId, boxiId } = req.query;
+
+	if (!userId) {
+		res.status(400).send('Requires a user ID!');
+		return;
+	}
+	if (!boxiId) {
+		res.status(400).send('Requires a box ID!');
+		return;
+	}
+	//check to see if user exists
+	auth.getAuth().getUser(userId)
+		.then((user) => {
+			//user exists, add reference to box id
+			const docRef = db.collection(COLLECTION_NAME).doc(userId).collection('boxes').doc(boxiId);
+			docRef.set({
+				status: 'box added'
+			})
+				.then((r) => {
+					//everything went smoothly
+					res.status(200).send('Success!');
+					return;
+				})
+				.catch((e) => {
+					//unable to write to firestore
+					res.status(400).send('Unable to write to Firestore');
+					return;
+				})
+		})
+		.catch((err) => {
+			//unable to find user
+			if (err['errorInfo']['code'] == 'auth/user-not-found') {
+				res.status(400).send('User does not exist');
+				return;
+			}
+			res.status(400).send('Something went wrong!');
+			return;
+		})
+
+})
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });
