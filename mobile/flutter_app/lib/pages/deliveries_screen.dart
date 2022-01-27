@@ -37,7 +37,6 @@ class DeliveriesScreen extends StatefulWidget {
 }
 
 class _DeliveriesScreenState extends State<DeliveriesScreen> {
-
   late Future<List<Package>> packages;
 
   @override
@@ -50,18 +49,18 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     List<Package> fetchedPackages = [];
 
     String? userId = FirebaseAuth.instance.currentUser?.uid;
-    final response = await http.get(Uri.parse(
-        'http://localhost:3000/packages?userId=$userId'));
+    final response = await http
+        .get(Uri.parse('http://localhost:3000/package/all?userId=$userId'));
 
     if (response.statusCode == 200) {
       var responsePackages = jsonDecode(response.body);
-      responsePackages.forEach((k, v) =>
-          fetchedPackages.add(Package.fromJson({
-            'itemName': k,
-            'merchant': k,
-            'status': v['status_description'],
-            'trackingNum': k,
-          })));
+      responsePackages['data']
+          .forEach((k, v) => fetchedPackages.add(Package.fromJson({
+                'itemName': k,
+                'merchant': k,
+                'status': v['status_description'],
+                'trackingNum': k,
+              })));
 
       return fetchedPackages;
     } else {
@@ -109,17 +108,19 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
 Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
   List<Package> values = snapshot.data;
   return MediaQuery.removePadding(
-    context: context,
-    removeTop: true,
-    child: ListView.builder(
-      itemCount: values.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: PackageStatusCard(values[index].itemName, values[index].merchant,
-              values[index].status, values[index].trackingNum),
-        );
-      },
-    )
-  );
+      context: context,
+      removeTop: true,
+      child: ListView.builder(
+        itemCount: values.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+            child: PackageStatusCard(
+                values[index].itemName,
+                values[index].merchant,
+                values[index].status,
+                values[index].trackingNum),
+          );
+        },
+      ));
 }
