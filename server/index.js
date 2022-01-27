@@ -289,6 +289,73 @@ app.post('/update_package', (req, res) => {
 			res.status(400).send('Something went wrong!');
 		});
 });
+app.post('/boxi/package', (req, res) => {
+	const { userId, boxiId, trackingNumber } = req.body;
+
+	if (!trackingNumber) {
+		res.status(400).send('Requires a tracking number!');
+		return;
+	}
+	if (!userId) {
+		res.status(400).send('Requires a user ID!');
+		return;
+	}
+	if (!boxiId) {
+		res.status(400).send('Invalid box ID!');
+		return;
+	}
+
+	//check user id
+	auth.getAuth().getUser(userId)
+		.then(async (user) => {
+			//user found, verify user owns box
+			let userOwnsBox = false;
+			const sshot = await db.collection(COLLECTION_NAME).doc(userId).collection('boxes').get();
+			sshot.forEach((doc) => {
+				if (doc.id == boxiId) {
+					userOwnsBox = true;
+				}
+			});
+			if (!userOwnsBox) {
+				res.status(403).send('User does not have access to this box!');
+				return;
+			}
+			//verify user owns package
+			let userOwnsPackage = false;
+			const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
+			snapshot.forEach((doc) => {
+				if (doc.id == trackingNumber) {
+					userOwnsPackage = true;
+				}
+			});
+			if (userOwnsPackage) {
+				//check package status
+				pkgeAPI.getPackage(trackingNumber)
+					.then((pkgeInfo) => {
+
+					})
+			}
+			else {
+				//package does not belong to user
+				res.status(400).send('Package does not exist');
+				return;
+			}
+		})
+		.catch((err) => {
+			//unable to find user
+			if (err['errorInfo']['code'] == 'auth/user-not-found') {
+				res.status(400).send('User does not exist');
+				return;
+			}
+			res.status(400).send('Soomething went wrong!');
+			return;
+		});
+	//verify user owns box
+	//verify userr owns package
+	//check package status
+	//validate if package status on the way
+
+})
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
