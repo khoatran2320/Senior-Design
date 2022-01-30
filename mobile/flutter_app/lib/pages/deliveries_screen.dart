@@ -52,15 +52,18 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
 
     String? userId = FirebaseAuth.instance.currentUser?.uid;
     final response = await http.get(Uri.parse(
-        'http://localhost:3000/packages?userId=$userId'));
+        'http://localhost:3000/package/all?userId=$userId'));
+
+    // undo
+    print(response.body);
 
     if (response.statusCode == 200) {
-      var responsePackages = jsonDecode(response.body);
+      var responsePackages = jsonDecode(response.body)["data"];
       responsePackages.forEach((k, v) =>
           fetchedPackages.add(Package.fromJson({
             'itemName': k,
             'merchant': k,
-            'status': v['status_description'],
+            'status': k,
             'trackingNum': k,
           })));
 
@@ -79,12 +82,6 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     _showAddDeliveryItemDialog(context);
   }
 
-<<<<<<< HEAD
-  // TODO: Find a way to hide dialog after submit button is pressed
-  // Approach 1: return null instead of return Dialog
-  // Approach 2: Find the opposite of showDialog if there's one
-=======
->>>>>>> 1c56069afa54b5c9c8e62a1ca93845f43599ee9d
   void _showAddDeliveryItemDialog(context) {
     showDialog(
       context: context,

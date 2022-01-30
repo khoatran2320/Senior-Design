@@ -1,5 +1,7 @@
 // Referenced https://docs.flutter.dev/cookbook/forms/validation
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -35,18 +37,26 @@ class AddPackageFormState extends State<AddPackageForm> {
 
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
 		String uri = 'http://localhost:3000/package?userId=${userId}&trackingNumber=${trackingNumber}';
-		print('uri $uri');
 
-		final response = await http.post(
-			Uri.parse(uri)
-		);
+		Map data = {
+			'userId': userId,
+			'trackingNumber': trackingNumber
+		};
+
+		var body = json.encode(data);
+
+		var response = await http.post(
+			Uri.parse(uri),
+      headers: {"Content-Type": "application/json"},
+      body: body
+	  );
 
 		if (response.statusCode == 200) {
 			success = true;
 		}
 
-		apiResultType = success ? 'Success' : 'Error';
-		apiResult = jsonDecode(response.body)["payload"];
+		apiResultType = success ? '' : 'Error';
+		apiResult = jsonDecode(response.body)["msg"];
 		showAPIResult();
 	}
 
@@ -96,6 +106,10 @@ class AddPackageFormState extends State<AddPackageForm> {
 			              labelText: 'Merchant Name (optional)'
 			            ),
 									onSaved: (value) {
+										if (value == null || value.isEmpty) {
+											value = "";
+										}
+
 			              merchantName = value;
 			          	}
 								)
