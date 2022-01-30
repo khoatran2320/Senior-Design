@@ -22,6 +22,7 @@ class AddPackageFormState extends State<AddPackageForm> {
 	String? itemName = "";
 	String? trackingNumber = "";
 	String? merchantName = "";
+	String? orderNumber = "";
 
 	String?	apiResult = "";
 	String? apiResultType = "";
@@ -111,6 +112,18 @@ class AddPackageFormState extends State<AddPackageForm> {
 										}
 
 			              merchantName = value;
+			          	}
+								),
+								TextFormField(
+									decoration: const InputDecoration(
+			              labelText: 'Order # (required for Amazon tracking)'
+			            ),
+									onSaved: (value) {
+										if (value == null || value.isEmpty) {
+											value = "";
+										}
+
+			              orderNumber = value;
 			          	}
 								)
 							]

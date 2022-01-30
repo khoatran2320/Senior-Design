@@ -89,7 +89,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
         // TODO: Maybe return null to close dialog
         return Dialog(
           child: Container(
-            height: 300,
+            height: 330,
             child: AddPackageForm()
           )
         );
