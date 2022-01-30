@@ -69,7 +69,6 @@ PODS:
   - PromisesObjC (2.0.0)
   - shared_preferences (0.0.1):
     - Flutter
-  - Toast (4.0.0)
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
@@ -90,7 +89,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromisesObjC
-    - Toast
 
 EXTERNAL SOURCES:
   cloud_firestore:
@@ -128,7 +126,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   shared_preferences: 5033afbb22d372e15aff8ff766df9021b845f273
-  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
 PODFILE CHECKSUM: 59178aa404a8c0e55d030364b8d57e40b39364eb
 
