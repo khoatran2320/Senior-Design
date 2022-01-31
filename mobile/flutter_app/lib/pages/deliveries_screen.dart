@@ -54,9 +54,6 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     final response = await http.get(Uri.parse(
         'http://localhost:3000/package/all?userId=$userId'));
 
-    // undo
-    print(response.body);
-
     if (response.statusCode == 200) {
       var responsePackages = jsonDecode(response.body)["data"];
       responsePackages.forEach((k, v) =>
@@ -76,9 +73,6 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
   }
 
   void addDeliveryItemHandler(context) {
-    // Add item to list
-    print('addDeliveryItemHandler called');
-
     _showAddDeliveryItemDialog(context);
   }
 
