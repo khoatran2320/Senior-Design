@@ -55,20 +55,14 @@ class _DashboardTopState extends State<DashboardTop> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 210),
-              // TODO: Take out GestureHandler after logout button is added in
-              child: GestureDetector(
-                onTap: () {
-                  signOutHandler(context);
-                },
-                child: Text(
-                  'Welcome, $userName',
-                  style: const TextStyle(
-                      color: Color(0xffE4FCF9),
-                      fontFamily: 'Roboto',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.none),
-                ),
+              child: Text(
+                'Welcome, $userName',
+                style: const TextStyle(
+                    color: Color(0xffE4FCF9),
+                    fontFamily: 'Roboto',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none),
               ),
             ),
           ],

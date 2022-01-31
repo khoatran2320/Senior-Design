@@ -15,9 +15,7 @@ class DeliveriesScreenHeader extends StatelessWidget {
 		fontWeight: FontWeight.w700,
 	);
 
-	// TODO: Consider just having the handler here instead of on the main screen
 	void addDeliveryItem(context) {
-		// TODO: Popup window for entering delivery item info
 		addDeliveryItemHandler(context);
 	}
 

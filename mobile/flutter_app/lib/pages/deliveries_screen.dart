@@ -80,7 +80,6 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // TODO: Maybe return null to close dialog
         return Dialog(
           child: Container(
             height: 330,
