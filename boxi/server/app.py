@@ -1,4 +1,5 @@
 from flask import Flask
+<<<<<<< HEAD
 import boxi.barcode.barcode
 
 app = Flask(__name__)
@@ -25,3 +26,16 @@ def vibration():
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port='4321')
+=======
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return 'Hello World\n'
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+>>>>>>> 3a905ea925aeb467734aba0272699a7bbad96b89
