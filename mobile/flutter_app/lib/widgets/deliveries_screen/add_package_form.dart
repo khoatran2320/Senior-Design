@@ -37,7 +37,7 @@ class AddPackageFormState extends State<AddPackageForm> {
 		bool success = false;
 
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = 'http://localhost:3000/package?userId=${userId}&trackingNumber=${trackingNumber}';
+		String uri = 'http://localhost:3000/package';
 
 		Map data = {
 			'userId': userId,
