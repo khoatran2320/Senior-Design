@@ -1,4 +1,5 @@
 from flask import Flask
+import boxi.barcode.barcode
 
 app = Flask(__name__)
 
