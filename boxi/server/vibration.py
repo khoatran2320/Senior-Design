@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
-
+from beeper import beep
 # vibration sensor on pin 16 (gpio 22)
 vib_pin = 22
 
@@ -19,9 +19,11 @@ def loop_vib():
 	counter = 0
 	while(1):
 		if counter > 3:
-			return True
+			beep()
 		if vib():
 			counter += 1
+		else:
+			counter = 0
 		sleep(0.1)
 if __name__ == "__main__":
 	loop_vib()
