@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
 import '../widgets/dashboard/alarm_toggle_switch.dart';
-import '../widgets/dashboard/battery_status.dart';
 import '../widgets/dashboard/unlock_button.dart';
 
 
@@ -30,11 +29,6 @@ class _StatusScreenState extends State<StatusScreen> {
 						bottom: 125,
 						left: 25,
 						child: AlarmToggleSwitch()
-					),
-					Positioned(
-						bottom: 125,
-						right: 25,
-						child: BatteryStatus(0.6)
 					)
 				],
 			),

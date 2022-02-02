@@ -29,9 +29,9 @@ class PackageStatusCard extends StatelessWidget {
 		fontSize: 14
 	);
 
+	// TODO: Call API to get package details
 	void getPackageDetails() {
 		print('Getting package details for tracking number $trackingNumber');
-		// TODO: Call API to get package details
 	}
 
 	@override

@@ -107,6 +107,7 @@ router.post('/', (req, res) => {
 						.then((r) => {
 							// everything went smoothly
 							res.status(200).send({ status_code: 200, msg: 'Success!' });
+							return;
 						})
 						.catch((e) => {
 							// unable to write to firestore
@@ -122,6 +123,7 @@ router.post('/', (req, res) => {
 			//unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
 				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
+				return;
 			}
 			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
 		});

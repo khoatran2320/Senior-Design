@@ -44,7 +44,6 @@ class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
 				GestureDetector(
 					onTap: () {
 						toggleSwitch();
-						print('Tapped alarm toggle');
 					},
 					child: Column(
 						mainAxisSize: MainAxisSize.min,
