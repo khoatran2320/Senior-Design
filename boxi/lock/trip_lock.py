@@ -15,17 +15,19 @@ GPIO.setup(lock_status, GPIO.IN)
 
 # trip func: outputs on gpio pin 36 for 1 millisecond
 def trip():
-    GPIO.output(lock_trip, GPIO.HIGH)
-    time.sleep(0.1)
-    GPIO.output(lock_trip, GPIO.LOW)
+	GPIO.output(lock_trip, GPIO.HIGH)
+	time.sleep(0.1)
+	GPIO.output(lock_trip, GPIO.LOW)
 
+# is_trip func: outputs on gpio pin 33 for 1 millisecond
 def is_trip():
-	locked = GPIO.input(lock_status)
+	locked = not GPIO.input(lock_status)
 	if(locked):
 		print('locked')
 	else:
 		print('not locked')
 
 if __name__ == "__main__":
-	#trip()
+	is_trip()
+	trip()
 	is_trip()
