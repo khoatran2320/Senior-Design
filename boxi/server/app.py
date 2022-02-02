@@ -2,7 +2,8 @@ from ipaddress import ip_address
 from flask import Flask, request, jsonify
 import requests
 #from utilities.file_utils import read_txt_file, write_txt_file
-from utilities.get_box_user_id import get_box_user_id, get_node_server_ip
+from utilities.get_box_user_id import get_box_user_id
+from utilities.get_node_server_ip import get_node_server_ip
 from trip_lock import trip
 from beeper import beep
 from get_ip_addr import get_ip_addr
@@ -21,7 +22,8 @@ def set_ip_addr():
 
 	print(reqBody)
 	try:
-		r = requests.post("http://" + NODE_IP + ":" + NODE_PORT + "/boxi/post-ip", json=reqBody, verify=False)
+		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/post-ip"		
+		r = requests.post(url, json=reqBody, verify=False)
 		print(r.text, r.status_code)
 	except:
 		print("Set IP failed")
@@ -62,7 +64,8 @@ def barcode():
 		# TODO: Manually update this every time
 		# Node server's IP address
 		# ifconfig command, look at en0 for IP address
-		r = requests.get("http://" + NODE_IP + ":" + NODE_PORT + "/boxi/package", params=reqBody)
+		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/package"
+		r = requests.get(url, params=reqBody)
 
 		print(r.text, r.status_code)
 		if r.status_code == 200:
@@ -116,7 +119,8 @@ def lock_status():
 		# TODO: Manually update this every time
 		# Node server's IP address
 		# ifconfig command, look at en0 for IP address
-		r = requests.get("http://" + NODE_IP + ":" + NODE_PORT +" /boxi/unlock", params=reqBody)
+		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/unlock"
+		r = requests.get(url, params=reqBody)
 
 		print(r.text, r.status_code)
 		if r.status_code == 200:
@@ -129,7 +133,7 @@ def lock_status():
 	return jsonify("hello")
 
 
-@app.route('/alarm-status')
+@app.route('/alarm-status', methods=["POST"])
 def alarm_status():
 	body = request.json
 	if body:
@@ -143,7 +147,8 @@ def alarm_status():
 		# TODO: Manually update this every time
 		# Node server's IP address
 		# ifconfig command, look at en0 for IP address
-		r = requests.get("http://" + NODE_IP + ":" + NODE_PORT + "/boxi/alarm", params=reqBody)
+		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/alarm"
+		r = requests.post(url, json=reqBody)
 
 		print(r.text, r.status_code)
 		if r.status_code == 200:

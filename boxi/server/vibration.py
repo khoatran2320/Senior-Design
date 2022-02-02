@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from beeper import beep
+from get_ip_addr import get_ip_addr
 # vibration sensor on pin 16 (gpio 22)
 vib_pin = 22
 
@@ -15,15 +16,17 @@ def vib():
 		print("normal")
 	return reading
 
-def loop_vib():
+def loop_vib(it=20, post_url=None):
 	counter = 0
 	while(1):
 		if counter > 3:
-			beep()
+			beep(it, post_url)
 		if vib():
 			counter += 1
 		else:
 			counter = 0
 		sleep(0.1)
 if __name__ == "__main__":
-	loop_vib()
+	box_ip = get_ip_addr()
+	url = f"http://{box_ip}:4321/alarm-status"
+	loop_vib(5, url)
