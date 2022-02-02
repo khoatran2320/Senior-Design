@@ -13,10 +13,15 @@ PORT = 4321
 def set_ip_addr():
 	ip_address = get_ip_addr()
 	reqBody = get_box_user_id()
-	reqBody['ip_addr'] = ip_address
+	reqBody['ipAddr'] = ip_address
 	reqBody['port'] = PORT
-	r = requests.post("http://168.122.4.172:3000/boxi/post-ip", json=reqBody, verify=False)
-	print(r.text, r.status_code)
+
+	print(reqBody)
+	try:
+		r = requests.post("http://10.192.38.43:3000/boxi/post-ip", json=reqBody, verify=False)
+		print(r.text, r.status_code)
+	except:
+		print("Set IP failed")
 
 # class CustomServer(Server):
 #     def __call__(self, app, *args, **kwargs):
@@ -33,7 +38,7 @@ def validate_request(body):
 		print("user ID not found in request")
 		return False
 
-	storedUserId = get_box_user_id()['userId'][0]
+	storedUserId = get_box_user_id()['userId']
 	if storedUserId != reUserId:
 		print("User IDs do not match!")
 		print("userId: ", reUserId)
