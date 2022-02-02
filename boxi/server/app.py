@@ -5,7 +5,7 @@ from utilities.get_box_user_id import get_box_user_id
 from trip_lock import trip
 app = Flask(__name__)
 
-def validate_request(json_body):
+def validate_request(body):
 	if not body:
 		print("request body not found!")
 		return False
@@ -14,9 +14,11 @@ def validate_request(json_body):
 		print("user ID not found in request")
 		return False
 
-	storedUserId = get_box_user_id()['userId']
+	storedUserId = get_box_user_id()['userId'][0]
 	if storedUserId != reUserId:
 		print("User IDs do not match!")
+		print("userId: ", reUserId)
+		print("stored usr Id: ", storedUserId)
 		return False
 	return True
 
