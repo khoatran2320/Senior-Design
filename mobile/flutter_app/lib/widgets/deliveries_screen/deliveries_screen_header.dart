@@ -15,9 +15,8 @@ class DeliveriesScreenHeader extends StatelessWidget {
 		fontWeight: FontWeight.w700,
 	);
 
-	void addDeliveryItem() {
-		// TODO: Popup window for entering delivery item info
-		addDeliveryItemHandler();
+	void addDeliveryItem(context) {
+		addDeliveryItemHandler(context);
 	}
 
 	@override
@@ -27,13 +26,12 @@ class DeliveriesScreenHeader extends StatelessWidget {
 			width: double.infinity,
 			child: Stack(
 				children: [
-					// TODO: Make this icon clickable and link to dummy function
 					Positioned(
 						top: 0,
 						right: 0,
 						child: GestureDetector(
 							onTap: () {
-								addDeliveryItem();
+								addDeliveryItem(context);
 							},
 							child: Icon(
 								Icons.add_circle,

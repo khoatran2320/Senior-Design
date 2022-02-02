@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import "/pages/settings_page.dart";
 import '/utils/colors.dart';
-import '/utils/authentication_service.dart';
+import '../../utils/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardTop extends StatefulWidget {
@@ -13,9 +12,11 @@ class DashboardTop extends StatefulWidget {
 }
 
 class _DashboardTopState extends State<DashboardTop> {
-
-  void goToSettingsPage(context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+  void signOutHandler(context) {
+    print('Signout');
+    FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   @override
@@ -40,21 +41,16 @@ class _DashboardTopState extends State<DashboardTop> {
                   width: double.infinity,
                   alignment: Alignment.topLeft,
                 )),
-            GestureDetector(
-              onTap: () {
-                goToSettingsPage(context);
-              },
-              child: Container(
-                width: 100,
-                height: 100,
-                margin: const EdgeInsets.only(top: 100),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg"),
-                      fit: BoxFit.fitHeight),
-                ),
+            Container(
+              width: 100,
+              height: 100,
+              margin: const EdgeInsets.only(top: 100),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg"),
+                    fit: BoxFit.fitHeight),
               ),
             ),
             Padding(
@@ -67,8 +63,8 @@ class _DashboardTopState extends State<DashboardTop> {
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.none),
-              )
-            )
+              ),
+            ),
           ],
         ),
         height: 250);
