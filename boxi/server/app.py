@@ -56,6 +56,16 @@ def unlock():
 		return "Success"
 	else:
 		return "Unsuccessful"
+
+@app.route('/alarm', methods=["POST"])
+def alarm():
+	body = request.json
+	if validate_request(body):
+		beep(20)
+		return "Success"
+	else:
+		return "Unsuccessful"
+
 		
 @app.route('/lock')
 def lock():
