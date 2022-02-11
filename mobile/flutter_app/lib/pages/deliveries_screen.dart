@@ -60,7 +60,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
           fetchedPackages.add(Package.fromJson({
             'itemName': k,
             'merchant': k,
-            'status': k,
+            'status': v['status_description'],
             'trackingNum': k,
           })));
 
