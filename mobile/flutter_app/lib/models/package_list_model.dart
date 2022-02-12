@@ -4,11 +4,13 @@ import 'dart:collection';
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '/models/package.dart';
 
+final serverUrl = dotenv.env['SERVER_URL'];
 
 class PackageListModel extends ChangeNotifier {
 	final List<Package> _packageList = [];
@@ -28,7 +30,7 @@ class PackageListModel extends ChangeNotifier {
 
     String? userId = FirebaseAuth.instance.currentUser?.uid;
     final response = await http.get(Uri.parse(
-        'http://localhost:3000/package/all?userId=$userId'));
+        '$serverUrl/package/all?userId=$userId'));
 
     if (response.statusCode == 200) {
       var responsePackages = jsonDecode(response.body)["data"];
@@ -64,7 +66,7 @@ class PackageListModel extends ChangeNotifier {
 		String errorMsg = "";
 
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = 'http://localhost:3000/package';
+		String uri = '${serverUrl}/package';
 
 		Map data = {
 			'userId': userId,
@@ -102,7 +104,7 @@ class PackageListModel extends ChangeNotifier {
 		bool success = false;
 
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = 'http://localhost:3000/package?userId=${userId}&trackingNumber=${trackingNum}';
+		String uri = '${serverUrl}/package?userId=${userId}&trackingNumber=${trackingNum}';
 
 		var response = await http.delete(
 			Uri.parse(uri)

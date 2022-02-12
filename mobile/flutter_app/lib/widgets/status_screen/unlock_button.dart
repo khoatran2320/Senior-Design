@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 import '/utils/colors.dart';
+
+final serverUrl = dotenv.env['SERVER_URL'];
 
 // TODO: Pass isLocked parameter.
 class UnlockButton extends StatefulWidget {
@@ -34,7 +37,7 @@ class _UnlockButtonState extends State<UnlockButton> {
 
 		// TODO: Update hardcoded uri and boxiId to dynamically fetched versions
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = "http://localhost:3000/mobile/unlock-box";
+		String uri = "${serverUrl}/mobile/unlock-box";
 		String boxiId = "boxi_prototype_00000";
 
 		Map data = {

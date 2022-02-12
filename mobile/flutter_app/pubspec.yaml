@@ -41,6 +41,9 @@ dependencies:
   cloud_firestore: ^2.5.4
   provider: ^6.0.1
   http: ^0.13.4
+  firebase_messaging: ^11.2.7
+  flutter_dotenv: ^5.0.2
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,7 @@ flutter:
   assets:
     - assets/images/corner_circles.png
     - assets/images/delivery_pic.png
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
