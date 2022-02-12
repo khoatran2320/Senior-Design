@@ -120,7 +120,7 @@ def lock_status():
 		# Node server's IP address
 		# ifconfig command, look at en0 for IP address
 		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/unlock"
-		r = requests.get(url, params=reqBody)
+		r = requests.post(url, json=reqBody)
 
 		print(r.text, r.status_code)
 		if r.status_code == 200:
