@@ -13,10 +13,10 @@ const COLLECTION_NAME = 'user_packages';
 
 /* ***** get_package_info  *****
 	desc: get the details of a package
-	inputs: 
+	inputs:
 	  trackingNumber: tracking number of the package to retrieve information
-	outputs: 
-	  code 200: succesfully retrieved the information 
+	outputs:
+	  code 200: succesfully retrieved the information
 	  code 400: unable to get package information
 */
 router.get('/', (req, res) => {
@@ -65,12 +65,12 @@ router.get('/', (req, res) => {
 
 /* ***** add_package  *****
 	desc: add a package to start tracking. 3 step mechanism
-	  1. Validate user 
+	  1. Validate user
 	  2. Add package to start tracking in PKGE
 	  3. Add package reference to user in Firestore
-	inputs: 
+	inputs:
 	  trackingNumber: tracking number of the package to track
-	outputs: 
+	outputs:
 	  code 200: successfully adds the new package
 	  code 400: unable to add package, more error codes and error messages in the return response
 */
@@ -115,8 +115,8 @@ router.post('/', (req, res) => {
 						});
 				})
 				.catch((e) => {
-					//unable to add package to PKGE
-					res.status(400).send({ status_code: 400, msg: e.message });
+					// Unable to add package to PKGE
+					res.status(400).send({ status_code: 400, msg: JSON.parse(e).payload });
 				});
 		})
 		.catch((err) => {
@@ -131,9 +131,9 @@ router.post('/', (req, res) => {
 
 /* ***** delete_package  *****
 	desc: delete a package that is currently being tracked
-	inputs: 
+	inputs:
 	  trackingNumber: tracking number of the package to delete
-	outputs: 
+	outputs:
 	  code 200: successfully deleted package
 	  code 404: package with provided tracking number not found
 */
@@ -200,9 +200,9 @@ router.delete('/', (req, res) => {
 
 /* ***** get_packages  *****
 	desc: get a list of packages that are currently being tracked
-	inputs: 
-	  
-	outputs: 
+	inputs:
+
+	outputs:
 	  code 200: succesfully returns the list of packages
 */
 router.get('/all', (req, res) => {
@@ -248,9 +248,9 @@ router.get('/all', (req, res) => {
 
 /* ***** update_package  *****
 	desc: updates the package to get the latest checkpoints and status
-	inputs: 
+	inputs:
 	  trackingNumber: tracking number of the package to update
-	outputs: 
+	outputs:
 	  code 200: successfully queues the update process. This update process may take a while and does not immediately update the status of the package
 	  code 404: package with provided tracking number not found
 	  code 400: unable to update package, more information is sent back to the client
