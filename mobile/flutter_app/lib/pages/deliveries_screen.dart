@@ -101,7 +101,8 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
             return Text('loading...');
           default:
             if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              print('Error: ${snapshot.error}');
+              return Text('Error: Unable to load list of packages.');
             } else {
               return createListView(context, snapshot);
             }
