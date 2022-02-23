@@ -60,7 +60,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
           fetchedPackages.add(Package.fromJson({
             'itemName': k,
             'merchant': k,
-            'status': k,
+            'status': v['status_description'],
             'trackingNum': k,
           })));
 
@@ -101,7 +101,8 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
             return Text('loading...');
           default:
             if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              print('Error: ${snapshot.error}');
+              return Text('Error: Unable to load list of packages.');
             } else {
               return createListView(context, snapshot);
             }
