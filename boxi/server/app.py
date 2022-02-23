@@ -1,4 +1,6 @@
-from flask import Flask
+import json
+from flask import Flask, request, jsonify
+import requests
 
 app = Flask(__name__)
 
@@ -7,6 +9,13 @@ app = Flask(__name__)
 def index():
     return 'Hello World\n'
 
+@app.route('/barcode', methods=["POST"])
+def barcode():
+    body = request.json
+    print(body)
+    r = requests.get("http://155.41.113.124:3000")
+    print(r.text)
+    return jsonify(r.text)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port="4321")
