@@ -5,6 +5,24 @@ from utilities.get_box_user_id import get_box_user_id
 from trip_lock import trip
 app = Flask(__name__)
 
+def validate_request(body):
+	if not body:
+		print("request body not found!")
+		return False
+	reUserId = body["userId"]
+	if not reUserId:
+		print("user ID not found in request")
+		return False
+
+	storedUserId = get_box_user_id()['userId'][0]
+	if storedUserId != reUserId:
+		print("User IDs do not match!")
+		print("userId: ", reUserId)
+		print("stored usr Id: ", storedUserId)
+		return False
+	return True
+
+
 @app.route('/')
 def index():
 	return 'Hello World\n'
@@ -29,7 +47,15 @@ def barcode():
 		print("Did not receive body")
 	return jsonify("hello")
 
-
+@app.route('/unlock', methods=["POST"])
+def unlock():
+	body = request.json
+	if validate_request(body):
+		trip()
+		return "Success"
+	else:
+		return "Unsuccessful"
+		
 @app.route('/lock')
 def lock():
     return True
