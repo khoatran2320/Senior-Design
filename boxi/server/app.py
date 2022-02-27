@@ -38,6 +38,10 @@ def barcode():
 		for item in body:
 			barcode = body[item]
 		reqBody['trackingNumber'] = barcode
+
+		# TODO: Manually update this every time
+		# Node server's IP address
+		# ifconfig command, look at en0 for IP address
 		r = requests.get("http://168.122.4.172:3000/boxi/package", params=reqBody)
 
 		print(r.text, r.status_code)
@@ -52,10 +56,15 @@ def barcode():
 def unlock():
 	body = request.json
 	if validate_request(body):
-		trip()
-		return "Success"
+		try:
+			trip()
+		except Exception as e:
+			errorMessage = "Failed to unlock BOXi\n" + e
+			return jsonify(status=500, msg=errorMessage)
+		else:
+			return jsonify(status=200, msg="Success")
 	else:
-		return "Unsuccessful"
+		return jsonify(status=400, msg="Bad request")
 
 @app.route('/alarm', methods=["POST"])
 def alarm():
@@ -66,7 +75,7 @@ def alarm():
 	else:
 		return "Unsuccessful"
 
-		
+
 @app.route('/lock')
 def lock():
     return True
