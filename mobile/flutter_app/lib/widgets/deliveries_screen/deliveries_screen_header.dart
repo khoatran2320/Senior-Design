@@ -5,9 +5,12 @@ import 'package_status_card.dart';
 
 
 class DeliveriesScreenHeader extends StatelessWidget {
-	const DeliveriesScreenHeader(this.addDeliveryItemHandler, {Key? key}) : super(key: key);
-
 	final Function addDeliveryItemHandler;
+	final Function refreshPackageList;
+
+	const DeliveriesScreenHeader(
+		this.addDeliveryItemHandler, this.refreshPackageList, {Key? key}
+	) : super(key: key);
 
 	final TextStyle textStyle = const TextStyle(
 		color: const Color(0xff446491),
@@ -21,36 +24,60 @@ class DeliveriesScreenHeader extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return SizedBox(
+
+		Text deliveriesScreenTitle = Text(
+			'Deliveries',
+			style: textStyle
+		);
+
+		GestureDetector addPackageButton = GestureDetector(
+			onTap: () {
+				addDeliveryItem(context);
+			},
+			child: Icon(
+				Icons.add_circle,
+				color: Color(0xff446491),
+				size: 23.25
+			)
+		);
+
+		GestureDetector refreshButton = GestureDetector(
+			onTap: () {
+				refreshPackageList();
+			},
+			child: Icon(
+				Icons.refresh,
+				color: Color(0xff446491),
+				size: 23.25
+			),
+		);
+
+
+		SizedBox header = SizedBox(
 			height: 28,
 			width: double.infinity,
 			child: Stack(
 				children: [
 					Positioned(
 						top: 0,
-						right: 0,
-						child: GestureDetector(
-							onTap: () {
-								addDeliveryItem(context);
-							},
-							child: Icon(
-								Icons.add_circle,
-								color: Color(0xff446491),
-								size: 23.25
-							)
-						),
+						left: 0,
+						child: refreshButton
 					),
 					Positioned(
 						top: 0,
-						left: 0,
-						child: Text(
-							'Deliveries',
-							style: textStyle
-						)
+						left: 40,
+						child: deliveriesScreenTitle
+					),
+					Positioned(
+						top: 0,
+						right: 0,
+						child: addPackageButton,
 					)
 				]
 			)
 		);
+
+		return header;
 	}
 
 }

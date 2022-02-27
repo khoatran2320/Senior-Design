@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AddPackageForm extends StatefulWidget {
-	const AddPackageForm({ Key? key }) : super(key: key);
+	final Function refreshPackageList;
+	const AddPackageForm(this.refreshPackageList, { Key? key }) : super(key: key);
 
 	@override
 	AddPackageFormState createState() {
@@ -33,7 +34,7 @@ class AddPackageFormState extends State<AddPackageForm> {
 		});
 	}
 
-	void addPackage() async {
+	void addPackage(Function refreshPackageList) async {
 		bool success = false;
 
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -54,6 +55,7 @@ class AddPackageFormState extends State<AddPackageForm> {
 
 		if (response.statusCode == 200) {
 			success = true;
+			refreshPackageList();
 		}
 
 		apiResultType = success ? '' : 'Error';
@@ -134,7 +136,7 @@ class AddPackageFormState extends State<AddPackageForm> {
 						// Validate returns true if the form is valid, or false otherwise.
 							if (_formKey.currentState!.validate()) {
 								_formKey.currentState?.save();
-								addPackage();
+								addPackage(widget.refreshPackageList);
 							}
 						},
 						child: const Text('Add'),
