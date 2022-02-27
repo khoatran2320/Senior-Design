@@ -47,6 +47,14 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     packages = fetchPackages();
   }
 
+  // Refresh package list after a package is added/deleted or when user taps on
+  // refresh button.
+  void refreshPackageList() {
+    setState(() {
+      packages = fetchPackages();
+    });
+  }
+
   Future<List<Package>> fetchPackages() async {
     List<Package> fetchedPackages = [];
 
@@ -83,7 +91,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
         return Dialog(
           child: Container(
             height: 330,
-            child: AddPackageForm()
+            child: AddPackageForm(refreshPackageList)
           )
         );
       }
@@ -104,7 +112,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
               print('Error: ${snapshot.error}');
               return Text('Error: Unable to load list of packages.');
             } else {
-              return createListView(context, snapshot);
+              return createListView(context, snapshot, refreshPackageList);
             }
         }
       },
@@ -121,7 +129,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
   }
 }
 
-Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+Widget createListView(BuildContext context, AsyncSnapshot snapshot, Function refreshPackageList) {
   List<Package> values = snapshot.data;
   return MediaQuery.removePadding(
     context: context,
@@ -132,7 +140,7 @@ Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
           child: PackageStatusCard(values[index].itemName, values[index].merchant,
-              values[index].status, values[index].trackingNum),
+              values[index].status, values[index].trackingNum, refreshPackageList),
         );
       },
     )

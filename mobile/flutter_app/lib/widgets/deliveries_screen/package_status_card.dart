@@ -9,12 +9,14 @@ class PackageStatusCard extends StatefulWidget {
 	final String merchant;
 	final String status;
 	final String trackingNumber;
+	final Function refreshPackageList;
 
 	const PackageStatusCard(
 		this.itemName,
 		this.merchant,
 		this.status,
 		this.trackingNumber,
+		this.refreshPackageList,
 		{Key? key}
 	) : super(key: key);
 
@@ -51,14 +53,14 @@ class _PackageStatusCardState extends State<PackageStatusCard> {
 		});
 	}
 
-	void _showDeletePackageDialog(context, trackingNumber) {
+	void _showDeletePackageDialog(context, trackingNumber, refreshPackageList) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
             height: 100,
-            child: DeletePackageForm(trackingNumber)
+            child: DeletePackageForm(trackingNumber, refreshPackageList)
           )
         );
       }
@@ -114,7 +116,7 @@ class _PackageStatusCardState extends State<PackageStatusCard> {
 			deleteButton = GestureDetector(
 				onTap: () {
 					showDeleteButtonHandler(false);
-					_showDeletePackageDialog(context, widget.trackingNumber);
+					_showDeletePackageDialog(context, widget.trackingNumber, widget.refreshPackageList);
 				},
 				child: Container(
 					decoration: BoxDecoration(

@@ -7,8 +7,11 @@ import 'package:http/http.dart' as http;
 
 class DeletePackageForm extends StatefulWidget {
 	final String trackingNumber;
+	final Function refreshPackageList;
 
-	const DeletePackageForm(this.trackingNumber, { Key? key }) : super(key: key);
+	const DeletePackageForm(
+		this.trackingNumber, this.refreshPackageList, { Key? key }
+	) : super(key: key);
 
 	@override
 	DeletePackageFormState createState() {
@@ -19,18 +22,17 @@ class DeletePackageForm extends StatefulWidget {
 class DeletePackageFormState extends State<DeletePackageForm> {
 	// TODO: Check if I still need formKey
 	final _formKey = GlobalKey<FormState>();
-	bool showResult = false;
+	bool showApiError = false;
 
-	String?	apiResult = "";
-	String? apiResultType = "";
+	String?	errorMsg = "";
 
-	void showAPIResult () {
+	void showErrorBox () {
 		setState(() {
-			showResult = true;
+			showApiError = true;
 		});
 	}
 
-	void deletePackage(String trackingNumber) async {
+	void deletePackage(String trackingNumber, Function refreshPackageList) async {
 		bool success = false;
 
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -42,11 +44,12 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 
 		if (response.statusCode == 200) {
 			success = true;
+			refreshPackageList();
+			Navigator.pop(context);
+		} else {
+			errorMsg = jsonDecode(response.body)["msg"];
+			showErrorBox();
 		}
-
-		apiResultType = success ? '' : 'Error';
-		apiResult = jsonDecode(response.body)["msg"];
-		showAPIResult();
 	}
 
 	@override
@@ -64,7 +67,7 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 					),
 					ElevatedButton(
 						onPressed: () {
-							deletePackage(widget.trackingNumber);
+							deletePackage(widget.trackingNumber, widget.refreshPackageList);
 						},
 						child: const Text('Yes'),
 					)
@@ -72,14 +75,13 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 			)
 		);
 
-		// TODO: If it's a success, skip apiResultBox and refresh list instead
-		Widget apiResultBox = Column(
+		Widget errorBox = Column(
 			children: [
 				Text(
-					apiResultType.toString()
+					'Error'
 				),
 				Text(
-					apiResult.toString()
+					errorMsg.toString()
 				),
 				ElevatedButton(
 					onPressed: () {
@@ -90,6 +92,6 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 			]
 		);
 
-		return showResult ? apiResultBox : form;
+		return showApiError ? errorBox : form;
 	}
 }
