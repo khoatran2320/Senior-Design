@@ -121,7 +121,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
       children: [
         Container(
           padding: const EdgeInsets.only(top: 25, right: 25, left: 25),
-          child: DeliveriesScreenHeader(addDeliveryItemHandler),
+          child: DeliveriesScreenHeader(addDeliveryItemHandler, refreshPackageList),
         ),
         Expanded(child: futureBuilder)
       ],
