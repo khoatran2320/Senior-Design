@@ -13,6 +13,7 @@ admin.initializeApp({
 const PORT = 3000;
 const packageRouter = require('./routes/package');
 const boxiRouter = require('./routes/boxi');
+const mobileRouter = require('./routes/mobile');
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 });
 app.use('/package', packageRouter);
 app.use('/boxi', boxiRouter);
+app.use('/mobile', mobileRouter);
 
 app.listen(PORT, () => {
 	console.log(`Example app listening at http://localhost:${PORT}`);

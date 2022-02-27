@@ -13,7 +13,7 @@ const PACKAGE_COLLECTION = 'user_packages';
 const BOXI_COLLECTION = 'boxi';
 
 router.get('/package', (req, res) => {
-	const { userId, boxiId, trackingNumber } = req.body;
+	const { userId, boxiId, trackingNumber } = req.query;
 
 	if (!trackingNumber) {
 		res.status(400).send('Requires a tracking number!');
@@ -61,7 +61,8 @@ router.get('/package', (req, res) => {
 						//validate if package is on the way
 						// 3: package is in transit
 						// 4: package is pending delivery
-						if (pkgeInfo['status'] == 3 || pkgeInfo['status'] == 4) {
+						// 5: delivered
+						if (pkgeInfo['status'] == 3 || pkgeInfo['status'] == 4 || pkgeInfo['status'] == 5) {
 							res.status(200).send('Package expected!');
 							return;
 						} else {
