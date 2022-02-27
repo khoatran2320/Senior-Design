@@ -1,10 +1,33 @@
+from ipaddress import ip_address
 from flask import Flask, request, jsonify
 import requests
 #from utilities.file_utils import read_txt_file, write_txt_file
 from utilities.get_box_user_id import get_box_user_id
 from trip_lock import trip
 from beeper import beep
+from get_ip_addr import get_ip_addr
+
 app = Flask(__name__)
+PORT = 4321
+
+def set_ip_addr():
+	ip_address = get_ip_addr()
+	reqBody = get_box_user_id()
+	reqBody['ipAddr'] = ip_address
+	reqBody['port'] = PORT
+
+	print(reqBody)
+	try:
+		r = requests.post("http://10.192.38.43:3000/boxi/post-ip", json=reqBody, verify=False)
+		print(r.text, r.status_code)
+	except:
+		print("Set IP failed")
+
+# class CustomServer(Server):
+#     def __call__(self, app, *args, **kwargs):
+#         set_ip_addr()
+#         #Hint: Here you could manipulate app
+#         return Server.__call__(self, app, *args, **kwargs)
 
 def validate_request(body):
 	if not body:
@@ -15,7 +38,7 @@ def validate_request(body):
 		print("user ID not found in request")
 		return False
 
-	storedUserId = get_box_user_id()['userId'][0]
+	storedUserId = get_box_user_id()['userId']
 	if storedUserId != reUserId:
 		print("User IDs do not match!")
 		print("userId: ", reUserId)
@@ -80,4 +103,5 @@ def vibration():
     return True
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port='4321')
+	set_ip_addr()
+	app.run(host='0.0.0.0', port=PORT)
