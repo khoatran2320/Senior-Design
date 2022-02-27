@@ -1,10 +1,34 @@
+from ipaddress import ip_address
 from flask import Flask, request, jsonify
+from flask_script import Manager, Server
 import requests
 #from utilities.file_utils import read_txt_file, write_txt_file
 from utilities.get_box_user_id import get_box_user_id
 from trip_lock import trip
 from beeper import beep
+from get_ip_addr import get_ip_addr
+
+PORT = 4321
+
+def set_ip_addr():
+	ip_address = get_ip_addr()
+	reqBody = get_box_user_id()
+	reqBody['ip_addr'] = ip_address
+	reqBody['port'] = PORT
+	r = requests.post("http://168.122.4.172:3000/boxi/post-ip", json=reqBody, verify=False)
+	print(r.text, r.status_code)
+
+class CustomServer(Server):
+    def __call__(self, app, *args, **kwargs):
+        set_ip_addr()
+        #Hint: Here you could manipulate app
+        return Server.__call__(self, app, *args, **kwargs)
+
 app = Flask(__name__)
+manager = Manager(app)
+
+# Remeber to add the command to your Manager instance
+manager.add_command('runserver', CustomServer())
 
 def validate_request(body):
 	if not body:
@@ -80,4 +104,5 @@ def vibration():
     return True
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port='4321')
+	# app.run(host='0.0.0.0', port=PORT)
+	manager.run(host='0.0.0.0', port=PORT)
