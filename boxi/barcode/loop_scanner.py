@@ -35,11 +35,12 @@ def loop_scanner(post_url=None):
     #with open("barcodes.json", "a") as outfile:
     #    json.dump(barcode_dict, outfile)
     print(barcode_dict)
-    r = requests.post('http://10.192.32.116:4321/barcode', json=barcode_dict, verify=False)
+    # current IP address of pi
+    r = requests.post('http://10.192.4.148:4321/barcode', json=barcode_dict, verify=False)
     #print(f"Status Code: {r.status_code}, Response: {r.json()}")
     #r = requests.get('http
     #recieved_data = ser.read()
-    
+
     #sleep(0.03)
     #data_left = ser.inWaiting()
     #recieved_data = ser.read(data_left)
@@ -48,4 +49,5 @@ def loop_scanner(post_url=None):
     #ser.write(recieved_data)
 """
 if __name__ == "__main__":
-	loop_scanner("http://10.192.32.116:4321/barcode")
+    # current IP address of pi
+	loop_scanner("http://10.192.4.148:4321/barcode")

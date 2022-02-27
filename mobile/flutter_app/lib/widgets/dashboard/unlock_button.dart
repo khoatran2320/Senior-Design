@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
 import '/utils/colors.dart';
 
@@ -26,10 +30,39 @@ class _UnlockButtonState extends State<UnlockButton> {
 		isLocked = widget.isLocked;
 	}
 
-	void unlock() {
-		setState(() {
-			isLocked = false;
-		});
+	void unlock() async {
+
+		// TODO: Update hardcoded uri and boxiId to dynamically fetched versions
+		String? userId = FirebaseAuth.instance.currentUser?.uid;
+		String uri = "http://localhost:3000/mobile/unlock-box";
+		String boxiId = "boxi_prototype_00000";
+
+		Map data = {
+			'userId': userId,
+			'boxiId': boxiId
+		};
+
+		var body = json.encode(data);
+
+		var response = await http.post(
+			Uri.parse(uri),
+      headers: {
+				'Content-Type': 'application/json;charset=UTF-8',
+				'Charset': 'utf-8'
+			},
+      body: body
+	  );
+
+		if (response.statusCode == 200) {
+			setState(() {
+				isLocked = false;
+			});
+		}
+		else {
+			print('Error');
+		}
+		// TODO: Add popup for "Unlocking BOXi failed"
+		// figure out how to show popup, refer to code from add package form
 	}
 
 	@override
