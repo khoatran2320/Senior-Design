@@ -385,11 +385,11 @@ router.post('/alarm', async (req, res) => {
 		return;
 	}
 
-	// update the boxi status to lock/unlock
+	// update the boxi status to toggle alarm
 	try {
 		await boxiRef.update({ alarm_status: isAlarming });
 	} catch (err) {
-		res.status(400).send('Failed to unlock boxi');
+		res.status(400).send('Failed to post boxi alarm status');
 		return;
 	}
 
@@ -452,6 +452,78 @@ router.get('/alarm-status', async (req, res) => {
 
 	const alarmStatus = boxiDoc.data()['alarm_status'];
 	res.status(200).send({ status_code: 200, data: alarmStatus, msg: 'Success!' });
+	return;
+});
+
+router.post('/post-ip', async (req, res) => {
+	// Turning on/off alarm on a Boxi given Boxi ID
+	const { userId, boxiId, ipAddr, port} = req.body;
+
+	if (!userId) {
+		res.status(400).send('Requires a user ID!');
+		return;
+	}
+	if (!boxiId) {
+		res.status(400).send('Requires a box ID!');
+		return;
+	}
+
+	// check if user exist
+	try {
+		await auth.getAuth().getUser(userId);
+	} catch (err) {
+		//unable to find user
+		if (err['errorInfo']['code'] == 'auth/user-not-found') {
+			res.status(400).send('User does not exist');
+			return;
+		}
+		res.status(400).send('Something went wrong!');
+		return;
+	}
+
+	// check if user owns this box
+	let userOwnsBox = false;
+	try {
+		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
+		sshot.forEach((doc) => {
+			if (doc.id == boxiId) {
+				userOwnsBox = true;
+			}
+		});
+	} catch (err) {
+		res.status(400).send('Something went wrong!');
+		return;
+	}
+	if (!userOwnsBox) {
+		res.status(403).send('User does not have access to this box!');
+		return;
+	}
+
+	// check if boxiId exist
+	const boxiRef = db.collection(BOXI_COLLECTION).doc(boxiId);
+	const boxiDoc = await boxiRef.get();
+
+	if (!boxiDoc.exists) {
+		res.status(400).send('Invalid Boxi ID');
+		return;
+	}
+
+	// update the ip of the box
+	try {
+		await boxiRef.update({ ip_addr: ipAddr });
+	} catch (err) {
+		res.status(400).send('Failed to post boxi ip');
+		return;
+	}
+
+	try {
+		await boxiRef.update({ port: port });
+	} catch (err) {
+		res.status(400).send('Failed to post boxi port');
+		return;
+	}
+
+	res.status(200).send('Success!');
 	return;
 });
 
