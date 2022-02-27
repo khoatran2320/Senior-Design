@@ -510,7 +510,7 @@ router.post('/post-ip', async (req, res) => {
 
 	// update the ip of the box
 	try {
-		await boxiRef.update({ ip_addr: ipAddr, port: port });
+		await boxiRef.set({ ip_addr: ipAddr, port: port });
 	} catch (err) {
 		console.log(err)
 		res.status(400).send('Failed to post boxi ip');
