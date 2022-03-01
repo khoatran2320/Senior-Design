@@ -6,6 +6,7 @@ from utilities.get_box_user_id import get_box_user_id
 from trip_lock import trip
 from beeper import beep
 from get_ip_addr import get_ip_addr
+from lcd import LCD_disp
 
 app = Flask(__name__)
 PORT = 4321
@@ -70,7 +71,10 @@ def barcode():
 		print(r.text, r.status_code)
 		if r.status_code == 200:
 			trip()
+			LCD_disp("Box unlocked!")
 			#open lock
+		else:
+			LCD_disp("Barcode Failed!")
 	else:
 		print("Did not receive body")
 	return jsonify("hello")
@@ -81,7 +85,9 @@ def unlock():
 	if validate_request(body):
 		try:
 			trip()
+			LCD_disp("Box unlocked!")
 		except Exception as e:
+			LCD_disp("Failed")
 			errorMessage = "Failed to unlock BOXi\n" + e
 			return jsonify(status=500, msg=errorMessage)
 		else:
@@ -94,6 +100,7 @@ def alarm():
 	body = request.json
 	if validate_request(body):
 		beep(20)
+		LCD_disp("ALARM!")
 		return "Success"
 	else:
 		return "Unsuccessful"
