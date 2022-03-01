@@ -1,6 +1,7 @@
 import serial
 import json
 import requests
+from get_ip_addr import get_ip_addr
 #from datetime import datetime
 #from time import sleep
 
@@ -49,4 +50,5 @@ def loop_scanner(post_url=None):
 """
 if __name__ == "__main__":
     # current IP address of pi
-	loop_scanner("http://10.192.4.148:4321/barcode")
+    box_ip = get_ip_addr()
+    loop_scanner("http://" + box_ip + ":4321/barcode")

@@ -1,5 +1,8 @@
+from json import load
 import RPi.GPIO as GPIO
 import time
+import requests
+from get_ip_addr import get_ip_addr
 
 GPIO.setwarnings(False)
 
@@ -11,9 +14,17 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(beeper_trip, GPIO.OUT)
 
 # trip func: outputs on gpio pin 36 for 1 millisecond
-def beep(iterations=20):
+def beep(iterations=20, post_url=None):
 	buzzer = GPIO.PWM(beeper_trip,1000)
 	n = 0
+
+	if post_url != None:
+		load = dict({"a_status" : True})
+		try:
+			r = requests.post(post_url, json=load, verify=False)
+		except:
+			pass
+
 	while(n < iterations):
 		#buzzer = GPIO.PWM(beeper_trip, 1000)
 		print("beeping")
@@ -27,6 +38,13 @@ def beep(iterations=20):
 		#GPIO.output(beeper_trip, GPIO.LOW) 
 		#time.sleep(1)
 
+	if post_url != None:
+		load = dict({"a_status" : False})
+		try:
+			r = requests.post(post_url, json=load, verify=False)
+		except:
+			pass
 if __name__ == "__main__":
-	beep()	
+	box_ip = get_ip_addr()
+	beep(20, "http://" + box_ip + ":4321/alarm-status")	
 	#beep()

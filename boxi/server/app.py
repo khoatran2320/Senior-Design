@@ -2,7 +2,7 @@ from ipaddress import ip_address
 from flask import Flask, request, jsonify
 import requests
 #from utilities.file_utils import read_txt_file, write_txt_file
-from utilities.get_box_user_id import get_box_user_id
+from utilities.get_box_user_id import get_box_user_id, get_node_server_ip
 from trip_lock import trip
 from beeper import beep
 from get_ip_addr import get_ip_addr
@@ -10,6 +10,8 @@ from lcd import LCD_disp
 
 app = Flask(__name__)
 PORT = 4321
+NODE_PORT = 3000
+NODE_IP = get_node_server_ip()
 
 def set_ip_addr():
 	ip_address = get_ip_addr()
@@ -19,16 +21,10 @@ def set_ip_addr():
 
 	print(reqBody)
 	try:
-		r = requests.post("http://10.192.38.43:3000/boxi/post-ip", json=reqBody, verify=False)
+		r = requests.post("http://" + NODE_IP + ":" + NODE_PORT + "/boxi/post-ip", json=reqBody, verify=False)
 		print(r.text, r.status_code)
 	except:
 		print("Set IP failed")
-
-# class CustomServer(Server):
-#     def __call__(self, app, *args, **kwargs):
-#         set_ip_addr()
-#         #Hint: Here you could manipulate app
-#         return Server.__call__(self, app, *args, **kwargs)
 
 def validate_request(body):
 	if not body:
@@ -66,7 +62,7 @@ def barcode():
 		# TODO: Manually update this every time
 		# Node server's IP address
 		# ifconfig command, look at en0 for IP address
-		r = requests.get("http://168.122.4.172:3000/boxi/package", params=reqBody)
+		r = requests.get("http://" + NODE_IP + ":" + NODE_PORT + "/boxi/package", params=reqBody)
 
 		print(r.text, r.status_code)
 		if r.status_code == 200:
@@ -99,16 +95,66 @@ def unlock():
 def alarm():
 	body = request.json
 	if validate_request(body):
-		beep(20)
 		LCD_disp("ALARM!")
+		beep(20)
 		return "Success"
 	else:
 		return "Unsuccessful"
 
 
-@app.route('/lock')
-def lock():
-    return True
+@app.route('/lock-status')
+def lock_status():
+	body = request.json
+	if body:
+		print(body)
+		reqBody = get_box_user_id()
+		l_stat = None
+		for item in body:
+			l_stat = body[item]
+		reqBody['isUnlocking'] = l_stat
+
+		# TODO: Manually update this every time
+		# Node server's IP address
+		# ifconfig command, look at en0 for IP address
+		r = requests.get("http://" + NODE_IP + ":" + NODE_PORT +" /boxi/unlock", params=reqBody)
+
+		print(r.text, r.status_code)
+		if r.status_code == 200:
+			print("posted lock status")
+			#open lock
+		else:
+			print("failed to post lock status")
+	else:
+		print("Did not receive body")
+	return jsonify("hello")
+
+
+@app.route('/alarm-status')
+def alarm_status():
+	body = request.json
+	if body:
+		print(body)
+		reqBody = get_box_user_id()
+		l_stat = None
+		for item in body:
+			l_stat = body[item]
+		reqBody['isAlarming'] = l_stat
+
+		# TODO: Manually update this every time
+		# Node server's IP address
+		# ifconfig command, look at en0 for IP address
+		r = requests.get("http://" + NODE_IP + ":" + NODE_PORT + "/boxi/alarm", params=reqBody)
+
+		print(r.text, r.status_code)
+		if r.status_code == 200:
+			print("posted alarmm status")
+			#open lock
+		else:
+			print("failed to post alarm status")
+	else:
+		print("Did not receive body")
+	return jsonify("hello")
+
 
 @app.route('/weight')
 def weight():
