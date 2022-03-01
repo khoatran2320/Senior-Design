@@ -71,7 +71,7 @@ def barcode():
 		print(r.text, r.status_code)
 		if r.status_code == 200:
 			trip()
-			LCD_disp("Box unlocked!")
+			LCD_disp("BOXi unlocked!")
 			#open lock
 		else:
 			LCD_disp("Barcode Failed!")
@@ -85,7 +85,7 @@ def unlock():
 	if validate_request(body):
 		try:
 			trip()
-			LCD_disp("Box unlocked!")
+			LCD_disp("BOXi unlocked!")
 		except Exception as e:
 			LCD_disp("Failed")
 			errorMessage = "Failed to unlock BOXi\n" + e
