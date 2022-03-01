@@ -12,6 +12,9 @@ const db = admin.firestore();
 const PACKAGE_COLLECTION = 'user_packages';
 const BOXI_COLLECTION = 'boxi';
 
+// Helper functions
+const { checkUserExist, checkUserOwnsBox } = require('../helpers/auth-helper');
+
 router.get('/package', (req, res) => {
 	const { userId, boxiId, trackingNumber } = req.query;
 
@@ -150,31 +153,12 @@ router.post('/delivery', async (req, res) => {
 	}
 
 	// check if user exist
-	try {
-		await auth.getAuth().getUser(userId);
-	} catch (err) {
-		//unable to find user
-		if (err['errorInfo']['code'] == 'auth/user-not-found') {
-			res.status(400).send('User does not exist');
-			return;
-		}
-		res.status(400).send('Something went wrong!');
+	if (!await checkUserExist(userId, res)) {
 		return;
 	}
 
 	// check if user owns this box
-	let userOwnsBox = false;
-	try {
-		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
-		sshot.forEach((doc) => {
-			if (doc.id == boxiId) {
-				userOwnsBox = true;
-			}
-		});
-	} catch (err) {
-		res.status(400).send('Something went wrong!');
-		return;
-	}
+	let userOwnsBox = await checkUserOwnsBox(userId, boxiId, res);
 
 	if (!userOwnsBox) {
 		res.status(403).send('User does not have access to this box!');
@@ -223,31 +207,13 @@ router.post('/unlock', async (req, res) => {
 	}
 
 	// check if user exist
-	try {
-		await auth.getAuth().getUser(userId);
-	} catch (err) {
-		//unable to find user
-		if (err['errorInfo']['code'] == 'auth/user-not-found') {
-			res.status(400).send('User does not exist');
-			return;
-		}
-		res.status(400).send('Something went wrong!');
+	if (!await checkUserExist(userId, res)) {
 		return;
 	}
 
 	// check if user owns this box
-	let userOwnsBox = false;
-	try {
-		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
-		sshot.forEach((doc) => {
-			if (doc.id == boxiId) {
-				userOwnsBox = true;
-			}
-		});
-	} catch (err) {
-		res.status(400).send('Something went wrong!');
-		return;
-	}
+	let userOwnsBox = await checkUserOwnsBox(userId, boxiId, res);
+
 	if (!userOwnsBox) {
 		res.status(403).send('User does not have access to this box!');
 		return;
@@ -288,31 +254,13 @@ router.get('/unlock-status', async (req, res) => {
 	}
 
 	// check if user exist
-	try {
-		await auth.getAuth().getUser(userId);
-	} catch (err) {
-		//unable to find user
-		if (err['errorInfo']['code'] == 'auth/user-not-found') {
-			res.status(400).send('User does not exist');
-			return;
-		}
-		res.status(400).send('Something went wrong!');
+	if (!await checkUserExist(userId, res)) {
 		return;
 	}
 
 	// check if user owns this box
-	let userOwnsBox = false;
-	try {
-		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
-		sshot.forEach((doc) => {
-			if (doc.id == boxiId) {
-				userOwnsBox = true;
-			}
-		});
-	} catch (err) {
-		res.status(400).send('Something went wrong!');
-		return;
-	}
+	let userOwnsBox = await checkUserOwnsBox(userId, boxiId, res);
+
 	if (!userOwnsBox) {
 		res.status(403).send('User does not have access to this box!');
 		return;
@@ -346,31 +294,13 @@ router.post('/alarm', async (req, res) => {
 	}
 
 	// check if user exist
-	try {
-		await auth.getAuth().getUser(userId);
-	} catch (err) {
-		//unable to find user
-		if (err['errorInfo']['code'] == 'auth/user-not-found') {
-			res.status(400).send('User does not exist');
-			return;
-		}
-		res.status(400).send('Something went wrong!');
+	if (!await checkUserExist(userId, res)) {
 		return;
 	}
 
 	// check if user owns this box
-	let userOwnsBox = false;
-	try {
-		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
-		sshot.forEach((doc) => {
-			if (doc.id == boxiId) {
-				userOwnsBox = true;
-			}
-		});
-	} catch (err) {
-		res.status(400).send('Something went wrong!');
-		return;
-	}
+	let userOwnsBox = await checkUserOwnsBox(userId, boxiId, res);
+
 	if (!userOwnsBox) {
 		res.status(403).send('User does not have access to this box!');
 		return;
@@ -411,31 +341,13 @@ router.get('/alarm-status', async (req, res) => {
 	}
 
 	// check if user exist
-	try {
-		await auth.getAuth().getUser(userId);
-	} catch (err) {
-		//unable to find user
-		if (err['errorInfo']['code'] == 'auth/user-not-found') {
-			res.status(400).send('User does not exist');
-			return;
-		}
-		res.status(400).send('Something went wrong!');
+	if (!await checkUserExist(userId, res)) {
 		return;
 	}
 
 	// check if user owns this box
-	let userOwnsBox = false;
-	try {
-		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
-		sshot.forEach((doc) => {
-			if (doc.id == boxiId) {
-				userOwnsBox = true;
-			}
-		});
-	} catch (err) {
-		res.status(400).send('Something went wrong!');
-		return;
-	}
+	let userOwnsBox = await checkUserOwnsBox(userId, boxiId, res);
+
 	if (!userOwnsBox) {
 		res.status(403).send('User does not have access to this box!');
 		return;
@@ -457,7 +369,7 @@ router.get('/alarm-status', async (req, res) => {
 
 router.post('/post-ip', async (req, res) => {
 	// Turning on/off alarm on a Boxi given Boxi ID
-	const { userId, boxiId, ipAddr, port} = req.body;
+	const { userId, boxiId, ipAddr, port } = req.body;
 
 	if (!userId) {
 		res.status(400).send('Requires a user ID!');
@@ -469,31 +381,13 @@ router.post('/post-ip', async (req, res) => {
 	}
 
 	// check if user exist
-	try {
-		await auth.getAuth().getUser(userId);
-	} catch (err) {
-		//unable to find user
-		if (err['errorInfo']['code'] == 'auth/user-not-found') {
-			res.status(400).send('User does not exist');
-			return;
-		}
-		res.status(400).send('Something went wrong!');
+	if (!await checkUserExist(userId, res)) {
 		return;
 	}
 
 	// check if user owns this box
-	let userOwnsBox = false;
-	try {
-		const sshot = await db.collection(PACKAGE_COLLECTION).doc(userId).collection('boxes').get();
-		sshot.forEach((doc) => {
-			if (doc.id == boxiId) {
-				userOwnsBox = true;
-			}
-		});
-	} catch (err) {
-		res.status(400).send('Something went wrong!');
-		return;
-	}
+	let userOwnsBox = await checkUserOwnsBox(userId, boxiId, res);
+
 	if (!userOwnsBox) {
 		res.status(403).send('User does not have access to this box!');
 		return;
@@ -512,7 +406,7 @@ router.post('/post-ip', async (req, res) => {
 	try {
 		await boxiRef.set({ ip_addr: ipAddr, port: port });
 	} catch (err) {
-		console.log(err)
+		console.log(err);
 		res.status(400).send('Failed to post boxi ip');
 		return;
 	}
