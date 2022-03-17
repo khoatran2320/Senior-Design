@@ -18,6 +18,11 @@ Mella Liang, Daniel Gruspier, Yan Chen, Khoa Tran, Kenneth Chan
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#mobile-setup">Mobile setup</a></li>
+        <li><a href="#node-server-setup">Node server setup</a></li>
+        <li><a href="#flask-server-setup">Node server setup</a></li>
+      </ul>
     </li>
     <li>
       <a href="#documentation">Documentation</a>
@@ -35,6 +40,9 @@ Mella Liang, Daniel Gruspier, Yan Chen, Khoa Tran, Kenneth Chan
 There is no economical consumer solution to the issue of porch package theft that integrates delivery tracking and reception. An ideal solution, which is not yet available, would offer physical storage of deliveries that is impenetrable to tampering, informs the owner about the status of both the receptacle and its contents, synchronizes with delivery tracking services, and only allows access to its contents by the recipient and those mailpersons making deliveries to that recipient. Our solution aims to provide consumers with a secure anti-theft package box that approaches these features. The anti-theft package box, named “BOXi”, will integrate with tracking services and be resistant to unauthorized access, simple to use, and economical. 
 <br />
 </p>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <h2>Deliverables</h2>
 <p >
 Our design will consist of a durable lock box to be installed on the exterior of a home near the front door. BOXi can be secured to the consumer’s home in different ways, allowing for flexibility. First, it can be chained to the home similar to how a bike can be chained to a post to prevent theft. Second, BOXi will allow the user to add additional sand that will increase the overall weight of the lock box to 150lbs, making it very difficult to be stolen. Finally, BOXi can be anchored directly to the porch floor by bolting it to drilled holes in the concrete. These mechanisms will allow the lock box to be safely secured at the user’s home while housing the packages. 
@@ -61,8 +69,65 @@ Our solution also comes with a mobile application that will accompany the lock b
 <!-- GETTING STARTED -->
 ## Getting Started
 
-How to start
+The whole system includes a Flask server running on the Raspberry Pi, a Node server running on any machine, and a mobile application. It also depends on Google Firebase Authentication and Firestore.  
 
+BOXi uses a third party package manager from pkge.net. 
+
+To clone this repository:
+```
+git clone https://github.com/khoatran2320/Senior-Design.git
+```
+### Mobile setup
+1. Install Flutter 2.5.3
+2. Install a simulator OR use a physical device:
+    - Android studio with emulator support for Android SDK 31
+    - Xcode with emulator support for IOS versions greater than 13
+    - Android phone
+    - iPhone with IOS version greater than 13
+3. Navigate to mobile app directory:
+```
+cd mobile/flutter_app
+``` 
+4. Install package dependencies:
+```
+flutter pub get
+```
+5. Open simulator
+6. Click run as debug (Android) or for IOS:
+```
+flutter run
+```
+    
+### Node server setup
+1. Install the latest version of Node
+2. Navigate to server directory:
+```
+cd server
+```
+3. Install dependencies:
+```
+sudo npm install
+```
+4. Obtain Google Firebase service account key
+5. Obtain pkge.net developer API key
+6. To run server:
+```
+node src/index.js
+```
+### Flask server setup
+1. Install Python version 3.8 with pip
+2. Navigate to the BOXi server:
+```
+cd boxi/server
+```
+3. Install Flask:
+```
+pip install flask
+```
+4. Run the Flask server:
+```
+python app.py
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- DOCUMENTATION  -->
