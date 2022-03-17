@@ -47,7 +47,8 @@ BOXi is a senior design project completed to fulfill the undergraduate degree re
 <p>
 There is no economical consumer solution to the issue of porch package theft that integrates delivery tracking and reception. An ideal solution, which is not yet available, would offer physical storage of deliveries that is impenetrable to tampering, informs the owner about the status of both the receptacle and its contents, synchronizes with delivery tracking services, and only allows access to its contents by the recipient and those mailpersons making deliveries to that recipient. Our solution aims to provide consumers with a secure anti-theft package box that approaches these features. The anti-theft package box, named “BOXi”, will integrate with tracking services and be resistant to unauthorized access, simple to use, and economical. 
 <br />
-</p>
+  </p>
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -78,6 +79,9 @@ Our solution also comes with a mobile application that will accompany the lock b
 ## Architecture
 
 ### Software
+![Blank diagram (1)](https://user-images.githubusercontent.com/48025259/158888516-efcc7081-0b33-4a20-aae4-1e3bfe57f440.png)
+
+![Blank diagram](https://user-images.githubusercontent.com/48025259/158888466-2b04163a-603e-4b44-8f65-1a55c152b0c2.png)
 ### Hardware
 <!-- GETTING STARTED -->
 ## Getting Started
