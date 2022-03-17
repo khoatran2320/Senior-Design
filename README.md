@@ -79,9 +79,7 @@ Our solution also comes with a mobile application that will accompany the lock b
 ## Architecture
 
 ### Software
-![Blank diagram (1)](https://user-images.githubusercontent.com/48025259/158888516-efcc7081-0b33-4a20-aae4-1e3bfe57f440.png)
 
-![Blank diagram](https://user-images.githubusercontent.com/48025259/158888466-2b04163a-603e-4b44-8f65-1a55c152b0c2.png)
 ### Hardware
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -154,7 +152,9 @@ python app.py
 <!-- DOCUMENTATION  -->
 ## Documentation  
 
-Documentation
+![Blank diagram (1)](https://user-images.githubusercontent.com/48025259/158888516-efcc7081-0b33-4a20-aae4-1e3bfe57f440.png)
+
+![Blank diagram](https://user-images.githubusercontent.com/48025259/158888466-2b04163a-603e-4b44-8f65-1a55c152b0c2.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
