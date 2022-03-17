@@ -97,7 +97,8 @@ flutter pub get
 ```
 flutter run
 ```
-    
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Node server setup
 1. Install the latest version of Node
 2. Navigate to server directory:
@@ -114,6 +115,9 @@ sudo npm install
 ```
 node src/index.js
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Flask server setup
 1. Install Python version 3.8 with pip
 2. Navigate to the BOXi server:
