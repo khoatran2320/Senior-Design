@@ -83,4 +83,4 @@ Tests
 <img width="232" alt="Screen Shot 2021-10-14 at 4 07 00 PM" src="https://user-images.githubusercontent.com/48025259/137388069-dd229399-a92b-4df9-ba3c-9d483f5c0eae.png">
 
 ## Hardware Prototype
-![CDR Model(1)](https://user-images.githubusercontent.com/60275153/158883283-676afe8d-e0ad-46cf-b15d-369b755fb57d.png)
+![CDR Model(2)](https://user-images.githubusercontent.com/60275153/158884474-a6f0bfe5-ca8b-44ff-82c2-83fb2ed2f794.png)
