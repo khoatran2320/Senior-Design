@@ -6,6 +6,7 @@ Mella Liang, Daniel Gruspier, Yan Chen, Khoa Tran, Kenneth Chan
 <!-- PROJECT LOGO -->
 ## About the Project
 
+BOXi is a senior design project completed to fulfill the undergraduate degree requirement at Boston University's College of Engineering. This project was completed during the school year 2021-2022. 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -59,9 +60,11 @@ Our solution also comes with a mobile application that will accompany the lock b
 
 ## User Stories
 
-1. test
-2. test
-3. test
+1. User can log in to mobile app to add a package to track, view the status of tracked packages, and delete a package from being tracked. 
+2. User can unlock BOXi from the mobile app. 
+3. User is notified of package deliveries. 
+4. User is notified when BOXi is being tampered with. 
+5. Delivery personel can scan an expected package to open BOXi. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
