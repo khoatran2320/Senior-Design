@@ -54,7 +54,7 @@ There is no economical consumer solution to the issue of porch package theft tha
 
 <h2>Deliverables</h2>
 <p >
-Our design will consist of a durable lock box to be installed on the exterior of a home near the front door. BOXi can be secured to the consumer’s home in different ways, allowing for flexibility. First, it can be chained to the home similar to how a bike can be chained to a post to prevent theft. Second, BOXi will allow the user to add additional sand that will increase the overall weight of the lock box to 150lbs, making it very difficult to be stolen. Finally, BOXi can be anchored directly to the porch floor by bolting it to drilled holes in the concrete. These mechanisms will allow the lock box to be safely secured at the user’s home while housing the packages. 
+Our design will consist of a durable lock box to be installed on the exterior of a home near the front door. BOXi can be secured to a railing, post, or other permanent fixture of the user’s home via a chain lock (such as a bike lock) or padlock thanks to an attachment fixture on the side of BOXi. These mechanisms will allow the lock box to be safely secured at the user’s home while housing the packages. 
 
 BOXi has a unique authorization mechanism that only allows access to the intended user. The consumer can directly open the box from their phones that are connected to BOXi. Additionally, the user can open the box with a key that does not require power or a mobile device to operate. BOXi has a barcode scanner that will allow delivery personnel access once an expected package is scanned. 
 
