@@ -1,4 +1,76 @@
 # BOXi
+<!-- PROJECT LOGO -->
+## About the Project
+<div id="top"></div>
+<br />
+<div>
+<h2>Purpose</h2>
+<p>
+The purpose of this project is to build a platform that will allow medical professionals to monitor patients at home or at the hospital. Additionally, patients and family members, as well as other relevant parties can interact with the platform. 
+<br />
+</p>
+<h2>Concept</h2>
+<p >
+The platform allows for multiple user roles such as doctors, patients, nurses, admis, family members, and developers. A user can have multiple roles. The platform interaction with many modules to provide users with an overall smooth experience in terms of health monitoring. These modules include device interaction, calendar scheduling, alerts, chatting, voice transriber, data management, and application interfaces. 
+<br />
+</p>
+</div>
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#user-stories">User Stories</a>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+    </li>
+    <li>
+      <a href="#documentation">Documentation</a>
+    </li>
+    <li>
+      <a href="#tests">Tests</a>
+    </li>
+  </ol>
+</details>
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+## User Stories
+
+1. test
+2. test
+3. test
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+How to start
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- DOCUMENTATION  -->
+## Documentation  
+
+Documentation
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Tests  
+Tests
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+# BOXi
 
 Mella Liang, Daniel Gruspier, Yan Chen, Khoa Tran, Kenneth Chan
 
