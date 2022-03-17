@@ -18,6 +18,13 @@ BOXi is a senior design project completed to fulfill the undergraduate degree re
       <a href="#user-stories">User Stories</a>
     </li>
     <li>
+      <a href="#architecture">Architecture</a>
+      <ul>
+        <li><a href="#software">Software</a></li>
+        <li><a href="#hardware">Hardware</a></li>
+      </ul>
+    </li>
+    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#mobile-setup">Mobile setup</a></li>
@@ -68,7 +75,10 @@ Our solution also comes with a mobile application that will accompany the lock b
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Architecture
 
+### Software
+### Hardware
 <!-- GETTING STARTED -->
 ## Getting Started
 
