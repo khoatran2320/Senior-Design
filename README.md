@@ -82,7 +82,7 @@ Our solution also comes with a mobile application that will accompany the lock b
 <img width="645" alt="Screen Shot 2022-03-17 at 4 25 13 PM" src="https://user-images.githubusercontent.com/48025259/158889342-66159f1c-9fa2-44cc-b1e9-23270608d2ce.png">
 
 ### Hardware
-![Electronics Block Diagram V1 1(3)](https://user-images.githubusercontent.com/60275153/158895188-8d269eca-8c09-480a-b5a7-9b6921cd4f8f.png)
+![Electronics Block Diagram V1 1(4)](https://user-images.githubusercontent.com/60275153/158902009-c7d38546-e088-44dc-89a5-69e25fce2a34.png)
 
 BOXi is powered from standard 120VAC wall power. Power on BOXi by plugging it into an outlet via the plug insert on the left side of the lid. A grounded outlet must be used. Mount BOXi to a railing, post, or other permanent fixture by looping a chain lock (such as a bike lock) or padlock through the attachment fixture on the back side of the casing. The entire casing of BOXi is constructed from 6061 grade aluminum or various thickness. The attachment fixture is constructed from 0.05in. thick 3000 grade aluminum.
 
