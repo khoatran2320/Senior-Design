@@ -1,10 +1,9 @@
 # BOXi
-
+<div id="top"></div>
 Mella Liang, Daniel Gruspier, Yan Chen, Khoa Tran, Kenneth Chan
 
 <!-- PROJECT LOGO -->
 ## About the Project
-<div id="top"></div>
 <br />
 <div>
 <h2>Problem Statement</h2>
