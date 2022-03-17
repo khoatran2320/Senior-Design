@@ -59,7 +59,7 @@ class _UnlockButtonState extends State<UnlockButton> {
 			});
 		}
 		else {
-			print('Error');
+			print('Error unlocking button');
 		}
 		// TODO: Add popup for "Unlocking BOXi failed"
 		// figure out how to show popup, refer to code from add package form

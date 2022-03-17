@@ -4,30 +4,38 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/deliveries_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../utils/colors.dart';
-import 'package:provider/provider.dart';
 import '../utils/authentication_service.dart';
 import "../widgets/forms/sign_in/email_field.dart";
 import "../widgets/forms/sign_in/password_field.dart";
 import "../widgets/forms/sign_in/redirect_signup.dart";
 import "../widgets/buttons/signin_page/submit.dart";
 import "../pages/dashboard.dart";
+import '/utils/authentication_service.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class SignIn extends StatefulWidget {
+class SignIn extends ConsumerStatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInState extends ConsumerState<SignIn> {
   String email = "";
   String password = "";
   String _errorMsg = "";
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final firebaseUser = ref.read(firebaseAuthProvider).userChanges();
+  }
 
   void emailCallback(String text) {
     email = text;
@@ -39,7 +47,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
+    final firebaseUser = ref.watch(firebaseAuthProvider).userChanges();
 
     if (firebaseUser != null) {
       print('Found User Logged In');
@@ -57,19 +65,28 @@ class _SignInState extends State<SignIn> {
 
     void submitHandler() {
       _errorMsg = "";
+      final _auth = ref.read(firebaseAuthProvider);
+
       if (_form.currentState!.validate()) {
         try {
-          context
-              .read<AuthenticationService>()
-              .signIn(email: email, password: password);
+          _auth.signInWithEmailAndPassword(email: email, password: password);
         } catch (e) {
           _errorMsg = "Invalid email and password combination.";
         }
       }
-      if (context.read<AuthenticationService>().isLoggedIn()) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Dashboard()));
-      }
+
+      final _authState = ref.watch(authStateProvider);
+
+      // Go to Dashboard when user is logged in
+      return _authState.when(
+        // User data is available == logged in
+        data: (data) {
+          if (data != null) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Dashboard()));
+          }
+        }
+      );
     }
 
     return Scaffold(
