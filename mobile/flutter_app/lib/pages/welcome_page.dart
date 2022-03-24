@@ -26,7 +26,7 @@ class MainPage extends StatelessWidget{
           WelcomePageHeader("BOXi", _viewHeight),
           Image.asset("assets/images/delivery_pic.png", ), 
           WelcomePageSubHeader("Safe delivery across homes"), 
-          WelcomePageDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id risus lobortis leo varius sed enim quis nisl. Habitant tincidunt egestas est sed dapibus.", _viewHeight),
+          WelcomePageDescription("Shopping online should be easy and hassle-free! Gone are the days where you have to deal with customer support for hours because of lost packages! Ready for a peace of mind? Start using BOXi!", _viewHeight),
           WelcomePageButtonGetStarted("Get Started", _viewWidth, _viewHeight)
         ],
       ),
