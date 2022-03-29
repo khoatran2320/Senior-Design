@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '/utils/colors.dart';
 import 'package_status_card.dart';
+import '/models/package_list_model.dart';
+import '/utils/colors.dart';
 
 
 class DeliveriesScreenHeader extends StatelessWidget {
 	final Function addDeliveryItemHandler;
-	final Function refreshPackageList;
 
 	const DeliveriesScreenHeader(
-		this.addDeliveryItemHandler, this.refreshPackageList, {Key? key}
+		this.addDeliveryItemHandler, {Key? key}
 	) : super(key: key);
 
 	final TextStyle textStyle = const TextStyle(
@@ -32,7 +33,7 @@ class DeliveriesScreenHeader extends StatelessWidget {
 
 		GestureDetector addPackageButton = GestureDetector(
 			onTap: () {
-				addDeliveryItem(context);
+				addDeliveryItemHandler(context);
 			},
 			child: Icon(
 				Icons.add_circle,
@@ -43,7 +44,7 @@ class DeliveriesScreenHeader extends StatelessWidget {
 
 		GestureDetector refreshButton = GestureDetector(
 			onTap: () {
-				refreshPackageList();
+				Provider.of<PackageListModel>(context, listen: false).loadList();
 			},
 			child: Icon(
 				Icons.refresh,

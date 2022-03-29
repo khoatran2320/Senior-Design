@@ -5,10 +5,12 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import '/models/package_list_model.dart';
 
 class AddPackageForm extends StatefulWidget {
-	final Function refreshPackageList;
-	const AddPackageForm(this.refreshPackageList, { Key? key }) : super(key: key);
+	const AddPackageForm({ Key? key }) : super(key: key);
 
 	@override
 	AddPackageFormState createState() {
@@ -19,48 +21,43 @@ class AddPackageForm extends StatefulWidget {
 
 class AddPackageFormState extends State<AddPackageForm> {
 	final _formKey = GlobalKey<FormState>();
-	bool showResult = false;
+	bool showError = false;
 	String? itemName = "";
 	String? trackingNumber = "";
 	String? merchantName = "";
 	String? orderNumber = "";
 
-	String?	apiResult = "";
-	String? apiResultType = "";
+	String?	errorMessage = "";
 
-	void showAPIResult () {
-		setState(() {
-			showResult = true;
-		});
+	void showErrorMessage ([bool show = true]) {
+		if (show) {
+			setState(() {
+				showError = true;
+			});
+		} else {
+			setState(() {
+				showError = false;
+			});
+		}
 	}
 
-	void addPackage(Function refreshPackageList) async {
-		bool success = false;
+	void addPackage() async {
+		var apiResult = await Provider.of<PackageListModel>(context, listen: false).add(
+			itemName,
+			trackingNumber,
+			merchantName,
+			orderNumber
+		);
 
-		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = 'http://localhost:3000/package';
+		bool success = apiResult['success'];
 
-		Map data = {
-			'userId': userId,
-			'trackingNumber': trackingNumber
-		};
-
-		var body = json.encode(data);
-
-		var response = await http.post(
-			Uri.parse(uri),
-      headers: {"Content-Type": "application/json"},
-      body: body
-	  );
-
-		if (response.statusCode == 200) {
-			success = true;
-			refreshPackageList();
+		if (success) {
+			Navigator.pop(context);
 		}
-
-		apiResultType = success ? '' : 'Error';
-		apiResult = jsonDecode(response.body)["msg"];
-		showAPIResult();
+		else {
+			errorMessage = apiResult['errorMsg'];
+			showErrorMessage();
+		}
 	}
 
 	@override
@@ -136,7 +133,7 @@ class AddPackageFormState extends State<AddPackageForm> {
 						// Validate returns true if the form is valid, or false otherwise.
 							if (_formKey.currentState!.validate()) {
 								_formKey.currentState?.save();
-								addPackage(widget.refreshPackageList);
+								addPackage();
 							}
 						},
 						child: const Text('Add'),
@@ -145,16 +142,18 @@ class AddPackageFormState extends State<AddPackageForm> {
 			)
 		);
 
-		Widget apiResultBox = Column(
+		Widget errorBox = Column(
 			children: [
 				Text(
-					apiResultType.toString()
+					'Error'
 				),
 				Text(
-					apiResult.toString()
+					errorMessage.toString()
 				),
 				ElevatedButton(
 					onPressed: () {
+						errorMessage = "";
+						showErrorMessage(false);
 						Navigator.pop(context);
 					},
 					child: const Text('OK'),
@@ -162,6 +161,6 @@ class AddPackageFormState extends State<AddPackageForm> {
 			]
 		);
 
-		return showResult ? apiResultBox : form;
+		return showError ? errorBox : form;
 	}
 }
