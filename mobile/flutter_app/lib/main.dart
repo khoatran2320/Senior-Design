@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import './utils/authentication_service.dart';
+import '/models/package_list_model.dart';
+import '/utils/authentication_service.dart';
 
 ///********** UI Import **********///
-import "./pages/splash.dart";
-import "./utils/colors.dart";
+import "/pages/splash.dart";
+import "/utils/colors.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               context.read<AuthenticationService>().authStateChanges,
           initialData: null,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PackageListModel()
         )
       ],
       child: MaterialApp(

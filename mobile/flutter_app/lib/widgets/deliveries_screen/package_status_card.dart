@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '/models/package.dart';
 import '/utils/colors.dart';
 import '/widgets/deliveries_screen/delete_package_form.dart';
 
 
 class PackageStatusCard extends StatefulWidget {
-	final String itemName;
-	final String merchant;
-	final String status;
-	final String trackingNumber;
-	final Function refreshPackageList;
+	final Package package;
 
-	const PackageStatusCard(
-		this.itemName,
-		this.merchant,
-		this.status,
-		this.trackingNumber,
-		this.refreshPackageList,
-		{Key? key}
-	) : super(key: key);
+	const PackageStatusCard(this.package, {Key? key}) : super(key: key);
 
 	@override
 	_PackageStatusCardState createState() => _PackageStatusCardState();
@@ -53,14 +43,14 @@ class _PackageStatusCardState extends State<PackageStatusCard> {
 		});
 	}
 
-	void _showDeletePackageDialog(context, trackingNumber, refreshPackageList) {
+	void _showDeletePackageDialog(context, trackingNumber) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
             height: 100,
-            child: DeletePackageForm(trackingNumber, refreshPackageList)
+            child: DeletePackageForm(trackingNumber)
           )
         );
       }
@@ -71,28 +61,35 @@ class _PackageStatusCardState extends State<PackageStatusCard> {
 	Widget build(BuildContext context) {
 		double screenWidth = MediaQuery.of(context).size.width;
 
+		String itemName = widget.package.itemName;
+		String merchant = widget.package.merchant;
+		String status = widget.package.status;
+		String trackingNum = widget.package.trackingNum;
+
+		status = status[0].toUpperCase() + status.substring(1);
+
 		Padding cardContent = Padding(
 			padding: EdgeInsets.only(top: 10, left: 15, bottom: 13),
 			child: Column(
 				crossAxisAlignment: CrossAxisAlignment.start,
 				children: [
 					Text(
-						"Item: ${widget.itemName}",
+						"Item: ${itemName}",
 						style: itemNameStyle
 					),
 					Spacer(),
 					Text(
-						"Merchant: ${widget.merchant}",
+						"Merchant: ${merchant}",
 						style: textStyle
 					),
 					Spacer(),
 					Text(
-						"Status: ${widget.status[0].toUpperCase()}${widget.status.substring(1)}",
+						"Status: ${status}",
 						style: textStyle
 					),
 					Spacer(),
 					Text(
-						"Tracking: ${widget.trackingNumber}",
+						"Tracking #: ${trackingNum}",
 						style: textStyle
 					)
 				]
@@ -116,7 +113,7 @@ class _PackageStatusCardState extends State<PackageStatusCard> {
 			deleteButton = GestureDetector(
 				onTap: () {
 					showDeleteButtonHandler(false);
-					_showDeletePackageDialog(context, widget.trackingNumber, widget.refreshPackageList);
+					_showDeletePackageDialog(context, trackingNum);
 				},
 				child: Container(
 					decoration: BoxDecoration(

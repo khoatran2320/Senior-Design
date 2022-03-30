@@ -4,13 +4,15 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import '/models/package_list_model.dart';
 
 class DeletePackageForm extends StatefulWidget {
 	final String trackingNumber;
-	final Function refreshPackageList;
 
 	const DeletePackageForm(
-		this.trackingNumber, this.refreshPackageList, { Key? key }
+		this.trackingNumber, { Key? key }
 	) : super(key: key);
 
 	@override
@@ -26,28 +28,27 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 
 	String?	errorMsg = "";
 
-	void showErrorBox () {
-		setState(() {
-			showApiError = true;
-		});
+	void showErrorBox ([bool show = true]) {
+		if (show) {
+			setState(() {
+				showApiError = true;
+			});
+		} else {
+			setState(() {
+				showApiError = false;
+			});
+		}
 	}
 
-	void deletePackage(String trackingNumber, Function refreshPackageList) async {
-		bool success = false;
+	void deletePackage(String trackingNumber) async {
 
-		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = 'http://localhost:3000/package?userId=${userId}&trackingNumber=${trackingNumber}';
+		var apiErrorMsg = await Provider.of<PackageListModel>(context, listen: false).delete(trackingNumber);
 
-		var response = await http.delete(
-			Uri.parse(uri)
-	  );
-
-		if (response.statusCode == 200) {
-			success = true;
-			refreshPackageList();
+		if (apiErrorMsg.isEmpty) {
 			Navigator.pop(context);
-		} else {
-			errorMsg = jsonDecode(response.body)["msg"];
+		}
+		else {
+			errorMsg = apiErrorMsg;
 			showErrorBox();
 		}
 	}
@@ -67,7 +68,7 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 					),
 					ElevatedButton(
 						onPressed: () {
-							deletePackage(widget.trackingNumber, widget.refreshPackageList);
+							deletePackage(widget.trackingNumber);
 						},
 						child: const Text('Yes'),
 					)
@@ -85,6 +86,8 @@ class DeletePackageFormState extends State<DeletePackageForm> {
 				),
 				ElevatedButton(
 					onPressed: () {
+						errorMsg = "";
+						showErrorBox(false);
 						Navigator.pop(context);
 					},
 					child: const Text('OK'),

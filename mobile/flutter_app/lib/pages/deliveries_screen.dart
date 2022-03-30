@@ -1,35 +1,15 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
+import '/models/package.dart';
+import '/models/package_list_model.dart';
 import '/utils/colors.dart';
 import '/widgets/deliveries_screen/add_package_form.dart';
 import '/widgets/deliveries_screen/deliveries_screen_header.dart';
 import '/widgets/deliveries_screen/package_status_card.dart';
 
-class Package {
-  final String itemName;
-  final String merchant;
-  final String status;
-  final String trackingNum;
 
-  Package({
-    required this.itemName,
-    required this.merchant,
-    required this.status,
-    required this.trackingNum,
-  });
-
-  factory Package.fromJson(Map<String, dynamic> json) {
-    return Package(
-        itemName: json['itemName'],
-        merchant: json['merchant'],
-        status: json['status'],
-        trackingNum: json['trackingNum']);
-  }
-}
-
+// TODO: consumer for package list model
 class DeliveriesScreen extends StatefulWidget {
   const DeliveriesScreen({Key? key}) : super(key: key);
 
@@ -39,59 +19,14 @@ class DeliveriesScreen extends StatefulWidget {
 
 class _DeliveriesScreenState extends State<DeliveriesScreen> {
 
-  late Future<List<Package>> packages;
-
-  @override
-  void initState() {
-    super.initState();
-    packages = fetchPackages();
-  }
-
-  // Refresh package list after a package is added/deleted or when user taps on
-  // refresh button.
-  void refreshPackageList() {
-    setState(() {
-      packages = fetchPackages();
-    });
-  }
-
-  Future<List<Package>> fetchPackages() async {
-    List<Package> fetchedPackages = [];
-
-    String? userId = FirebaseAuth.instance.currentUser?.uid;
-    final response = await http.get(Uri.parse(
-        'http://localhost:3000/package/all?userId=$userId'));
-
-    if (response.statusCode == 200) {
-      var responsePackages = jsonDecode(response.body)["data"];
-      responsePackages.forEach((k, v) =>
-          fetchedPackages.add(Package.fromJson({
-            'itemName': k,
-            'merchant': k,
-            'status': v['status_description'],
-            'trackingNum': k,
-          })));
-
-      return fetchedPackages;
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load packages');
-    }
-  }
-
   void addDeliveryItemHandler(context) {
-    _showAddDeliveryItemDialog(context);
-  }
-
-  void _showAddDeliveryItemDialog(context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
             height: 330,
-            child: AddPackageForm(refreshPackageList)
+            child: AddPackageForm()
           )
         );
       }
@@ -100,47 +35,41 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var futureBuilder = FutureBuilder(
-      future: packages,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return Text('loading...');
-          default:
-            if (snapshot.hasError) {
-              print('Error: ${snapshot.error}');
-              return Text('Error: Unable to load list of packages.');
-            } else {
-              return createListView(context, snapshot, refreshPackageList);
-            }
-        }
-      },
-    );
     return Column(
       children: [
         Container(
           padding: const EdgeInsets.only(top: 25, right: 25, left: 25),
-          child: DeliveriesScreenHeader(addDeliveryItemHandler, refreshPackageList),
+          child: DeliveriesScreenHeader(addDeliveryItemHandler),
         ),
-        Expanded(child: futureBuilder)
+        Expanded(
+          child: Consumer<PackageListModel>(
+            builder: (context, packageListModel, child) {
+              return packageListView(context, packageListModel.packageList);
+            }
+          )
+        )
       ],
     );
   }
 }
 
-Widget createListView(BuildContext context, AsyncSnapshot snapshot, Function refreshPackageList) {
-  List<Package> values = snapshot.data;
+Widget packageListView(BuildContext context, List<Package> packageList) {
   return MediaQuery.removePadding(
     context: context,
     removeTop: true,
     child: ListView.builder(
-      itemCount: values.length,
+      itemCount: packageList.length,
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: PackageStatusCard(values[index].itemName, values[index].merchant,
-              values[index].status, values[index].trackingNum, refreshPackageList),
+          child: PackageStatusCard(
+            Package(
+              packageList[index].itemName,
+              packageList[index].merchant,
+              packageList[index].status,
+              packageList[index].trackingNum
+            )
+          ),
         );
       },
     )
