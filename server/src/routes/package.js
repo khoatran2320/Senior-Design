@@ -75,7 +75,7 @@ router.get('/', (req, res) => {
 	  code 400: unable to add package, more error codes and error messages in the return response
 */
 router.post('/', (req, res) => {
-	const { trackingNumber, userId } = req.body;
+	const { trackingNumber, userId, itemName, merchantName, orderNumber } = req.body;
 	if (!trackingNumber) {
 		res.status(400).send({ status_code: 400, msg: 'Requires a tracking number!' });
 		return;
@@ -102,7 +102,10 @@ router.post('/', (req, res) => {
 						.doc(trackingNumber);
 					docRef
 						.set({
-							status: pkgeAPI.deliveryStatus[0]
+							status: pkgeAPI.deliveryStatus[0],
+							itemName: itemName,
+							merchantName: merchantName,
+							orderNumber: orderNumber
 						})
 						.then((r) => {
 							// everything went smoothly
@@ -213,6 +216,8 @@ router.get('/all', (req, res) => {
 		return;
 	}
 
+	packageCount = 0;
+
 	auth
 		.getAuth()
 		.getUser(userId)
@@ -220,15 +225,25 @@ router.get('/all', (req, res) => {
 			pkgeAPI
 				.getPackages()
 				.then(async (pkges) => {
-					let packages = {};
+					let packages = [];
 					const snapshot = await db.collection(COLLECTION_NAME).doc(userId).collection('trackings').get();
-					for (const pkge in pkges) {
+					for (const i in pkges) {
+
 						snapshot.forEach((doc) => {
-							if (doc.id == pkges[pkge]['track_number']) {
-								packages[pkges[pkge]['track_number']] = pkges[pkge];
+							if (doc.id == pkges[i]['track_number']) {
+
+								packages[packageCount] = {
+									trackingNum: doc.id,
+									itemName: doc._fieldsProto.itemName.stringValue,
+									merchantName: doc._fieldsProto.merchantName.stringValue,
+									trackingInfo: pkges[i]
+								};
+
+								packageCount += 1;
 							}
 						});
 					}
+
 					res.status(200).send({ status_code: 200, data: packages, msg: 'Success!' });
 					return;
 				})
@@ -238,7 +253,7 @@ router.get('/all', (req, res) => {
 				});
 		})
 		.catch((err) => {
-			//unable to find user
+			// Unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
 				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
 			}

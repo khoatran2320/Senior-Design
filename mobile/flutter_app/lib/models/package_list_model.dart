@@ -32,17 +32,17 @@ class PackageListModel extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       var responsePackages = jsonDecode(response.body)["data"];
-			// TODO: Fill in proper fields for Package
-      responsePackages.forEach((trackingNum, v) =>
-        _packageList.add(
+
+			for (var pkg in responsePackages) {
+				_packageList.add(
 					Package(
-            trackingNum,
-            trackingNum,
-            v['status_description'],
-            trackingNum
+            pkg['itemName'],
+						pkg['merchantName'],
+            pkg['trackingInfo']['status_description'],
+            pkg['trackingNum']
         	)
-				)
-			);
+				);
+			}
 
 			notifyListeners();
 
@@ -68,7 +68,10 @@ class PackageListModel extends ChangeNotifier {
 
 		Map data = {
 			'userId': userId,
-			'trackingNumber': trackingNumber
+			'trackingNumber': trackingNumber,
+			'itemName': itemName,
+			'merchantName': merchantName,
+			'orderNumber': orderNumber
 		};
 
 		var body = json.encode(data);
