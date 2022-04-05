@@ -9,7 +9,6 @@ import '/widgets/deliveries_screen/deliveries_screen_header.dart';
 import '/widgets/deliveries_screen/package_status_card.dart';
 
 
-// TODO: consumer for package list model
 class DeliveriesScreen extends StatefulWidget {
   const DeliveriesScreen({Key? key}) : super(key: key);
 
