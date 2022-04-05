@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import '../widgets/dashboard/alarm_toggle_switch.dart';
-import '../widgets/dashboard/unlock_button.dart';
+import '../widgets/status_screen/alarm_toggle_switch.dart';
+import '../widgets/status_screen/unlock_button.dart';
+import '../widgets/status_screen/setup_button.dart';
 
 
 class StatusScreen extends StatefulWidget {
@@ -26,9 +27,14 @@ class _StatusScreenState extends State<StatusScreen> {
 						child: UnlockButton(isLocked: true)
 					),
 					Positioned(
-						bottom: 125,
-						left: 25,
+						bottom: 100,
+						left: 20,
 						child: AlarmToggleSwitch()
+					),
+					Positioned(
+						bottom: 100,
+						right: 20,
+						child: SetupButton()
 					)
 				],
 			),
