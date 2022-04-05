@@ -105,7 +105,7 @@ def alarm():
 		return "Unsuccessful"
 
 
-@app.route('/lock-status')
+@app.route('/lock-status', methods=["POST"])
 def lock_status():
 	body = request.json
 	if body:
