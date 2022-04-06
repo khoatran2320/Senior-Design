@@ -1,1 +1,1 @@
-10.192.33.24
+ec2-54-227-230-171.compute-1.amazonaws.com
