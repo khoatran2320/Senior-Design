@@ -115,11 +115,13 @@ router.post('/', (req, res) => {
 						.catch((e) => {
 							// unable to write to firestore
 							res.status(400).send({ status_code: 400, msg: 'Unable to write to Firestore' });
+							return;
 						});
 				})
 				.catch((e) => {
 					// Unable to add package to PKGE
 					res.status(400).send({ status_code: 400, msg: JSON.parse(e).payload });
+					return;
 				});
 		})
 		.catch((err) => {
@@ -129,6 +131,7 @@ router.post('/', (req, res) => {
 				return;
 			}
 			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
+			return;
 		});
 });
 
