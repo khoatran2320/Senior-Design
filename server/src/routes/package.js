@@ -46,20 +46,25 @@ router.get('/', (req, res) => {
 					.getPackage(trackingNumber)
 					.then((pkgeInfo) => {
 						res.status(200).send({ status_code: 200, data: pkgeInfo, msg: 'Success!' });
+						return;
 					})
 					.catch((e) => {
 						res.status(400).send({ status_code: 400, msg: e.message });
+						return;
 					});
 			} else {
 				res.status(400).send({ status_code: 400, msg: 'Package does not exist' });
+				return;
 			}
 		})
 		.catch((err) => {
 			//unable to find user
 			if (err['errorInfo']['code'] == 'auth/user-not-found') {
 				res.status(400).send({ status_code: 400, msg: 'User does not exist' });
+				return;
 			}
 			res.status(400).send({ status_code: 400, msg: 'Something went wrong!' });
+			return;
 		});
 });
 
