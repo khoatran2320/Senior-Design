@@ -10,7 +10,7 @@ def link_box():
 		lines = [line.rstrip('\n') for line in f]
 		boxId = lines[0]
 	reqBody = dict({"userId" : userId, "boxiId": boxId})
-	r = requests.post("http://168.122.4.172:3000/boxi/add-box", json=reqBody, verify=False)
+	r = requests.post("ec2-54-227-230-171.compute-1.amazonaws.com:3000/boxi/add-box", json=reqBody, verify=False)
 	print(r.text)
 if __name__ == "__main__":
 	link_box()
