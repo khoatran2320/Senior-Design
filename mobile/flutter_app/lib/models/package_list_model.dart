@@ -51,7 +51,9 @@ class PackageListModel extends ChangeNotifier {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load packages');
+			var responseBody = response.body;
+			var responseStatusCode = response.statusCode;
+      print('Failed to load packages\n$responseBody');
     }
 	}
 
