@@ -1,0 +1,1 @@
+echo -e 'auto lo\n\niface lo inet loopback\niface eth0 inet dhcp\n\nallow-hotplug wlan0\nauto wlan0\niface wlan0 inet static\n\taddress "'$ip'"\n\tgateway "'$gateway'"\n\tnetmask "'$netmask'"\n\twpa-ssid "'$wifiSSID'"\n\twpa-psk "'$wifiPassword'"' > $networkInterfacesConfigLocation
