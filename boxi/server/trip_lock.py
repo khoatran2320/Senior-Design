@@ -19,7 +19,7 @@ GPIO.setup(lock_status, GPIO.IN)
 # trip func: outputs on gpio pin 36 for 1 millisecond
 def trip():
     GPIO.output(lock_trip, GPIO.HIGH)
-    time.sleep(.1)
+    sleep(.1)
     GPIO.output(lock_trip, GPIO.LOW)
 
 # is_trip func: outputs on gpio pin 33 for 1 millisecond
