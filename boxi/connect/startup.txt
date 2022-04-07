@@ -1,0 +1,4 @@
+sudo ~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/loop_scanner.py
+~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/lock_is_trip.py
+~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/app.py
+~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/vibration.py
