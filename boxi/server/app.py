@@ -8,7 +8,6 @@ from trip_lock import trip
 from beeper import beep
 from get_ip_addr import get_ip_addr
 from lcd import LCD_disp
-from config_wifi import config_wifi
 
 app = Flask(__name__)
 PORT = 4321
@@ -79,17 +78,6 @@ def barcode():
 		print("Did not receive body")
 	return jsonify("hello")
 
-@app.route('/wifi', methods=["POST"])
-def wifi():
-	body = request.json
-	if body:
-		try:
-			ssid = body['ssid']
-			pwd = body['pwd']
-			config_wifi(ssid, pwd)
-		except:
-			LCD_disp("Wifi setup failed!")
-	return jsonify("hello")
 
 @app.route('/unlock', methods=["POST"])
 def unlock():

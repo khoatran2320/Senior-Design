@@ -4,7 +4,8 @@ import requests
 from get_ip_addr import get_ip_addr
 #from datetime import datetime
 #from time import sleep
-
+from config_wifi import config_wifi
+from lcd import LCD_disp
 ser = serial.Serial('/dev/ttyS0', 9600)
 
 #, timeout=5,parity=serial.PARITY_ODD
@@ -46,33 +47,9 @@ def loop_scanner(post_url=None):
                 except:
                     pass
         else:
-            barcode_dict = dict({'ssid':ssid, 'pwd': pwd})
-            print(barcode_dict)
-            if post_url != None:
-                try:
-                    r = requests.post(post_url + '/wifi', json=barcode_dict, verify=False)
-                except:
-                    pass
-"""while True:
-    barcode = readData()
-    ind += 1
-    barcode_dict = dict({ind:barcode})
-    #print(barcode_dict)
-    #with open("barcodes.json", "a") as outfile:
-    #    json.dump(barcode_dict, outfile)
-    print(barcode_dict)
-    # current IP address of pi
-    r = requests.post('http://10.192.4.148:4321/barcode', json=barcode_dict, verify=False)
-    #print(f"Status Code: {r.status_code}, Response: {r.json()}")
-    #r = requests.get('http
-    #recieved_data = ser.read()
-    #sleep(0.03)
-    #data_left = ser.inWaiting()
-    #recieved_data = ser.read(data_left)
-    #print('Reading data')
-    #print(recieved_data)
-    #ser.write(recieved_data)
-"""
+            config_wifi(ssid, pwd)
+            LCD_disp("Wifi setup failed!")
+
 if __name__ == "__main__":
     # current IP address of pi
     box_ip = get_ip_addr()
