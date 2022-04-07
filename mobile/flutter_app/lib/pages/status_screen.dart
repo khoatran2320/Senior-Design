@@ -24,7 +24,7 @@ class _StatusScreenState extends State<StatusScreen> {
 				children: [
 					Positioned(
 						top: 60,
-						child: UnlockButton(isLocked: true)
+						child: UnlockButton()
 					),
 					Positioned(
 						bottom: 100,

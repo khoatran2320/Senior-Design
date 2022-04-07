@@ -5,6 +5,9 @@ const router = express.Router();
 // PKGE 3rd Party API
 const pkgeAPI = require('../pkge_api');
 
+// Import local function
+const { sendLockNotification } = require('../notifications/lock_notification');
+
 // Firebase setup
 const auth = require('firebase-admin/auth');
 const admin = require('firebase-admin');
@@ -256,6 +259,8 @@ router.post('/unlock', async (req, res) => {
 	// check if boxiId exist
 	const boxiRef = db.collection(BOXI_COLLECTION).doc(boxiId);
 	const boxiDoc = await boxiRef.get();
+	const prevUnlockStatus = boxiDoc.data()['unlock_status'];
+	var success = false;
 
 	if (!boxiDoc.exists) {
 		res.status(400).send('Invalid Boxi ID');
@@ -265,12 +270,24 @@ router.post('/unlock', async (req, res) => {
 	// update the boxi status to lock/unlock
 	try {
 		await boxiRef.update({ unlock_status: isUnlocking });
+		success = true;
 	} catch (err) {
 		res.status(400).send('Failed to unlock boxi');
 		return;
 	}
 
 	res.status(200).send('Success!');
+
+
+	// TODO: Call notif for locking/unlocking here
+	if (prevUnlockStatus != isUnlocking) {
+		try {
+			await sendLockNotification(isUnlocking, userId);
+		} catch (err) {
+			console.log('Failed to sendLockNotification\n', err);
+		}
+	}
+
 	return;
 });
 

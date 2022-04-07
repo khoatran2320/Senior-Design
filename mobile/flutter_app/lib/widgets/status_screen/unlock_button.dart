@@ -4,23 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
+import '/models/lock_model.dart';
 import '/utils/colors.dart';
 
 final serverUrl = dotenv.env['SERVER_URL'];
 
 // TODO: Pass isLocked parameter.
 class UnlockButton extends StatefulWidget {
-	final bool isLocked;
-	const UnlockButton({ Key? key, this.isLocked = true }) : super(key: key);
+	const UnlockButton({ Key? key }) : super(key: key);
 
 	@override
 	_UnlockButtonState createState() => _UnlockButtonState();
 }
 
 class _UnlockButtonState extends State<UnlockButton> {
-
-	bool isLocked = true;
 
 	final TextStyle textStyle = TextStyle(
 		color: Color(0xffF9FDFE),
@@ -30,10 +29,9 @@ class _UnlockButtonState extends State<UnlockButton> {
 
 	void initState() {
 		super.initState();
-		isLocked = widget.isLocked;
 	}
 
-	void unlock() async {
+	void unlock(context) async {
 
 		// TODO: Update hardcoded uri and boxiId to dynamically fetched versions
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -57,9 +55,8 @@ class _UnlockButtonState extends State<UnlockButton> {
 	  );
 
 		if (response.statusCode == 200) {
-			setState(() {
-				isLocked = false;
-			});
+			// Update isLocked to false
+			Provider.of<LockModel>(context, listen: false).update(false);
 		}
 		else {
 			print('Error');
@@ -86,25 +83,35 @@ class _UnlockButtonState extends State<UnlockButton> {
 						),
 						GestureDetector(
 							onTap: () {
-								unlock();
+								unlock(context);
 							},
-							child: Icon(
-								isLocked ? Icons.lock : Icons.lock_open,
-								color: Color(0xffE4FCF9),
-								size: 60
-							),
+							child: Consumer<LockModel>(
+		            builder: (context, lockModel, child) {
+		              return Icon(
+										lockModel.isLocked ? Icons.lock : Icons.lock_open,
+										color: Color(0xffE4FCF9),
+										size: 60
+									);
+		            }
+		          )
 						),
 					],
 				),
-				TextButton(
-					child: Text(
-						isLocked
-							? 'Tap to Unlock'
-							: 'Close the box lid to lock it.',
-						style: textStyle
-					),
-					onPressed: () {
-						isLocked ? unlock() : null;
+				Consumer<LockModel>(
+					builder: (context, lockModel, child) {
+						var isLocked = lockModel.isLocked;
+
+						return TextButton(
+							child: Text(
+								isLocked
+									? 'Tap to Unlock'
+									: 'Close the box lid to lock it.',
+								style: textStyle
+							),
+							onPressed: () {
+								isLocked ? unlock(context) : null;
+							}
+						);
 					}
 				)
 			]

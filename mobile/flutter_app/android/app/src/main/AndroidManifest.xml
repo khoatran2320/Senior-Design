@@ -7,13 +7,19 @@
         >
 
         <activity
+            android:exported="true"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
+<<<<<<< Updated upstream
             android:exported="true">
+=======
+            android:showWhenLocked="true"
+            android:turnScreenOn="true">
+>>>>>>> Stashed changes
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -31,7 +37,13 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
+            <!-- Replaces default notification channel with "high_importance_channel"
+                 from /flutter_app/lib/utils/auth_notifications. -->
+            <meta-data
+              android:name="com.google.firebase.messaging.default_notification_channel_id"
+              android:value="high_importance_channel" />
             <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>

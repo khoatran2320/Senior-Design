@@ -7,6 +7,7 @@ import 'package:flutter_app/pages/deliveries_screen.dart';
 import '../utils/colors.dart';
 import 'package:provider/provider.dart';
 import '../utils/authentication_service.dart';
+import '/utils/auth_token.dart';
 import "../widgets/forms/sign_in/email_field.dart";
 import "../widgets/forms/sign_in/password_field.dart";
 import "../widgets/forms/sign_in/redirect_signup.dart";
@@ -43,6 +44,7 @@ class _SignInState extends State<SignIn> {
 
     if (firebaseUser != null) {
       print('Found User Logged In');
+      setupToken(); // Used for push notifications
     } else {
       print('User not logged in');
     }
