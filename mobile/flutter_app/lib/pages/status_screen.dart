@@ -19,22 +19,20 @@ class _StatusScreenState extends State<StatusScreen> {
 	Widget build(BuildContext context) {
 		return Container(
 			color: Color(0xffB7E7D5),
-			child: Stack(
-				alignment: Alignment.topCenter,
+			child: Column(
+				mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 				children: [
-					Positioned(
-						top: 60,
-						child: UnlockButton(isLocked: true)
-					),
-					Positioned(
-						bottom: 100,
-						left: 20,
-						child: AlarmToggleSwitch()
-					),
-					Positioned(
-						bottom: 100,
-						right: 20,
-						child: SetupButton()
+					UnlockButton(isLocked: true),
+					Row(
+						mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+						crossAxisAlignment: CrossAxisAlignment.end,
+						children: [
+							AlarmToggleSwitch(),
+							Align(
+				        alignment: Alignment.bottomCenter,
+				        child: SetupButton(),
+				      ),
+						]
 					)
 				],
 			),

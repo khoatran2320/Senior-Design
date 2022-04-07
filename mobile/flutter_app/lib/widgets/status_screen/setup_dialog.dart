@@ -15,19 +15,31 @@ class SetupDialog extends StatefulWidget {
 	}
 }
 
+final _formKey = GlobalKey<FormState>();
+
 class SetupDialogState extends State<SetupDialog> {
-	// TODO: Check if I still need formKey
-	final _formKey = GlobalKey<FormState>();
+	String box = "confirmSetupDialog"; // Other options: wifiForm, qrCodeBox
 	bool showQRCode = false;
-	String userId = "";
+	String qrData = "";
+
+	bool showError = false;
+	String? wifiUsername = "";
+	String? wifiPassword = "";
+
+	String?	errorMessage = "";
 
 	generateQRCode() {
-		// TODO: Call server for userID
-		String generatedUserId = "Where user_id should go";
+		String data = "###\$$wifiUsername\$$wifiPassword###";
 
 		setState(() {
 			showQRCode = true;
-			userId = generatedUserId;
+			qrData = data;
+		});
+	}
+
+	changeBox(boxName) {
+		setState(() {
+			box = boxName;
 		});
 	}
 
@@ -40,7 +52,7 @@ class SetupDialogState extends State<SetupDialog> {
 					"Please scan this QR code with BOXi:"
 				),
 				QrImage(
-				  data: userId,
+				  data: qrData,
 				  version: QrVersions.auto,
 				  size: 320,
 				  gapless: false,
@@ -69,7 +81,7 @@ class SetupDialogState extends State<SetupDialog> {
 						children: [
 							ElevatedButton(
 								onPressed: () {
-									generateQRCode();
+									changeBox("wifiForm");
 								},
 								child: const Text('OK'),
 							),
@@ -84,6 +96,70 @@ class SetupDialogState extends State<SetupDialog> {
 				]
 			)
 		);
+
+		Widget wifiForm = Form(
+			key: _formKey,
+			child: Column(
+				children: <Widget>[
+					Padding(
+						padding: EdgeInsets.all(15),
+						child: Column(
+							children: <Widget>[
+								TextFormField(
+									decoration: const InputDecoration(
+			              labelText: 'WiFi Username'
+			            ),
+									onSaved: (value) {
+			              wifiUsername = value;
+			          	},
+									validator: (value) {
+										if (value == null || value.isEmpty) {
+											return 'Please enter the WiFi username.';
+										}
+
+										return null;
+									}
+								),
+								TextFormField(
+									decoration: const InputDecoration(
+			              labelText: 'WiFi Password'
+			            ),
+									onSaved: (value) {
+			              wifiPassword = value;
+			          	},
+									validator: (value) {
+										if (value == null || value.isEmpty) {
+											return 'Please enter the WiFi password.';
+										}
+
+										return null;
+									}
+								)
+							]
+						)
+					),
+					ElevatedButton(
+						onPressed: () {
+						// Validate returns true if the form is valid, or false otherwise.
+							if (_formKey.currentState!.validate()) {
+								_formKey.currentState?.save();
+								generateQRCode();
+								changeBox("qrCodeBox");
+							}
+						},
+						child: const Text('Set Up WiFi'),
+					)
+				]
+			)
+		);
+
+		if (box == "qrCodeBox") {
+			return qrCodeBox;
+		} else if (box == "wifiForm") {
+			return wifiForm;
+		} else {
+			return confirmSetupDialog;
+		}
 
 		return showQRCode ? qrCodeBox : confirmSetupDialog;
 	}
