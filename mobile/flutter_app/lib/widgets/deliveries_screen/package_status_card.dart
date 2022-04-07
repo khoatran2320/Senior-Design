@@ -135,15 +135,14 @@ class _PackageStatusCardState extends State<PackageStatusCard> {
 		}
 
 		return GestureDetector(
-			onTap: () {
-				getPackageDetails();
-			},
-			onPanUpdate: (details) {
-				// Swipe left on card to show delete icon
-				if (details.delta.dx < 0) {
+	    onHorizontalDragUpdate: (details) {
+        // Note: Sensitivity is integer used when you don't want to mess up vertical drag
+        int sensitivity = 8;
+				// Left Swipe
+        if(details.delta.dx < -sensitivity){
 					showDeleteButtonHandler(true);
-				}
-		  },
+        }
+	    },
 			child: Container(
 				decoration: BoxDecoration(
 	        borderRadius: BorderRadius.circular(10),

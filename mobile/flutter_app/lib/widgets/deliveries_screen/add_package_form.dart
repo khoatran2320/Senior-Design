@@ -18,9 +18,9 @@ class AddPackageForm extends StatefulWidget {
 	}
 }
 
+final _formKey = GlobalKey<FormState>();
 
 class AddPackageFormState extends State<AddPackageForm> {
-	final _formKey = GlobalKey<FormState>();
 	bool showError = false;
 	String? itemName = "";
 	String? trackingNumber = "";
