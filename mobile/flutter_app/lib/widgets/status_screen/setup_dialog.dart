@@ -29,7 +29,7 @@ class SetupDialogState extends State<SetupDialog> {
 	String?	errorMessage = "";
 
 	generateQRCode() {
-		String data = "###\$$wifiUsername\$$wifiPassword###";
+		String data = "###\$$wifiUsername\$$wifiPassword\$###";
 
 		setState(() {
 			showQRCode = true;
