@@ -15,8 +15,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(beeper_trip, GPIO.OUT)
 
 # trip func: outputs on gpio pin 36 for 1 millisecond
-def beep(iterations=20, post_url=None):
-	buzzer = GPIO.PWM(beeper_trip,1000)
+def beep(iterations=3, post_url=None):
+	#buzzer = GPIO.PWM(beeper_trip,1000)
 	n = 0
 
 	if post_url != None:
@@ -30,14 +30,14 @@ def beep(iterations=20, post_url=None):
 	while(n < iterations):
 		#buzzer = GPIO.PWM(beeper_trip, 1000)
 		print("beeping")
-		buzzer.start(10)
-		#GPIO.output(beeper_trip, GPIO.HIGH)
-		time.sleep(0.5)
+		#buzzer.start(10)
+		GPIO.output(beeper_trip, GPIO.HIGH)
+		time.sleep(1)
 		print("beeped")
 		buzzer.stop()
-		time.sleep(0.5)
+		time.sleep(1)
 		n += 1
-		#GPIO.output(beeper_trip, GPIO.LOW) 
+		GPIO.output(beeper_trip, GPIO.LOW) 
 		#time.sleep(1)
 	LCD_disp("")
 	if post_url != None:

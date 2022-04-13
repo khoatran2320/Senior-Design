@@ -22,7 +22,7 @@ def set_ip_addr():
 
 	print(reqBody)
 	try:
-		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/post-ip"		
+		url = f"http://{NODE_IP}:{NODE_PORT}/boxi/post-ip"
 		r = requests.post(url, json=reqBody, verify=False)
 		print(r.text, r.status_code)
 	except:
