@@ -1,4 +1,51 @@
-sudo ~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/loop_scanner.py
-~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/lock_is_trip.py
-~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/app.py
-~/Desktop/Senior-Design/boxi/connect./forever ~/Desktop/Senior-Design/boxi/server/vibration.py
+###############
+[Unit]
+Description=Loop Scanner Service
+After=network.target
+
+[Service]
+ExecStart=sudo /usr/bin/python /home/pi/Desktop/Senior-Design/boxi/server/loop_scanner.py > /home/pi/Desktop/Senior-Design/boxi/server/loop_scanner.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+###############
+[Unit]
+Description=Trip Lock Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python /home/pi/Desktop/Senior-Design/boxi/server/lock_is_trip.py > /home/pi/Desktop/Senior-Design/boxi/server/lock_is_trip.log
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target
+
+###############
+[Unit]
+Description=Vibration Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python /home/pi/Desktop/Senior-Design/boxi/server/vibration.py > /home/pi/Desktop/Senior-Design/boxi/server/vibration.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+###################
+[Unit]
+Description=App Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python /home/pi/Desktop/Senior-Design/boxi/server/app.py > /home/pi/Desktop/Senior-Design/boxi/server/app.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+
