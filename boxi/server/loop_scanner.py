@@ -13,6 +13,7 @@ def readData():
     buffer = ""
     while True:
         oneByte = ser.read(1)
+        print(oneByte)
         if oneByte == b"\r":
             return buffer
         else:
@@ -37,10 +38,13 @@ def loop_scanner(post_url=None):
     while True:
         ind += 1
         barcode = readData()
+        #print(barcode)
+        #LCD_disp(barcode)
         ssid, pwd = parse_barcode(barcode)
+        print(ssid)
         if ssid == 'tracking' and pwd == '#':
             barcode_dict = dict({ind:barcode})
-            print(barcode_dict)
+            #print(barcode_dict)
             if post_url != None:
                 try:
                     r = requests.post(post_url + '/barcode', json=barcode_dict, verify=False)
@@ -54,3 +58,6 @@ if __name__ == "__main__":
     # current IP address of pi
     box_ip = get_ip_addr()
     loop_scanner("http://" + box_ip + ":4321")
+    #while True:
+    #    LCD_disp(readData())
+    

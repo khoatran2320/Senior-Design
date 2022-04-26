@@ -58,7 +58,7 @@ router.post('/unlock-box', async (req, res) => {
 		return;
 	}
 
-   // check if boxiId exist
+	// check if boxiId exist
 	const boxiRef = db.collection(BOXI_COLLECTION).doc(boxiId);
 	const boxiDoc = await boxiRef.get();
 
@@ -67,21 +67,23 @@ router.post('/unlock-box', async (req, res) => {
 		return;
 	}
 
-	let boxi_ip = boxiDoc.get("ip_addr");
-    let boxi_port = boxiDoc.get("port");
+	let boxi_ip = boxiDoc.get('ip_addr');
+	let boxi_port = boxiDoc.get('port');
 
-    axios.post('http://' + boxi_ip + ':' + boxi_port + '/unlock', {
-        'userId': userId,
-        'boxiId': boxiId
-        })
-        .then((r) => {
-            res.status(200).send('Success!');
-            return;
-        })
-        .catch((e) => {
-            res.status(400).send('Unable to unlock box!');
-		    return;
-        });
+	axios
+		.post('http://' + boxi_ip + ':' + boxi_port + '/unlock', {
+			userId: userId,
+			boxiId: boxiId
+		})
+		.then((r) => {
+			console.log(r);
+			res.status(200).send('Success!');
+			return;
+		})
+		.catch((e) => {
+			res.status(400).send('Unable to unlock box!');
+			return;
+		});
 });
 
 router.post('/signal-alarm', async (req, res) => {
@@ -129,7 +131,7 @@ router.post('/signal-alarm', async (req, res) => {
 		return;
 	}
 
-    // check if boxiId exist
+	// check if boxiId exist
 	const boxiRef = db.collection(BOXI_COLLECTION).doc(boxiId);
 	const boxiDoc = await boxiRef.get();
 
@@ -138,21 +140,22 @@ router.post('/signal-alarm', async (req, res) => {
 		return;
 	}
 
-	let boxi_ip = boxiDoc.get("ip_addr");
-    let boxi_port = boxiDoc.get("port");
+	let boxi_ip = boxiDoc.get('ip_addr');
+	let boxi_port = boxiDoc.get('port');
 
-    axios.post('http://' + boxi_ip + ':' + boxi_port + '/alarm', {
-        'userId': userId,
-        'boxiId': boxiId
-        })
-        .then((r) => {
-            res.status(200).send('Success!');
-            return;
-        })
-        .catch((e) => {
-            res.status(400).send('Unable turn on alarm!');
-		    return;
-        });
+	axios
+		.post('http://' + boxi_ip + ':' + boxi_port + '/alarm', {
+			userId: userId,
+			boxiId: boxiId
+		})
+		.then((r) => {
+			res.status(200).send('Success!');
+			return;
+		})
+		.catch((e) => {
+			res.status(400).send('Unable turn on alarm!');
+			return;
+		});
 });
 
 module.exports = router;

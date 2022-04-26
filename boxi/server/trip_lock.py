@@ -5,7 +5,7 @@ GPIO.setwarnings(False)
 
 # setting gpio pin 36 as out pin
 
-lock_trip = 23
+lock_trip = 16
 
 #lock_status = 17
 lock_status = 12
@@ -31,6 +31,4 @@ def is_trip():
 		print('not locked')
 	return locked
 if __name__ == "__main__":
-	while True:
-		is_trip()
-		sleep(.1)
+	trip()
