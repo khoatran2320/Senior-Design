@@ -5,7 +5,8 @@ Hardware readme
 2. [Example2](#Pinout)
 3. [Third Example](#Pictures)
 4. [cad](#CAD)
-5. [Fourth](#References)
+5. [BOM](#Bill of Materials)
+6. [Fourth](#References)
 
 
 ## Power Requirements
@@ -64,9 +65,38 @@ Hardware readme
 
 <img src="https://user-images.githubusercontent.com/55323049/165992833-39ee6f0b-2928-4a47-8494-9bc0ed91d1fe.jpg" alt="Interior_Pi_VibrationSensor" width="300" height="400" />
 
-##CAD models
+## CAD models
 * Entire CAD
 * [Link to google drive containing all the CAD models](https://drive.google.com/drive/u/1/folders/1pPOR1W4jZ5Tcb7VXgC_TN9RHNkHzAnE4)
+
+## Bill of Materials
+| Name                             | Price   |
+|----------------------------------|---------|
+| Raspberry Pi Zero Case           |   $8.99 |
+| Wall rivets                      |  $14.24 |
+| Hinge Lid Bar                    |   $3.85 |
+| Wall channel                     |   $6.14 |
+| Lid channel                      |   $4.78 |
+| Lid sheet                        | $100.41 |
+| Hinge                            |   $2.24 |
+| Raspberry Pi Zero 2 W            |  $15.00 |
+| IEC C14 Snap-In Male Socket      |   $1.28 |
+| Weather-resistant Cam lock       |  $11.49 |
+| Chain Holder Sheet Metal         |   $9.55 |
+| Lid Wall Sheets 2in              |   $7.06 |
+| Lid Wall Sheets 4in              |  $12.36 |
+| 110VAC to 12VDC Power Supply     |  $12.99 |
+| 12VDC to 5VDC USB Buck Converter |   $8.99 |
+| Base channel                     |   $2.73 |
+| Walls sheet metal                | $159.21 |
+| Base sheet metal                 |  $86.97 |
+| Relay                            |   $2.50 |
+| Alarm                            |     5.5 |
+| Barcode Scanner                  |      48 |
+| Breakway Header Pins             |         |
+| Hookup wire                      |         |
+
+[Link to full BOM](https://docs.google.com/spreadsheets/d/1UFXavMa50xtnHM6pJ30hTJ9fhPLC3RiXioRj5jb3y0g/edit?usp=sharing)
 
 ## References
 * Barcode reader datasheet
