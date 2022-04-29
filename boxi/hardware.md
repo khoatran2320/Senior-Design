@@ -45,6 +45,7 @@ Hardware readme
 | 39 | 40 |
 
 ## Pictures
+<img src="https://user-images.githubusercontent.com/55323049/165992801-0ddc3590-58cc-4638-adbb-0a6542c97eca.jpg" width="200" height="400" />
 ![Interior_PS_Relays_Alarm](https://user-images.githubusercontent.com/55323049/165992801-0ddc3590-58cc-4638-adbb-0a6542c97eca.jpg)
 ![Exterior_Closed](https://user-images.githubusercontent.com/55323049/165992804-10c6e22f-94fc-4a91-a960-b56082b78c76.jpg)
 ![Exterior_Isometric](https://user-images.githubusercontent.com/55323049/165992812-e43013be-3202-46d2-b992-501a15ce5a3d.jpg)
@@ -57,7 +58,8 @@ Hardware readme
 
 ## References
 * Barcode reader datasheet
- * [Barcode_Scanner_Module_Setting_Manual_EN (1).pdf](https://github.com/khoatran2320/Senior-Design/files/8592588/Barcode_Scanner_Module_Setting_Manual_EN.1.pdf)
+  * [Barcode_Scanner_Module_Setting_Manual_EN (1).pdf](https://github.com/khoatran2320/Senior-Design/files/8592588/Barcode_Scanner_Module_Setting_Manual_EN.1.pdf)
 * Vibration Sensor datasheet
- * [Vibration-Sensor-Datasheet.pdf](https://github.com/khoatran2320/Senior-Design/files/8592589/Vibration-Sensor-Datasheet.pdf)
-
+  * [Vibration-Sensor-Datasheet.pdf](https://github.com/khoatran2320/Senior-Design/files/8592589/Vibration-Sensor-Datasheet.pdf)
+* LCD display library
+  * [LCD-Display-Library](https://rplcd.readthedocs.io/en/stable/getting_started.html)
