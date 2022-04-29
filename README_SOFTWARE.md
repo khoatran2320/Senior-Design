@@ -1,12 +1,60 @@
-# Dev / Build Tool Information
-### Mobile
-- Flutter 2.10.4
-- Android Studio 2020.3.1
-- Android SDK API = 31
-- Apple Simulator 2.5.1 (iPhone 12 Pro Max) OR
-- Android Emulator (Pixel API 29 Android 10)
-### Server
-- Latest versions of Node.js & npm
+
+# Setup
+### Mobile setup
+1. Install Flutter 2.5.3
+2. Install a simulator OR use a physical device:
+    - [Android Studio](https://developer.android.com/studio/?gclid=Cj0KCQjwma6TBhDIARIsAOKuANy8MXs5U6PDDZHatHgGwkaoQeVDt8PTBR6V734z7JJuI4c0gapgVD8aAmEfEALw_wcB&gclsrc=aw.ds) with emulator support for Android SDK 31
+    - Android SDK API = 31 (Android 12 SDK) - [Installation](https://developer.android.com/about/versions/12/setup-sdk)
+    - Android Emulator (Pixel API 29 Android 10) - [Installation & Setup](https://developer.android.com/studio/run/emulator)
+    - Xcode with emulator support for IOS versions greater than 13
+    - Apple Simulator 2.5.1 (iPhone 12 Pro Max) (only on iOS) - [Setup](https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/iOS_Simulator_Guide/GettingStartedwithiOSSimulator/GettingStartedwithiOSSimulator.html)
+    - Android phone
+    - iPhone with IOS version greater than 13
+3. Navigate to mobile app directory:
+```
+cd mobile/flutter_app
+``` 
+4. Install package dependencies:
+```
+flutter pub get
+```
+5. Open simulator
+6. Click run as debug (Android) or for IOS:
+```
+flutter run
+```
+
+### Node server setup
+1. Install the latest version of [Node.js](https://nodejs.org/en/download/)
+2. Navigate to server directory:
+```
+cd server
+```
+3. Install dependencies:
+```
+sudo npm install
+```
+4. Obtain Google Firebase service account key
+5. Obtain pkge.net developer API key
+6. To run server:
+```
+node src/index.js
+```
+
+### Flask server setup
+1. Install Python version 3.8 with pip
+2. Navigate to the BOXi server:
+```
+cd boxi/server
+```
+3. Install Flask:
+```
+pip install flask
+```
+4. Run the Flask server:
+```
+python app.py
+```
 
 # Software Modules Overview
 ## BOXi Modules
