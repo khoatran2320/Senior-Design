@@ -1,10 +1,10 @@
 # Dev / Build Tool Information
 ### Mobile
-- Flutter 2.10.4
-- Android Studio 2020.3.1
-- Android SDK API = 31
-- Apple Simulator 2.5.1 (iPhone 12 Pro Max) OR
-- Android Emulator (Pixel API 29 Android 10)
+- Flutter 2.10.4 - [Installation](https://docs.flutter.dev/get-started/install?gclid=Cj0KCQjwma6TBhDIARIsAOKuANzAfwbvchlGsA7P-iX2-P2rbM-8aWVZvhfB0GSTNkJjQfcrlJKi6XcaAsXyEALw_wcB&gclsrc=aw.ds)
+- Android Studio 2020.3.1 - [Installation](https://developer.android.com/studio/?gclid=Cj0KCQjwma6TBhDIARIsAOKuANy8MXs5U6PDDZHatHgGwkaoQeVDt8PTBR6V734z7JJuI4c0gapgVD8aAmEfEALw_wcB&gclsrc=aw.ds)
+- Android SDK API = 31 (Android 12 SDK) - [Installation](https://developer.android.com/about/versions/12/setup-sdk)
+- Android Emulator (Pixel API 29 Android 10) - [Installation & Setup](https://developer.android.com/studio/run/emulator)
+- Apple Simulator 2.5.1 (iPhone 12 Pro Max) (only on iOS) - [Setup](https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/iOS_Simulator_Guide/GettingStartedwithiOSSimulator/GettingStartedwithiOSSimulator.html)
 ### Server
 - Latest versions of Node.js & npm
 
