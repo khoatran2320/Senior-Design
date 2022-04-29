@@ -51,11 +51,11 @@ Hardware readme
 
 <img src="https://user-images.githubusercontent.com/55323049/165992812-e43013be-3202-46d2-b992-501a15ce5a3d.jpg" alt="Exterior_Isometric" width="300" height="400" />
 
-<img src="https://user-images.githubusercontent.com/55323049/165992814-2b693a63-b09b-4d4b-95ff-965a7c1e0428.jpg" alt="Exterior_LCD"width="300" height="400" />
+<img src="https://user-images.githubusercontent.com/55323049/165992814-2b693a63-b09b-4d4b-95ff-965a7c1e0428.jpg" alt="Exterior_LCD" width="300" height="400" />
 
-<img src="https://user-images.githubusercontent.com/55323049/165992820-81346d5d-b828-4ed6-9097-79be62867bd2.jpg" alt="Exterior_Opened"width="300" height="400" />
+<img src="https://user-images.githubusercontent.com/55323049/165992820-81346d5d-b828-4ed6-9097-79be62867bd2.jpg" alt="Exterior_Opened" width="300" height="400" />
 
-<img src="https://user-images.githubusercontent.com/55323049/165992824-a6d93808-3a16-45f5-8e4c-72549e4daa31.jpg" alt="Exterior_Rear"width="300" height="400" />
+<img src="https://user-images.githubusercontent.com/55323049/165992824-a6d93808-3a16-45f5-8e4c-72549e4daa31.jpg" alt="Exterior_Rear" width="300" height="400" />
 
 <img src="https://user-images.githubusercontent.com/55323049/165992828-42d0e8e3-4ca1-4420-b268-00ada77b429d.jpg" alt="Interior_All" width="300" height="400" />
 
