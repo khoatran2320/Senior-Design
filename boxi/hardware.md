@@ -22,23 +22,23 @@ Hardware readme
 # Pinout
 
 # Pictures
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg =250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_Pi_VibrationSensor.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_Pi_VibrationSensor.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_BarcodeScanner.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_BarcodeScanner.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_All.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_All.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Rear.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Rear.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Opened.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Opened.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_LCD.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_LCD.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Isometric.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Isometric.jpg=250x250))
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg)
+![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg=250x250))
 
 # Data Sheets
 * Barcode reader
