@@ -6,7 +6,7 @@
 - Android Emulator (Pixel API 29 Android 10) - [Installation & Setup](https://developer.android.com/studio/run/emulator)
 - Apple Simulator 2.5.1 (iPhone 12 Pro Max) (only on iOS) - [Setup](https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/iOS_Simulator_Guide/GettingStartedwithiOSSimulator/GettingStartedwithiOSSimulator.html)
 ### Server
-- Latest versions of Node.js & npm
+- Latest versions of [Node.js](https://nodejs.org/en/download/) & [npm](https://docs.npmjs.com/cli/v8/configuring-npm/install#using-a-node-installer-to-install-node-js-and-npm)
 
 # Software Modules Overview
 ## Package management routes
