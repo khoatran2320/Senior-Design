@@ -97,6 +97,7 @@ Abbreviated BOM
 | Barcode Scanner                  |      48 |
 | Breakway Header Pins             |         |
 | Hookup wire                      |         |
+|TOTAL                             |$1,078.57|
 
 [Link to full BOM](https://docs.google.com/spreadsheets/d/1UFXavMa50xtnHM6pJ30hTJ9fhPLC3RiXioRj5jb3y0g/edit?usp=sharing)
 
