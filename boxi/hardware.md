@@ -67,6 +67,7 @@ Hardware readme
 
 ## CAD models
 * Entire CAD
+  * ![Full Model CURRENT(17)](https://user-images.githubusercontent.com/55323049/166072836-f2e9a255-a239-4256-872d-1cdaf309f98a.png)
 * [Link to google drive containing all the CAD models](https://drive.google.com/drive/u/1/folders/1pPOR1W4jZ5Tcb7VXgC_TN9RHNkHzAnE4)
 
 ## Bill of Materials
