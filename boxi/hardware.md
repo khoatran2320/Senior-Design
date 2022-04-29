@@ -22,23 +22,23 @@ Hardware readme
 # Pinout
 
 # Pictures
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg =250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_Pi_VibrationSensor.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_Pi_VibrationSensor.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_BarcodeScanner.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_BarcodeScanner.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_All.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_All.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Rear.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Rear.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Opened.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Opened.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_LCD.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_LCD.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Isometric.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Isometric.jpg" width="100" height="100">
 
-![...](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg=250x250))
+<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg" width="100" height="100">
 
 # Data Sheets
 * Barcode reader
