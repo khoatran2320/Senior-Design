@@ -70,6 +70,8 @@ Hardware readme
 * [Link to google drive containing all the CAD models](https://drive.google.com/drive/u/1/folders/1pPOR1W4jZ5Tcb7VXgC_TN9RHNkHzAnE4)
 
 ## Bill of Materials
+Abbreviated BOM
+
 | Name                             | Price   |
 |----------------------------------|---------|
 | Raspberry Pi Zero Case           |   $8.99 |
