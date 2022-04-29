@@ -22,6 +22,8 @@ Hardware readme
 # Pinout
 
 # Pictures
+![alt text](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg)
+
 <center><img src="/images/Interior_PS_Relays_Alarm.jpg" width="25%" /></center>  
 ![...](boxi/images/Interior_PS_Relays_Alarm.jpg)
 
