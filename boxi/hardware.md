@@ -1,7 +1,7 @@
 Power Requirements
 * 120VAC received via IEC C14 power cable and panel connector
 * Internal power supply: 120VAC to 12VDC; grounded with short circuit protection
-  *Brand used in prototype is ALITOVE (see BOM); design is not brand-specific; any 120VAC to 12VDC power supply with at least 5A rating and short circuit protection is acceptable
+  * Brand used in prototype is ALITOVE (see BOM); design is not brand-specific; any 120VAC to 12VDC power supply with at least 5A rating and short circuit protection is acceptable
 * Electronic lock: Solenoid released with 12VDC, 2A for 100ms
   * RATING IS NOT FLEXIBLE
   * Do not supply power to lock for much longer than 100ms or there is risk of damage to solenoid
