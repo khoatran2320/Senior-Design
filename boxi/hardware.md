@@ -73,6 +73,10 @@ Hardware readme
   * ![Electronics Block Diagram V1 1](https://user-images.githubusercontent.com/55323049/166073308-0816aa02-3507-4a53-bb72-e3681adbd906.png)
 
 ## Bill of Materials
+Vendors
+McMaster-Carr
+We used McMaster to get our various metal pieces such as the rivets and hinges. They are an industry standard for getting raw and industrial materials.
+
 Abbreviated BOM
 
 | Name                             | Price   |
