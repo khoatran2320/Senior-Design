@@ -22,6 +22,7 @@ Hardware readme
   * Marginal current usage
 
 ## Pinout
+|:--|:--|
 |1|2|
 |3|4|
 |5|7|
