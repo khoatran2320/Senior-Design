@@ -65,10 +65,12 @@ Hardware readme
 
 <img src="https://user-images.githubusercontent.com/55323049/165992833-39ee6f0b-2928-4a47-8494-9bc0ed91d1fe.jpg" alt="Interior_Pi_VibrationSensor" width="300" height="400" />
 
-## CAD models
+## Models & CAD
 * Entire CAD
   * ![Full Model CURRENT(17)](https://user-images.githubusercontent.com/55323049/166072836-f2e9a255-a239-4256-872d-1cdaf309f98a.png)
 * [Link to google drive containing all the CAD models](https://drive.google.com/drive/u/1/folders/1pPOR1W4jZ5Tcb7VXgC_TN9RHNkHzAnE4)
+* Block Diagram
+  * ![Electronics Block Diagram V1 1](https://user-images.githubusercontent.com/55323049/166073308-0816aa02-3507-4a53-bb72-e3681adbd906.png)
 
 ## Bill of Materials
 Abbreviated BOM
