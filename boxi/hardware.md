@@ -24,9 +24,26 @@ Hardware readme
 ## Pinout
 | Pin | Out |
 | ----------- | ----------- |
-| 1 | 2 |
-| 3 | 4 |
-
+| 1: 3.3V - bus for alarm relay, lock relay, and vibration sensor | 2: 5V - bus for LCD display and barcode reader |
+| 3: SDA: barcode reader sda | 4 |
+| 5: SCL barcode reader scl | 6 |
+| 7 | 8: TXD - barcode reader RXD |
+| 9 | 10: RXD - barcode reader TXD |
+| 11 | 12 |
+| 13 | 14 |
+| 15: GPIO 22 - vibration sensor | 16 |
+| 17: 3.3V - lock status | 18 |
+| 19 | 20 |
+| 21 | 22 |
+| 23 | 24 |
+| 25: GND - bus for alarm relay, lock relay, barcode reader, lcd display | 26 |
+| 27 | 28 |
+| 29 | 30 |
+| 31 | 32: GPIO 12 - lock status |
+| 33 | 34 |
+| 35 | 36: GPIO 16 - lock relay |
+| 37: GPIO 26 - alarm relay | 38 |
+| 39 | 40 |
 
 ## Pictures
 <img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg" width="400" height="400">
