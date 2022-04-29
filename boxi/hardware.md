@@ -1,4 +1,12 @@
-Power Requirements
+Hardware readme
+
+# Table of Contents
+1. [Example](#example)
+2. [Example2](#example2)
+3. [Third Example](#third-example)
+4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
+
+# Power Requirements
 * 120VAC received via IEC C14 power cable and panel connector
 * Internal power supply: 120VAC to 12VDC; grounded with short circuit protection
   * Brand used in prototype is ALITOVE (see BOM); design is not brand-specific; any 120VAC to 12VDC power supply with at least 5A rating and short circuit protection is acceptable
@@ -11,6 +19,27 @@ Power Requirements
 * All sensors: 5VDC via 5VDC pins on Raspberry Pi
   * Marginal current usage
 
-Data Sheets
+# Pinout
+
+# Pictures
+![...](/images/Interior_PS_Relays_Alarm.jpg)
+
+![...](/images/Interior_Pi_VibrationSensor.jpg)
+
+![...](/images/Interior_BarcodeScanner.jpg)
+
+![...](/images/Interior_All.jpg)
+
+![...](/images/Exterior_Rear.jpg)
+
+![...](/images/Exterior_Opened.jpg)
+
+![...](/images/Exterior_LCD.jpg)
+
+![...](/images/Exterior_Isometric.jpg)
+
+![...](/images/Exterior_Closed.jpg)
+
+# Data Sheets
 * Barcode reader
 * Vibration Sensor
