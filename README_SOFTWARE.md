@@ -1,3 +1,14 @@
+# Dev / Build Tool Information
+### Mobile
+- Flutter 2.10.4
+- Android Studio 2020.3.1
+- Android SDK API = 31
+- Apple Simulator 2.5.1 (iPhone 12 Pro Max) OR
+- Android Emulator (Pixel API 29 Android 10)
+### Server
+- Latest versions of Node.js & npm
+
+# Software Modules Overview
 ## Package management routes
 
 ### GET `/package/`
@@ -288,3 +299,52 @@ Receives an alarm status and makes an external request to post it to the databas
 | -------------  | ---------         |
 | Success        | Post status
 | Failure        | 
+
+## Mobile Modules (Flutter Widgets)
+
+#### MaterialApp
+Generic app widget that sets a specific widget (i.e. Splash) as the homescreen.
+
+#### Splash
+This is the splash screen of the app. The user will only see it after downloading the app. After that the splash screen will just redirect the user to the SignIn screen.
+
+#### SignIn
+This is where the user signs in by filling out their email and password. Tapping on “Don’t have an account?” will redirect the user to the SignUp screen for creating an account. Tapping on the “Sign In” button will redirect the user to the Dashboard screen, unless the login information is entered incorrectly.
+
+#### SignUp
+This is where the user signs up for an account by filling out their email, name, and password. Tapping on the “Sign Up” button will redirect the user back to the SignIn screen.
+
+#### Dashboard
+This is the screen for navigating between SettingsPage, StatusScreen, and DeliveriesScreen. The screen consists of DashboardTop, TabBar, and TabBarView. 
+
+#### DashboardTop
+This is the top portion of the Dashboard screen. It consists of a circular avatar and a welcome message for the user. Tapping on the circular avatar will take the user to the SettingsScreen.
+
+#### TabBar
+This is the bar that divides DashboardTop and TabBarView. It has two tabs: “Status” and “Deliveries.” Tapping on the Status tab will display the StatusScreen within TabBarView. Tapping on the Deliveries tab will display the DeliveriesScreen within TabBarView.
+
+#### TabBarView
+This is the segment of the Dashboard under the TabBar. It will either display DeliveriesScreen or StatusScreen, depending on which tab that the user tapped on in the TabBar.
+
+#### SettingsPage
+It has a “Back” button and a “Log Out” button. Tapping on “Back” will bring the user back to the Dashboard. Tapping on “Log Out” will redirect the user to the SignIn screen.
+
+#### StatusScreen
+It consists of an UnlockButton, AlarmToggleSwitch, and SetupButton.
+
+#### UnlockButton
+Tapping on the UnlockButton will wirelessly unlock the physical lockbox.
+
+#### AlarmToggleSwitch
+Tapping on the AlarmToggleSwitch will enable/disable the alarm of the physical lockbox.
+
+#### SetupButton
+Tapping on the SetupButton will bring up the SetupDialog.
+
+#### SetupDialog
+It will show a series of dialogs. The first dialog is the confirmSetupDialog. It asks the user to confirm that they want to start the setup process. Once the user confirms, the next dialog is a form for filling out WiFi username and password. Once the form is submitted, the next dialog is a QR code. Use the barcode scanner of BOXi to scan this QR code. This will send the WiFi login information to BOXi so that it could connect to WiFi.
+
+#### DeliveriesScreen
+This is the screen for tracking the delivery status of packages. The user could start tracking a package by entering the tracking number, name, and merchant of the package. Each added package will have a package status card showing the delivery status. They could also stop tracking a package by deleting the corresponding package status card. 
+
+
