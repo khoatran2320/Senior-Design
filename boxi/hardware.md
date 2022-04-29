@@ -46,23 +46,16 @@ Hardware readme
 | 39 | 40 |
 
 ## Pictures
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg" width="400" height="400">
+![Interior_PS_Relays_Alarm](https://user-images.githubusercontent.com/55323049/165992801-0ddc3590-58cc-4638-adbb-0a6542c97eca.jpg)
+![Exterior_Closed](https://user-images.githubusercontent.com/55323049/165992804-10c6e22f-94fc-4a91-a960-b56082b78c76.jpg)
+![Exterior_Isometric](https://user-images.githubusercontent.com/55323049/165992812-e43013be-3202-46d2-b992-501a15ce5a3d.jpg)
+![Exterior_LCD](https://user-images.githubusercontent.com/55323049/165992814-2b693a63-b09b-4d4b-95ff-965a7c1e0428.jpg)
+![Exterior_Opened](https://user-images.githubusercontent.com/55323049/165992820-81346d5d-b828-4ed6-9097-79be62867bd2.jpg)
+![Exterior_Rear](https://user-images.githubusercontent.com/55323049/165992824-a6d93808-3a16-45f5-8e4c-72549e4daa31.jpg)
+![Interior_All](https://user-images.githubusercontent.com/55323049/165992828-42d0e8e3-4ca1-4420-b268-00ada77b429d.jpg)
+![Interior_BarcodeScanner](https://user-images.githubusercontent.com/55323049/165992830-25d2035c-bdc9-49e4-9e34-ebc2034aa2f2.jpg)
+![Interior_Pi_VibrationSensor](https://user-images.githubusercontent.com/55323049/165992833-39ee6f0b-2928-4a47-8494-9bc0ed91d1fe.jpg)
 
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_Pi_VibrationSensor.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_BarcodeScanner.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_All.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Rear.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Opened.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_LCD.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Isometric.jpg" width="400" height="400">
-
-<img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg" width="400" height="400">
 
 ## Data Sheets
 * Barcode reader
