@@ -1,12 +1,12 @@
 Hardware readme
 
 # Table of Contents
-1. [Example](#Power Requirements)
-2. [Example2](#Pinout)
-3. [Third Example](#Pictures)
-4. [cad](#CAD)
+1. [Power Requirements](#Power Requirements)
+2. [Pinout](#Pinout)
+3. [Pictures](#Pictures)
+4. [CAD](#CAD)
 5. [BOM](#Bill of Materials)
-6. [Fourth](#References)
+6. [References](#References)
 
 
 ## Power Requirements
@@ -103,6 +103,7 @@ Abbreviated BOM
 
 ## References
 * Barcode reader datasheet
+  * Barcode datasheet has various QR codes to let you reconfigure the scanner to UART or USB mode as well as various modes of scanning, baud rate, etc
   * [Barcode_Scanner_Module_Setting_Manual_EN (1).pdf](https://github.com/khoatran2320/Senior-Design/files/8592588/Barcode_Scanner_Module_Setting_Manual_EN.1.pdf)
 * Vibration Sensor datasheet
   * [Vibration-Sensor-Datasheet.pdf](https://github.com/khoatran2320/Senior-Design/files/8592589/Vibration-Sensor-Datasheet.pdf)
