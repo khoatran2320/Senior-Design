@@ -125,6 +125,13 @@ flutter run
 ```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+### pkge.net set up
+
+1. Sign up for a business account at business.pkge.net.
+2. Navigate to `Developers` then to `API key`.
+3. Create a file in `server/src/` directory called `.env`.
+4. Write to `.env` `PKGE_API_KEY={api key}`.
+
 ### Node server setup
 1. Install the latest version of Node
 2. Navigate to server directory:
