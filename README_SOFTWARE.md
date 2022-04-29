@@ -301,6 +301,7 @@ Receives an alarm status and makes an external request to post it to the databas
 | Failure        | 
 
 ## Mobile Modules (Flutter Widgets)
+![mobile_diagram](https://user-images.githubusercontent.com/56775136/166072081-bb515f17-a4ee-4200-9c6b-5085ff6dfb6f.png)
 
 #### MaterialApp
 Generic app widget that sets a specific widget (i.e. Splash) as the homescreen.
