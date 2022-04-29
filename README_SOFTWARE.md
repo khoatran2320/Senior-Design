@@ -9,6 +9,152 @@
 - Latest versions of Node.js & npm
 
 # Software Modules Overview
+## BOXi Modules
+### app.py
+
+Flask server.  
+
+Contains:
+- Server routes
+- Server scripts
+
+Depends on:
+- `get_box_user_id()`
+- `get_node_server_ip()`
+- `Flask`
+- `request`
+- `jsonify`
+- `trip()`
+- `beep()`
+- `get_ip_addr`
+- `LCD_disp()`
+
+### file_utils.py
+
+Utility functions to read and write to file.  
+
+Contains:
+- `read_txt_file(filename)`: read from file given by `filename`.
+- `write_txt_file(filename, content)`: write `content` to `filename`.
+
+### get_box_user_id.py
+
+Function to retrieve the box ID and the user ID associated with the box. 
+
+Contains:
+- `get_box_user_id()`: returns the box ID user ID.
+
+Depends on:
+- `read_txt_file()`
+
+### get_node_server_ip.py
+
+Function to retrieve the IP address of the Node server.
+
+Contains:
+- `get_node_server_ip()`: return the IP address of the Node server.
+
+Depends on:
+- `read_txt_file`
+
+### beeper.py
+
+GPIO interaction with the alarm. 
+
+Contains:
+- `beep(iterations=1, post_url=None)`: turns on the alarm that beeps once every 500ms for `iterations` iterations and posts the status of the alarm to the URl `post_url`.
+
+Depends on:
+- `GPIO`
+- `time`
+- `requests`
+- `get_ip_addr()`
+- `LCD_disp()`
+
+
+### config_wifi.py
+
+Configures the wifi.
+
+Contains:
+- `config_wifi(ssid, pwd)`: writes wifi details `ssid` and `pwd` to system network config files.
+
+Depends on:
+- `os`
+
+### get_ip_addr.py
+
+Retrieves the IP address of the box. 
+
+Contains:
+- `get_ip_addr()`: returns the IP address. 
+
+Depends on:
+- `socket`
+
+### lcd.py
+
+LCD display interaction.
+
+Contains:
+- `LCD_disp(str_in)`: Displays the text `str_in` on the LCD display.
+
+Depends on:
+- `CharLCD`
+
+### lock_is_trip.py
+
+Lock trip status interaction. 
+
+Contains:
+- `is_trip(post_url=None)`: Monitors the lock status and posts to `post_url` when there's a change in status.
+
+Depends on:
+- `GPIO`
+- `sleep()`
+- `requests`
+- `get_ip_addr()`
+
+### loop_scanner.py
+
+Barcode scanner interaction.
+
+Contains:
+- `readData()`: Returns the ascii decoded scanned barcode. 
+- `parse_barcode(barcode)`: Parses the barcode and returns wifi user name and password if the barcode contains it else returns 'tracking' and '#' to denote a tracking number barcode.
+- `loop_scanner(post_url=None)`: Monitors the barcode scanner and either validates relays the tracking number to the Flask server or config the wifi. 
+
+Depends on:
+- `serial`
+- `requests`
+- `get_ip_addr()`
+- `config_wifi()`
+- `LCD_disp()`
+
+### trip_lock.py
+
+GPIO lock interaction.
+
+Contains:
+- `trip()`: Unlocks the lock. 
+
+Depends on:
+- `GPIO`
+- `sleep()`
+
+### vibration.py
+
+GPIO vibration sensor interaction. 
+
+Contains:
+- `loop_vib(it=20, post_url=None)`: Monitors the vibration sensor and turns on the alarm if the vibration sensor trips `it` times. 
+
+Depends on:
+- `GPIO`
+- `sleep()`
+- `beep()`
+- `get_ip_addr()`
+
 ## Package management routes
 ![mobile_diagram](https://user-images.githubusercontent.com/48025259/158888516-efcc7081-0b33-4a20-aae4-1e3bfe57f440.png)
 
