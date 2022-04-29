@@ -22,27 +22,11 @@ Hardware readme
   * Marginal current usage
 
 ## Pinout
-|:--|:--|
-|1|2|
-|3|4|
-|5|7|
-|7|
-|9|
-|11|
-|13|
-|15|
-|17|
-|19|
-|21|
-|23|
-|25|
-|27|
-|29|
-|31|
-|33|
-|35|
-|37|
-|39|
+| Pin | Out |
+| ----------- | ----------- |
+| 1 | 2 |
+| 3 | 4 |
+
 
 ## Pictures
 <img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Interior_PS_Relays_Alarm.jpg" width="400" height="400">
