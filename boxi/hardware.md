@@ -4,7 +4,8 @@ Hardware readme
 1. [Example](#Power Requirements)
 2. [Example2](#Pinout)
 3. [Third Example](#Pictures)
-4. [Fourth](#References)
+4. [cad](#CAD)
+5. [Fourth](#References)
 
 
 ## Power Requirements
@@ -63,6 +64,9 @@ Hardware readme
 
 <img src="https://user-images.githubusercontent.com/55323049/165992833-39ee6f0b-2928-4a47-8494-9bc0ed91d1fe.jpg" alt="Interior_Pi_VibrationSensor" width="300" height="400" />
 
+##CAD models
+* Entire CAD
+* [Link to google drive containing all the CAD models](https://drive.google.com/drive/u/1/folders/1pPOR1W4jZ5Tcb7VXgC_TN9RHNkHzAnE4)
 
 ## References
 * Barcode reader datasheet
