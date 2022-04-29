@@ -10,6 +10,7 @@
 
 # Software Modules Overview
 ## Package management routes
+![mobile_diagram](https://user-images.githubusercontent.com/48025259/158888516-efcc7081-0b33-4a20-aae4-1e3bfe57f440.png)
 
 ### GET `/package/`
 
@@ -90,6 +91,7 @@ Delete a package from being tracked belonging to a user.
 
 
 ## BOXi management routes
+![mobile_diagram](https://user-images.githubusercontent.com/48025259/158888466-2b04163a-603e-4b44-8f65-1a55c152b0c2.png)
 
 ### GET `/boxi/package`
 
