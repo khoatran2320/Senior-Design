@@ -4,8 +4,7 @@ Hardware readme
 1. [Example](#Power Requirements)
 2. [Example2](#Pinout)
 3. [Third Example](#Pictures)
-4. [Fourth Example](#Data Sheets)
-5. [Fifth](#References)
+4. [Fourth](#References)
 
 
 ## Power Requirements
@@ -56,9 +55,9 @@ Hardware readme
 ![Interior_BarcodeScanner](https://user-images.githubusercontent.com/55323049/165992830-25d2035c-bdc9-49e4-9e34-ebc2034aa2f2.jpg)
 ![Interior_Pi_VibrationSensor](https://user-images.githubusercontent.com/55323049/165992833-39ee6f0b-2928-4a47-8494-9bc0ed91d1fe.jpg)
 
-
-## Data Sheets
-* Barcode reader
-* Vibration Sensor
-
 ## References
+* Barcode reader datasheet
+ * [Barcode_Scanner_Module_Setting_Manual_EN (1).pdf](https://github.com/khoatran2320/Senior-Design/files/8592588/Barcode_Scanner_Module_Setting_Manual_EN.1.pdf)
+* Vibration Sensor datasheet
+ * [Vibration-Sensor-Datasheet.pdf](https://github.com/khoatran2320/Senior-Design/files/8592589/Vibration-Sensor-Datasheet.pdf)
+
