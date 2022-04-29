@@ -22,6 +22,7 @@ Hardware readme
 # Pinout
 
 # Pictures
+<center><img src="/images/Interior_PS_Relays_Alarm.jpg" width="25%" /></center>  
 ![...](boxi/images/Interior_PS_Relays_Alarm.jpg)
 
 ![...](Senior-Design/boxi/images/Interior_Pi_VibrationSensor.jpg)
