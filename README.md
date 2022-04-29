@@ -35,9 +35,6 @@ BOXi is a senior design project completed to fulfill the undergraduate degree re
     <li>
       <a href="#documentation">Documentation</a>
     </li>
-    <li>
-      <a href="#tests">Tests</a>
-    </li>
   </ol>
 </details>
 
@@ -176,9 +173,6 @@ python app.py
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Tests  
-Tests
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Mobile App Prototype
 <img width="242" alt="Screen Shot 2021-10-14 at 4 07 10 PM" src="https://user-images.githubusercontent.com/48025259/137387989-4f1054e0-72ef-4d3e-bbad-a74b3755c915.png">
