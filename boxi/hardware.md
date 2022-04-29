@@ -1,11 +1,11 @@
 Hardware readme
 
 # Table of Contents
-1. [Power Requirements](#Power Requirements)
+1. [Power Requirements](#Power-Requirements)
 2. [Pinout](#Pinout)
 3. [Pictures](#Pictures)
-4. [CAD models](#CAD models)
-5. [Bill of Materials](#Bill of Materials)
+4. [CAD models](#CAD-models)
+5. [Bill of Materials](#Bill-of-Materials)
 6. [References](#References)
 
 
