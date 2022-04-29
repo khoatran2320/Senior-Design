@@ -22,7 +22,7 @@ Hardware readme
 # Pinout
 
 # Pictures
-![...](boxi/images/Interior_PS_Relays_Alarm.jpg)
+![...](/images/Interior_PS_Relays_Alarm.jpg)
 
 ![...](/images/Interior_Pi_VibrationSensor.jpg)
 
