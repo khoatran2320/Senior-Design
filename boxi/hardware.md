@@ -1,10 +1,12 @@
 Hardware readme
 
 # Table of Contents
-1. [Example](#example)
-2. [Example2](#example2)
-3. [Third Example](#third-example)
-4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
+1. [Example](#Power Requirements)
+2. [Example2](#Pinout)
+3. [Third Example](#Pictures)
+4. [Fourth Example](#Data Sheets)
+5. [Fifth](#References)
+
 
 # Power Requirements
 * 120VAC received via IEC C14 power cable and panel connector
@@ -43,3 +45,5 @@ Hardware readme
 # Data Sheets
 * Barcode reader
 * Vibration Sensor
+
+# References
