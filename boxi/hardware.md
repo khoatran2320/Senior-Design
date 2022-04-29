@@ -45,7 +45,7 @@ Hardware readme
 | 39 | 40 |
 
 ## Pictures
-<img src="https://user-images.githubusercontent.com/55323049/165992801-0ddc3590-58cc-4638-adbb-0a6542c97eca.jpg" width="400" height="400" />
+<img src="https://user-images.githubusercontent.com/55323049/165992801-0ddc3590-58cc-4638-adbb-0a6542c97eca.jpg" width="300" height="400" />
 ![Interior_PS_Relays_Alarm](https://user-images.githubusercontent.com/55323049/165992801-0ddc3590-58cc-4638-adbb-0a6542c97eca.jpg)
 ![Exterior_Closed](https://user-images.githubusercontent.com/55323049/165992804-10c6e22f-94fc-4a91-a960-b56082b78c76.jpg)
 ![Exterior_Isometric](https://user-images.githubusercontent.com/55323049/165992812-e43013be-3202-46d2-b992-501a15ce5a3d.jpg)
