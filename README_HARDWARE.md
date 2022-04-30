@@ -5,7 +5,7 @@ Hardware readme
 2. [Pinout](#Pinout)
 3. [Pictures](#Pictures)
 4. [Data Sheets](#Data-Sheets)
-5. [Bill of Materials)(#Bill-of-Materials)
+5. [Bill of Materials](#Bill-of-Materials)
 6. [References](#References)
 
 
