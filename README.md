@@ -115,8 +115,9 @@ cd mobile/flutter_app
 ```
 flutter pub get
 ```
-5. Open simulator
-6. Click run as debug (Android) or for IOS:
+5. Register Firebase project, and register an android app and an iOS app for the project. Obtain the `google-services.json` and `GoogleService-Info.plist` files and place them in the correct directory listed on Firebase documentation [ios](https://firebase.google.com/docs/ios/setup), [android](https://firebase.google.com/docs/android/setup).  
+6. Open simulator
+7. Click run as debug (Android) or for IOS:
 ```
 flutter run
 ```
