@@ -1,4 +1,3 @@
-
 # Setup
 ### Mobile setup
 1. Install Flutter 2.5.3
@@ -18,14 +17,22 @@ cd mobile/flutter_app
 ```
 flutter pub get
 ```
-5. Open simulator
-6. Click run as debug (Android) or for IOS:
+5. Register Firebase project, and register an android app and an iOS app for the project. Obtain the `google-services.json` and `GoogleService-Info.plist` files and place them in the correct directory listed on Firebase documentation [ios](https://firebase.google.com/docs/ios/setup), [android](https://firebase.google.com/docs/android/setup).  
+6. Open simulator
+7. Click run as debug (Android) or for IOS:
 ```
 flutter run
 ```
 
+### pkge.net set up
+
+1. Sign up for a business account at business.pkge.net.
+2. Navigate to `Developers` then to `API key`.
+3. Create a file in `server/src/` directory called `.env`.
+4. Write to `.env` `PKGE_API_KEY={api key}`.
+
 ### Node server setup
-1. Install the latest version of [Node.js](https://nodejs.org/en/download/)
+1. Install the latest version of Node
 2. Navigate to server directory:
 ```
 cd server
@@ -35,6 +42,9 @@ cd server
 sudo npm install
 ```
 4. Obtain Google Firebase service account key
+  - Register for Firebase console account
+  - Create an web application project
+  - Follow the docs listed [here](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) to generate a private service account key, and name it as `boxi_key.json`, and place this file in `server/src` directory.
 5. Obtain pkge.net developer API key
 6. To run server:
 ```
