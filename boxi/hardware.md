@@ -1,10 +1,10 @@
 Hardware readme
 
 # Table of Contents
-1. [Power Requirements](#Power_Requirements)
+1. [Power Requirements](#Power-Requirements)
 2. [Pinout](#Pinout)
 3. [Pictures](#Pictures)
-4. [Data Sheets](#Data_Sheets)
+4. [Data Sheets](#Data-Sheets)
 5. [References](#References)
 
 
