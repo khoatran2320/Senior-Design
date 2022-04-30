@@ -1,11 +1,11 @@
 Hardware readme
 
 # Table of Contents
-1. [Example](#Power Requirements)
-2. [Example2](#Pinout)
-3. [Third Example](#Pictures)
-4. [Fourth Example](#Data Sheets)
-5. [Fifth](#References)
+1. [Power Requirements](#Power Requirements)
+2. [Pinout](#Pinout)
+3. [Pictures](#Pictures)
+4. [Data Sheets](#Data Sheets)
+5. [Reference](#References)
 
 
 ## Power Requirements
