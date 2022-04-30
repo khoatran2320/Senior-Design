@@ -5,7 +5,8 @@ Hardware readme
 2. [Pinout](#Pinout)
 3. [Pictures](#Pictures)
 4. [Data Sheets](#Data-Sheets)
-5. [References](#References)
+5. [Bill of Materials)(#Bill-of-Materials)
+6. [References](#References)
 
 
 ## Power Requirements
@@ -62,5 +63,8 @@ Hardware readme
 [Data Sheet](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/20180623102926Barcode_Scanner_Module_User_Manual_EN.pdf)
 * Vibration Sensor  
 [Data Sheet](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Grove_Vibration_Sensor_SW-420_Web.pdf)
+
+## Bill of Materials
+<embed src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/BOXi_BOM_-_Sheet2.pdf" type="application/pdf">
 
 ## References
