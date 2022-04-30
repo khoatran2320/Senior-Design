@@ -58,7 +58,9 @@ Hardware readme
 <img src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Exterior_Closed.jpg" width="400" height="400">
 
 ## Data Sheets
-* Barcode reader
-* Vibration Sensor
+* Barcode reader  
+[Data Sheet](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/20180623102926Barcode_Scanner_Module_User_Manual_EN.pdf)
+* Vibration Sensor  
+[Data Sheet](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Grove_Vibration_Sensor_SW-420_Web.pdf)
 
 ## References
