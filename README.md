@@ -186,3 +186,6 @@ python app.py
 
 ## Hardware Prototype
 ![CDR Model(2)](https://user-images.githubusercontent.com/60275153/158884474-a6f0bfe5-ca8b-44ff-82c2-83fb2ed2f794.png)
+
+## Bill of Materials
+[Bill of Materials PDF](https://github.com/khoatran2320/Senior-Design/blob/master/BOXi_BOM_-_Sheet2.pdf)
