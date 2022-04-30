@@ -140,6 +140,9 @@ cd server
 sudo npm install
 ```
 4. Obtain Google Firebase service account key
+  - Register for Firebase console account
+  - Create an web application project
+  - Follow the docs listed [here](https://firebase.google.com/docs/admin/setup#add_firebase_to_your_app) to generate a private service account key, and name it as `boxi_key.json`, and place this file in `server/src` directory.
 5. Obtain pkge.net developer API key
 6. To run server:
 ```
