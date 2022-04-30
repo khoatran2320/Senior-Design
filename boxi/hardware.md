@@ -5,7 +5,7 @@ Hardware readme
 2. [Pinout](#Pinout)
 3. [Pictures](#Pictures)
 4. [Data Sheets](#Data Sheets)
-5. [Reference](#References)
+5. [References](#References)
 
 
 ## Power Requirements
