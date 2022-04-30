@@ -65,6 +65,6 @@ Hardware readme
 [Data Sheet](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/Grove_Vibration_Sensor_SW-420_Web.pdf)
 
 ## Bill of Materials
-<embed src="https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/BOXi_BOM_-_Sheet2.pdf" type="application/pdf">
+[BoM PDF](https://github.com/khoatran2320/Senior-Design/blob/master/boxi/images/BOXi_BOM_-_Sheet2.pdf)
 
 ## References
