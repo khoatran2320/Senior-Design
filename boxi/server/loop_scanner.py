@@ -13,13 +13,16 @@ def readData():
     buffer = ""
     while True:
         oneByte = ser.read(1)
-        print(oneByte)
         if oneByte == b"\r":
             return buffer
         else:
             buffer += oneByte.decode("ascii")
 
 def parse_barcode(barcode):
+    if barcode.count('.') > 2:
+        with open("/home/pi/Desktop/Senior-Design/boxi/server/utilities/node_server_ip.txt", 'w') as f:
+            f.write(barcode)
+            return 'skip', '#'
     arr = barcode.split('$')
     if arr[0] == '###' and arr[-1] == '###':
         ssid = ''
@@ -38,7 +41,7 @@ def loop_scanner(post_url=None):
     while True:
         ind += 1
         barcode = readData()
-        #print(barcode)
+        print(barcode)
         #LCD_disp(barcode)
         ssid, pwd = parse_barcode(barcode)
         print(ssid)
@@ -50,6 +53,8 @@ def loop_scanner(post_url=None):
                     r = requests.post(post_url + '/barcode', json=barcode_dict, verify=False)
                 except:
                     pass
+        elif ssid == "skip" and pwd == "#":
+            continue
         else:
             config_wifi(ssid, pwd)
             LCD_disp("Wifi setup failed!")

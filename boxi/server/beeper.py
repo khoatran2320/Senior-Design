@@ -52,5 +52,5 @@ def beep(iterations=1, post_url=None):
 	buzzer.stop()
 if __name__ == "__main__":
 	box_ip = get_ip_addr()
-	beep(20, "http://" + box_ip + ":4321/alarm-status")	
+	beep(3, "http://" + box_ip + ":4321/alarm-status")	
 	#beep()

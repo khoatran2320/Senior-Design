@@ -19,8 +19,10 @@ def vib():
 def loop_vib(it=20, post_url=None):
 	counter = 0
 	while(1):
-		if counter > 10:
-			beep(it, post_url)
+		if counter > 99999999:
+			counter = 0
+		if counter > it:
+			beep(3, post_url)
 		if vib():
 			counter += 1
 		else:
@@ -29,4 +31,4 @@ def loop_vib(it=20, post_url=None):
 if __name__ == "__main__":
 	box_ip = get_ip_addr()
 	url = f"http://{box_ip}:4321/alarm-status"
-	loop_vib(5, url)
+	loop_vib(10, url)
