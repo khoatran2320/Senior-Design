@@ -35,9 +35,6 @@ BOXi is a senior design project completed to fulfill the undergraduate degree re
     <li>
       <a href="#documentation">Documentation</a>
     </li>
-    <li>
-      <a href="#tests">Tests</a>
-    </li>
   </ol>
 </details>
 
@@ -118,12 +115,20 @@ cd mobile/flutter_app
 ```
 flutter pub get
 ```
-5. Open simulator
-6. Click run as debug (Android) or for IOS:
+5. Register Firebase project, and register an android app and an iOS app for the project. Obtain the `google-services.json` and `GoogleService-Info.plist` files and place them in the correct directory listed on Firebase documentation [ios](https://firebase.google.com/docs/ios/setup), [android](https://firebase.google.com/docs/android/setup).  
+6. Open simulator
+7. Click run as debug (Android) or for IOS:
 ```
 flutter run
 ```
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+### pkge.net set up
+
+1. Sign up for a business account at business.pkge.net.
+2. Navigate to `Developers` then to `API key`.
+3. Create a file in `server/src/` directory called `.env`.
+4. Write to `.env` `PKGE_API_KEY={api key}`.
 
 ### Node server setup
 1. Install the latest version of Node
@@ -136,6 +141,9 @@ cd server
 sudo npm install
 ```
 4. Obtain Google Firebase service account key
+  - Register for Firebase console account
+  - Create an web application project
+  - Follow the docs listed [here](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) to generate a private service account key, and name it as `boxi_key.json`, and place this file in `server/src` directory.
 5. Obtain pkge.net developer API key
 6. To run server:
 ```
@@ -169,9 +177,6 @@ python app.py
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Tests  
-Tests
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Mobile App Prototype
 <img width="242" alt="Screen Shot 2021-10-14 at 4 07 10 PM" src="https://user-images.githubusercontent.com/48025259/137387989-4f1054e0-72ef-4d3e-bbad-a74b3755c915.png">
@@ -181,3 +186,6 @@ Tests
 
 ## Hardware Prototype
 ![CDR Model(2)](https://user-images.githubusercontent.com/60275153/158884474-a6f0bfe5-ca8b-44ff-82c2-83fb2ed2f794.png)
+
+## Bill of Materials
+[Bill of Materials PDF](https://github.com/khoatran2320/Senior-Design/blob/master/BOXi_BOM_-_Sheet2.pdf)
