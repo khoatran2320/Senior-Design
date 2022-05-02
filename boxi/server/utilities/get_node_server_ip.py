@@ -1,4 +1,4 @@
-from .file_utils import read_txt_file
+from file_utils import read_txt_file
 
 def get_node_server_ip():
     ip = read_txt_file('./utilities/node_server_ip.txt')[0]
