@@ -19,7 +19,7 @@ def vib():
 def loop_vib(it=20, post_url=None):
 	counter = 0
 	while(1):
-		if counter > 7:
+		if counter > 10:
 			beep(it, post_url)
 		if vib():
 			counter += 1
