@@ -6,7 +6,7 @@ from get_ip_addr import get_ip_addr
 #from time import sleep
 from config_wifi import config_wifi
 from lcd import LCD_disp
-ser = serial.Serial('/dev/ttyS0', 9600)
+ser = serial.Serial('/dev/ttyS0', 115200)
 
 #, timeout=5,parity=serial.PARITY_ODD
 def readData():
