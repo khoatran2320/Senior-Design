@@ -88,7 +88,7 @@ router.post('/unlock-box', async (req, res) => {
 
 router.post('/signal-alarm', async (req, res) => {
 	// Update a package to received for given Boxi ID
-	const { userId, boxiId } = req.body;
+	const { userId, boxiId, alarmStatus } = req.body;
 
 	if (!userId) {
 		res.status(400).send('Requires a user ID!');
@@ -146,7 +146,8 @@ router.post('/signal-alarm', async (req, res) => {
 	axios
 		.post('http://' + boxi_ip + ':' + boxi_port + '/alarm', {
 			userId: userId,
-			boxiId: boxiId
+			boxiId: boxiId, 
+			status: alarmStatus
 		})
 		.then((r) => {
 			res.status(200).send('Success!');
