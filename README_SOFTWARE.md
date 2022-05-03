@@ -12,7 +12,7 @@
 3. Navigate to mobile app directory:
 ```
 cd mobile/flutter_app
-``` 
+```
 4. Install package dependencies:
 ```
 flutter pub get
@@ -97,7 +97,7 @@ Contains:
 
 ### get_box_user_id.py
 
-Function to retrieve the box ID and the user ID associated with the box. 
+Function to retrieve the box ID and the user ID associated with the box.
 
 Contains:
 - `get_box_user_id()`: returns the box ID user ID.
@@ -117,7 +117,7 @@ Depends on:
 
 ### beeper.py
 
-GPIO interaction with the alarm. 
+GPIO interaction with the alarm.
 
 Contains:
 - `beep(iterations=1, post_url=None)`: turns on the alarm that beeps once every 500ms for `iterations` iterations and posts the status of the alarm to the URl `post_url`.
@@ -142,10 +142,10 @@ Depends on:
 
 ### get_ip_addr.py
 
-Retrieves the IP address of the box. 
+Retrieves the IP address of the box.
 
 Contains:
-- `get_ip_addr()`: returns the IP address. 
+- `get_ip_addr()`: returns the IP address.
 
 Depends on:
 - `socket`
@@ -162,7 +162,7 @@ Depends on:
 
 ### lock_is_trip.py
 
-Lock trip status interaction. 
+Lock trip status interaction.
 
 Contains:
 - `is_trip(post_url=None)`: Monitors the lock status and posts to `post_url` when there's a change in status.
@@ -178,9 +178,9 @@ Depends on:
 Barcode scanner interaction.
 
 Contains:
-- `readData()`: Returns the ascii decoded scanned barcode. 
+- `readData()`: Returns the ascii decoded scanned barcode.
 - `parse_barcode(barcode)`: Parses the barcode and returns wifi user name and password if the barcode contains it else returns 'tracking' and '#' to denote a tracking number barcode.
-- `loop_scanner(post_url=None)`: Monitors the barcode scanner and either validates relays the tracking number to the Flask server or config the wifi. 
+- `loop_scanner(post_url=None)`: Monitors the barcode scanner and either validates relays the tracking number to the Flask server or config the wifi.
 
 Depends on:
 - `serial`
@@ -194,7 +194,7 @@ Depends on:
 GPIO lock interaction.
 
 Contains:
-- `trip()`: Unlocks the lock. 
+- `trip()`: Unlocks the lock.
 
 Depends on:
 - `GPIO`
@@ -202,10 +202,10 @@ Depends on:
 
 ### vibration.py
 
-GPIO vibration sensor interaction. 
+GPIO vibration sensor interaction.
 
 Contains:
-- `loop_vib(it=20, post_url=None)`: Monitors the vibration sensor and turns on the alarm if the vibration sensor trips `it` times. 
+- `loop_vib(it=20, post_url=None)`: Monitors the vibration sensor and turns on the alarm if the vibration sensor trips `it` times.
 
 Depends on:
 - `GPIO`
@@ -220,13 +220,13 @@ Depends on:
 
 Retrieves the package information for a given package tracking number belonging to a user.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | trackingNumber | String    | Yes       | The package tracking number to get details for.  
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Package information in JSON format.
 | 400            | Failure   | Error message.  
 
@@ -235,13 +235,13 @@ Retrieves the package information for a given package tracking number belonging 
 
 Retrieves the package information for all packages belonging to a user.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Package information in JSON format.
 | 400            | Failure   | Error message.  
 
@@ -250,16 +250,16 @@ Retrieves the package information for all packages belonging to a user.
 
 Adds a package given by its tracking number to start tracking under a user.
 
-| Parameter      | Type      | Required?                         |Description 
-| -------------  | --------- | --------------------------------- | ----------- | 
+| Parameter      | Type      | Required?                         |Description
+| -------------  | --------- | --------------------------------- | ----------- |
 | userId         | String    | Yes                               | The unique identifier associated with each registerred user.   
 | trackingNumber | String    | Yes                               | The package tracking number to add to the user.  
 | itemName       | String    | No                                | Name of the package.  
 | merchantName   | String    | No                                | Name of vendor.  
 | orderNumber    | String    | Yes if `merchantName` is `amazon` | Amazon order number.  
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Success message.
 | 400            | Failure   | Error message.  
 
@@ -267,14 +267,14 @@ Adds a package given by its tracking number to start tracking under a user.
 
 Requests an update of the package information.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | trackingNumber | String    | Yes       | The package tracking number to request an information update for.  
 
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Success message.
 | 400            | Failure   | Error message.  
 
@@ -282,14 +282,14 @@ Requests an update of the package information.
 
 Delete a package from being tracked belonging to a user.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | trackingNumber | String    | Yes       | The package tracking number to delete.  
 
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Success message.
 | 400            | Failure   | Error message.  
 
@@ -301,15 +301,15 @@ Delete a package from being tracked belonging to a user.
 
 Checks to see if a package tracking number is expected to be delivered.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 | trackingNumber | String    | Yes       | The package tracking number to validate.  
 
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Success message.
 | 400            | Failure   | Error message.  
 
@@ -317,14 +317,14 @@ Checks to see if a package tracking number is expected to be delivered.
 
 Adds a link between a user and a box.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 
 
-| Return code    | Type      | Load 
-| -------------  | --------- | ----------- | 
+| Return code    | Type      | Load
+| -------------  | --------- | ----------- |
 | 200            | Success   | Success message.
 | 400            | Failure   | Error message.  
 
@@ -333,14 +333,14 @@ Adds a link between a user and a box.
 
 Mark the status of a package as delivered.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 | trackingNumber | String    | Yes       | The package tracking number to confirm delivery for.  
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Success message.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -350,14 +350,14 @@ Mark the status of a package as delivered.
 
 Mark the status of the box as unlocked or locked.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 | isUnlocking    | Boolean   | Yes       | Whether the box is unlocked or locked.  
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Success message.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -367,13 +367,13 @@ Mark the status of the box as unlocked or locked.
 
 Retrieves the lock status of the box.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Lock status in JSON format.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -383,14 +383,14 @@ Retrieves the lock status of the box.
 
 Mark the status of the box alarm as on or off.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 | isAlarming     | Boolean   | Yes       | Whether the box alarm is on or off.  
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Success message.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -400,13 +400,13 @@ Mark the status of the box alarm as on or off.
 
 Retrieves the alarm status of the box.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Alarm status in JSON format.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -416,15 +416,15 @@ Retrieves the alarm status of the box.
 
 Posts the IP address and port of the BOXi server.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 | ipAddr         | String    | Yes       | The IP address of the BOXi server.
 | port           | String    | Yes       | The port of the BOXi server.
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Success message.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -437,13 +437,13 @@ Posts the IP address and port of the BOXi server.
 
 Unlocks the box belonging to a user.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Success message.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -453,13 +453,13 @@ Unlocks the box belonging to a user.
 
 Turns on the box alarm.
 
-| Parameter      | Type      | Required? |Description 
-| -------------  | --------- | --------- | ----------- | 
+| Parameter      | Type      | Required? |Description
+| -------------  | --------- | --------- | ----------- |
 | userId         | String    | Yes       | The unique identifier associated with each registerred user.   
 | boxiId         | String    | Yes       | The unique identifier associated with each box.
 
-| Return code    | Type              | Load 
-| -------------  | ---------         | ----------- | 
+| Return code    | Type              | Load
+| -------------  | ---------         | ----------- |
 | 200            | Success           | Success message.
 | 400            | Failure           | Error message.  
 | 403            | Access fobidden   | Error message.  
@@ -471,11 +471,11 @@ Turns on the box alarm.
 
 Receives a barcode and makes an external request to validate it.
 
-| Parameter      | Type      | Description 
-| -------------  | --------- | ----------- | 
+| Parameter      | Type      | Description
+| -------------  | --------- | ----------- |
 | barcode        | String    | The scanned package tracking number.
 
-| Case           | Subsequent steps  | 
+| Case           | Subsequent steps  |
 | -------------  | ---------         |
 | Success        | Validate package, unlock box, post lock status, print to LCD display.
 | Failure        | Print to LCD display.
@@ -484,27 +484,27 @@ Receives a barcode and makes an external request to validate it.
 
 Receives a lock status and makes an external request to post it to the database.
 
-| Parameter      | Type      | Description 
-| -------------  | --------- | ----------- | 
+| Parameter      | Type      | Description
+| -------------  | --------- | ----------- |
 | lockStatus     | Boolean   | The lock status.
 
-| Case           | Subsequent steps  | 
+| Case           | Subsequent steps  |
 | -------------  | ---------         |
 | Success        | Post status
-| Failure        | 
+| Failure        |
 
 ### POST `/alarm-status`
 
 Receives an alarm status and makes an external request to post it to the database.
 
-| Parameter      | Type      | Description 
-| -------------  | --------- | ----------- | 
+| Parameter      | Type      | Description
+| -------------  | --------- | ----------- |
 | alarmStatus    | Boolean   | The alarm status.
 
-| Case           | Subsequent steps  | 
+| Case           | Subsequent steps  |
 | -------------  | ---------         |
 | Success        | Post status
-| Failure        | 
+| Failure        |
 
 ## Mobile Modules (Flutter Widgets)
 ![mobile_diagram](https://user-images.githubusercontent.com/56775136/166072081-bb515f17-a4ee-4200-9c6b-5085ff6dfb6f.png)
@@ -522,7 +522,7 @@ This is where the user signs in by filling out their email and password. Tapping
 This is where the user signs up for an account by filling out their email, name, and password. Tapping on the “Sign Up” button will redirect the user back to the SignIn screen.
 
 #### Dashboard
-This is the screen for navigating between SettingsPage, StatusScreen, and DeliveriesScreen. The screen consists of DashboardTop, TabBar, and TabBarView. 
+This is the screen for navigating between SettingsPage, StatusScreen, and DeliveriesScreen. The screen consists of DashboardTop, TabBar, and TabBarView.
 
 #### DashboardTop
 This is the top portion of the Dashboard screen. It consists of a circular avatar and a welcome message for the user. Tapping on the circular avatar will take the user to the SettingsScreen.
@@ -537,13 +537,13 @@ This is the segment of the Dashboard under the TabBar. It will either display De
 It has a “Back” button and a “Log Out” button. Tapping on “Back” will bring the user back to the Dashboard. Tapping on “Log Out” will redirect the user to the SignIn screen.
 
 #### StatusScreen
-It consists of an UnlockButton, AlarmToggleSwitch, and SetupButton.
+It consists of an UnlockButton, AlarmButton, and SetupButton.
 
 #### UnlockButton
 Tapping on the UnlockButton will wirelessly unlock the physical lockbox.
 
-#### AlarmToggleSwitch
-Tapping on the AlarmToggleSwitch will enable/disable the alarm of the physical lockbox.
+#### AlarmButton
+Tapping on the AlarmButton will trigger the alarm of the physical lockbox.
 
 #### SetupButton
 Tapping on the SetupButton will bring up the SetupDialog.
@@ -552,6 +552,4 @@ Tapping on the SetupButton will bring up the SetupDialog.
 It will show a series of dialogs. The first dialog is the confirmSetupDialog. It asks the user to confirm that they want to start the setup process. Once the user confirms, the next dialog is a form for filling out WiFi username and password. Once the form is submitted, the next dialog is a QR code. Use the barcode scanner of BOXi to scan this QR code. This will send the WiFi login information to BOXi so that it could connect to WiFi.
 
 #### DeliveriesScreen
-This is the screen for tracking the delivery status of packages. The user could start tracking a package by entering the tracking number, name, and merchant of the package. Each added package will have a package status card showing the delivery status. They could also stop tracking a package by deleting the corresponding package status card. 
-
-
+This is the screen for tracking the delivery status of packages. The user could start tracking a package by entering the tracking number, name, and merchant of the package. Each added package will have a package status card showing the delivery status. They could also stop tracking a package by deleting the corresponding package status card.
