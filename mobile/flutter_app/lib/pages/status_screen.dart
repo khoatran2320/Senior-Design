@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
-import '../widgets/status_screen/alarm_button.dart';
+import '../widgets/status_screen/alarm_toggle_switch.dart';
 import '../widgets/status_screen/unlock_button.dart';
 import '../widgets/status_screen/setup_button.dart';
 
@@ -25,9 +25,13 @@ class _StatusScreenState extends State<StatusScreen> {
 					UnlockButton(isLocked: true),
 					Row(
 						mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+						crossAxisAlignment: CrossAxisAlignment.end,
 						children: [
-							AlarmButton(),
-							SetupButton()
+							AlarmToggleSwitch(),
+							Align(
+				        alignment: Alignment.bottomCenter,
+				        child: SetupButton(),
+				      ),
 						]
 					)
 				],
