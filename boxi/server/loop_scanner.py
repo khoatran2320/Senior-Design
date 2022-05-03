@@ -28,7 +28,7 @@ def parse_barcode(barcode):
             pwd = arr[2]
             if ssid.count('.') > 2:
                 with open("/home/pi/Desktop/Senior-Design/boxi/server/utilities/node_server_ip.txt", 'w') as f:
-                    f.write(barcode)
+                    f.write(ssid)
                     return 'skip', '#'
         except:
             pass
