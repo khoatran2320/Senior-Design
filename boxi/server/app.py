@@ -99,8 +99,9 @@ def unlock():
 def alarm():
 	body = request.json
 	if validate_request(body):
-		LCD_disp("ALARM!")
-		beep(20)
+		if body['status'] == "on" or body['status'] == "off":
+			with open("/home/pi/Desktop/Senior-Design/boxi/server/utilities/alarm_config.txt", 'w') as f:
+				f.write(body['status'])
 		return "Success"
 	else:
 		return "Unsuccessful"

@@ -19,10 +19,6 @@ def readData():
             buffer += oneByte.decode("ascii")
 
 def parse_barcode(barcode):
-    if barcode.count('.') > 2:
-        with open("/home/pi/Desktop/Senior-Design/boxi/server/utilities/node_server_ip.txt", 'w') as f:
-            f.write(barcode)
-            return 'skip', '#'
     arr = barcode.split('$')
     if arr[0] == '###' and arr[-1] == '###':
         ssid = ''
@@ -30,6 +26,10 @@ def parse_barcode(barcode):
         try:
             ssid = arr[1]
             pwd = arr[2]
+            if ssid.count('.') > 2:
+                with open("/home/pi/Desktop/Senior-Design/boxi/server/utilities/node_server_ip.txt", 'w') as f:
+                    f.write(barcode)
+                    return 'skip', '#'
         except:
             pass
         return ssid, pwd

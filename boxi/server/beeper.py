@@ -17,6 +17,10 @@ GPIO.setup(beeper_trip, GPIO.OUT)
 # trip func: outputs on gpio pin 36 for 1 millisecond
 
 def beep(iterations=1, post_url=None):
+	with open("/home/pi/Desktop/Senior-Design/boxi/server/utilities/alarm_config.txt") as f:
+		lines = [line.rstrip('\n') for line in f]
+		if lines == "off":
+			return
 	buzzer = GPIO.PWM(beeper_trip,1000)
 	n = 0
 
