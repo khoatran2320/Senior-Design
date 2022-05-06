@@ -12,7 +12,11 @@ import 'alarm_error_box.dart';
 final serverUrl = dotenv.env['SERVER_URL'];
 
 class AlarmToggleSwitch extends StatefulWidget {
-	const AlarmToggleSwitch({Key? key}) : super(key: key);
+
+	final bool isOff;
+	final Function getAlarmStatus;
+
+	const AlarmToggleSwitch(this.isOff, this.getAlarmStatus, {Key? key}) : super(key: key);
 
 	@override
 	_AlarmToggleSwitchState createState() => _AlarmToggleSwitchState();
@@ -23,7 +27,6 @@ class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
 	static double _longRectangleWidth = 150;
 	static double _shortRectangleWidth = 80;
 	static List<String> _toggleWords = ['OFF', 'ON'];
-	bool _isOff = true;
 
 	final TextStyle textStyle = TextStyle(
 		color: Color(0xffF9FDFE),
@@ -31,25 +34,27 @@ class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
 		fontWeight: FontWeight.w500,
 	);
 
-	void toggleSwitch(context) async {
+	void toggleSwitch(context, isOff, getAlarmStatus) async {
 		// TODO: Update hardcoded uri and boxiId to dynamically fetched versions
 		String? userId = FirebaseAuth.instance.currentUser?.uid;
-		String uri = "${serverUrl}/mobile/signal-alarm";
+		String boxiUri = "$serverUrl/mobile/signal-alarm";
+		String backendUri = "$serverUrl/mobile/alarm-enable";
 		String boxiId = "boxi_prototype_00000";
 
-		bool willBeOn = _isOff;
+		bool willBeOn = isOff;
 		String alarmStatus = willBeOn ? "on" : "off";
 
 		Map data = {
 			'userId': userId,
 			'boxiId': boxiId,
-			'alarmStatus': alarmStatus
+			'alarmStatus': alarmStatus, // For boxi api call
+			'alarmEnable': alarmStatus // For database api call
 		};
 
 		var body = json.encode(data);
 
-		var response = await http.post(
-			Uri.parse(uri),
+		var boxiResponse = await http.post(
+			Uri.parse(boxiUri),
       headers: {
 				'Content-Type': 'application/json;charset=UTF-8',
 				'Charset': 'utf-8'
@@ -57,17 +62,30 @@ class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
       body: body
 	  );
 
-		var responseBody = response.body;
+		var boxiResponseBody = boxiResponse.body;
 
-		if (response.statusCode == 200) {
-			print('Toggled the alarm switch.');
-			setState(() {
-				_isOff = !_isOff;
-			});
+		if (boxiResponse.statusCode == 200) {
+			var backendResponse = await http.post(
+				Uri.parse(backendUri),
+	      headers: {
+					'Content-Type': 'application/json;charset=UTF-8',
+					'Charset': 'utf-8'
+				},
+	      body: body
+		  );
+
+			if (backendResponse.statusCode == 200) {
+				print('Toggled the alarm switch.');
+				getAlarmStatus();
+			} else {
+				var backendResponseBody = backendResponse.body;
+				print('Backend server error for toggling the alarm switch: $backendResponseBody');
+				_showErrorBox(context, 'Failed to toggle alarm switch due to backend server error.');
+			}
 		}
 		else {
-			print('Error for toggling the alarm switch: $responseBody');
-			_showErrorBox(context, '$responseBody');
+			print('BOXi error for toggling the alarm switch: $boxiResponseBody');
+			_showErrorBox(context, 'Failed to toggle alarm switch due to BOXi server error.');
 		}
 	}
 
@@ -88,16 +106,18 @@ class _AlarmToggleSwitchState extends State<AlarmToggleSwitch> {
 	@override
 	Widget build(BuildContext context) {
 
-		double? _left = _isOff ? 0 : null;
-		double? _right = _isOff ? null : 0;
-		int _index = _isOff ? 0 : 1;
+		bool isOff = widget.isOff;
+		double? _left = isOff ? 0 : null;
+		double? _right = isOff ? null : 0;
+		int _index = isOff ? 0 : 1;
 
 		return Column(
 			mainAxisSize: MainAxisSize.min,
 			children: [
 				GestureDetector(
 					onTap: () {
-						toggleSwitch(context);
+						print('Tapped alarm switch');
+						toggleSwitch(context, isOff, widget.getAlarmStatus);
 					},
 					child: Column(
 						mainAxisSize: MainAxisSize.min,
